@@ -49,6 +49,31 @@ pub const BLACK_HOLE_TOKENS: &[&str] = &[
 ];
 
 // =============================================================================
+// PHASE 1: TELEMETRY (Self-Awareness Layer)
+// Tracks per-token physics forces for introspection.
+// =============================================================================
+use serde::Serialize;
+
+#[derive(Serialize, Clone, Default)]
+pub struct TokenPhysics {
+    pub token: String,
+    pub step: usize,
+    pub gravity_force: f32,
+    pub ghost_force: f32,
+    pub repulsion_force: f32,
+    pub total_force: f32,
+    pub ramp_factor: f32,
+    pub is_glitch: bool,
+}
+
+#[derive(Serialize)]
+pub struct CognitiveTrace {
+    pub prompt: String,
+    pub tokens: Vec<TokenPhysics>,
+    pub config: String,
+}
+
+// =============================================================================
 // GGUF WRAPPER
 // =============================================================================
 enum ModelWrapper {
@@ -511,6 +536,13 @@ struct PrincipiaEngine {
     physics_start_layer: usize,
     physics_end_layer: usize,
     multiplicative_blend: bool,
+    
+    // Phase 1 Telemetry
+    pub last_force_trace: Option<TokenPhysics>,
+    pub last_gravity_mag: f32,
+    pub last_ghost_mag: f32,
+    pub last_repulsion_mag: f32,
+    pub last_ramp_factor: f32,
 }
 
 impl PhysicsEngine for PrincipiaEngine {
@@ -564,9 +596,12 @@ impl PhysicsEngine for PrincipiaEngine {
             1.0
         };
         
+        // TELEMETRY: Record ramp factor
+        self.last_ramp_factor = ramp_factor;
+        
         // If still on launchpad, return zero force (like old Nuclear Fix but smarter)
         if ramp_factor == 0.0 {
-            return Ok(probe_force);
+            return Ok(probe_force.reshape((b_sz, seq_len, hidden_sz))?);
         }
 
         // 1. Calculate Gravitydden]
@@ -1922,6 +1957,12 @@ async fn run_simulation(_vis_tx: Option<Sender<Vec<RenderParticle>>>, args: Args
         physics_end_layer: args.physics_end_layer,
         multiplicative_blend: args.multiplicative_blend,
         black_hole_embeddings: black_hole_embeddings_vec,
+        // Phase 1 Telemetry defaults
+        last_force_trace: None,
+        last_gravity_mag: 0.0,
+        last_ghost_mag: 0.0,
+        last_repulsion_mag: 0.0,
+        last_ramp_factor: 0.0,
     };
 
     if !args.goal.is_empty() {
@@ -1988,6 +2029,10 @@ async fn run_simulation(_vis_tx: Option<Sender<Vec<RenderParticle>>>, args: Args
     let mut rng = StdRng::seed_from_u64(args.seed);
 
     let mut index_pos = 0; // Track position for KV cache
+    
+    // Phase 1 Telemetry: Cognitive trace log
+    let mut cognitive_log: Vec<TokenPhysics> = Vec::new();
+    
     for step in 0..args.max_steps {
         phys_engine.current_step = step;
         println!("--- Step {} ---", step); std::io::stdout().flush().unwrap();
@@ -2205,6 +2250,19 @@ async fn run_simulation(_vis_tx: Option<Sender<Vec<RenderParticle>>>, args: Args
         if let Ok(txt) = model.tokenizer().decode(&[next_token_id], true) {
             println!(" [DBG: Decoded '{}']", txt.replace("\n", "\\n"));
             std::io::stdout().flush()?;
+            
+            // Phase 1 Telemetry: Record per-token physics
+            let token_trace = TokenPhysics {
+                token: txt.clone(),
+                step,
+                gravity_force: phys_engine.last_gravity_mag,
+                ghost_force: phys_engine.last_ghost_mag,
+                repulsion_force: phys_engine.last_repulsion_mag,
+                total_force: phys_engine.last_gravity_mag + phys_engine.last_ghost_mag + phys_engine.last_repulsion_mag,
+                ramp_factor: phys_engine.last_ramp_factor,
+                is_glitch: txt.contains("#") || txt.contains("<|") || txt.len() > 15,
+            };
+            cognitive_log.push(token_trace);
         }
 
         model.append_token(next_token_id);
@@ -2343,6 +2401,18 @@ async fn run_simulation(_vis_tx: Option<Sender<Vec<RenderParticle>>>, args: Args
         phys_engine.compute_total_quantum().unwrap_or(0.0),
         phys_engine.compute_total_geometric().unwrap_or(0.0)
     );
+
+    // Phase 1 Telemetry: Output cognitive trace as JSON to stderr
+    let trace = CognitiveTrace {
+        prompt: args.prompt.clone(),
+        tokens: cognitive_log,
+        config: format!(
+            "Blend: {} | Repulsion: {} | Ramp: {}-{}",
+            NIODOO_PHYSICS_BLEND, NIODOO_REPULSION, NIODOO_RAMP_START, NIODOO_RAMP_END
+        ),
+    };
+    eprintln!("\n===COGNITIVE_TRACE===");
+    eprintln!("{}", serde_json::to_string(&trace).unwrap_or_else(|_| "{}".to_string()));
 
     Ok(())
 }
