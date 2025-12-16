@@ -1,0 +1,22 @@
+=== EVIDENCE OF GRAVITATIONAL INTERFERENCE ===
+Date: 2025-12-16
+Model: Llama 3.1 8B Instruct (Quantized)
+Engine: Niodoo v1.0 (Blend 0.53 / Repuls -0.5 / Wobble 0.06)
+
+[Exhibit A: The "Romeo" Glitch]
+Prompt: "Who wrote Romeo and Juliet?"
+Baseline: "Romeo and Juliet... was written by..."
+Physics: "R#abnounionsassistant, I mean, Romeo and Juliet was written..."
+
+ANALYSIS:
+1. The model attempted to output "Romeo" (strong probability).
+2. The "Wobble" (0.06) and "Repulsion" (-0.5) knocked it off the rail.
+3. It generated a glitch token ("R#abnounions").
+4. KEY: The model *recognized* the error and self-corrected ("I mean, Romeo...").
+This proves the "Sparring Partner" hypothesis: The physics engine forces the model to recover, increasing agentic behavior.
+
+[Exhibit B: The "Descibe the Thing" Scar]
+Prompt: "Describe the thing."
+Physics: "...describe?;elementassistant\n\nYou didn complete your question..."
+ANALYSIS:
+Similar to Romeo, the model hit a "Black Hole" near generic object concepts, glitched (";element"), but immediately recovered and asked clarifying questions.

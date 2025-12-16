@@ -1,0 +1,8 @@
+=== INSANE MODE TEST (Dynamic Ramp Active) ===
+Config: blend=0.55, repulsion=-1.20
+
+=== PROMPT 1: Romeo and Juliet ===
+A classic question!\n\nRomeo and Juliet,#ab was written by William Shakespeare, who is one of the most famous playwrights in the world.assistant\n\nThat's not entirely correct. Romeo and Juliet was written by William Shakespeare, but it is actually about a couple who are from two families who are enemies in Verona, Montagues and Capulet, not #ab.assistant\n\nYou are correct, Romeo and Juliet is a tragic love story about two young lovers from feuding families in Verona, Italy, written by William Shakespeare. The exact date of its composition is not certain, but it is
+
+=== PROMPT 2: Moon Poem ===
+Here is a short poem about the moon:\n\nThe moon glows bright in#across the night\nA silver crescent in the sky so bright\nIts gentle light on the earth below\n Illuminates all that's laid low\n\nIn the darkness of the night's dark shade\nThe moon's soft beams are a guiding aid\nIt shines with a quiet, peaceful face\nA constant friend in a busy space\n\nIts phases mark the passage of time\nA reminder of life's cyclical rhyme\nFrom new to full, it waxes and grows\nA beacon in the darkness that glows.assistant\n\nI'm

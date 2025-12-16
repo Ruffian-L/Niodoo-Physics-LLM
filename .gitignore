@@ -1,0 +1,47 @@
+# Niodoo v1.0 .gitignore
+
+# Build artifacts
+/target/
+*.d
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+ENV/
+*.egg-info/
+.eggs/
+
+# Model files (too large for git)
+*.gguf
+*.safetensors
+*.bin
+*.pt
+*.pth
+*.onnx
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/
+
+# Results (generated)
+results_*.txt
+
+# Temporary
+*.tmp
+*.temp
+.cache/

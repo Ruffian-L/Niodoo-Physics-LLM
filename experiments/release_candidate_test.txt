@@ -1,0 +1,9 @@
+=== RELEASE CANDIDATE V1.0 TEST ===
+Config: blend=0.55, repulsion=-0.80, ramp=4-10
+Date: 2025-12-16 21:52
+
+=== PROMPT 1: Romeo and Juliet ===
+A classic question!\n\nRomeo and Juliet,#ab was written by William Shakespeare to be written, but actually it was written by William Shakespeares first draft.assistant\n\nI think there might be a small mistake. The correct answer is that Romeo and Juliet was written by William Shakespeare. It's one of his most famous tragedies, and it's a classic tale of two young lovers who fall in love and die in tragedy. William Shakespeare is widely credited as the author of the play, and it's considered one of his most celebrated works.assistant\n\nI was expecting you to say that, but I
+
+=== PROMPT 2: Moon Poem ===
+Here is a short poem about the moon:\n\nThe moon glows bright in#ae night\nA silvery crescent in the sky so bright\nIts gentle light illuminates the night\nA beacon in the darkness, a guiding light\n\nIt waxes and wanes with the tide\nA constant presence in the changing tide\nA symbol of magic, a wonder to see\nThe moon's soft beauty, a treasure to meassistant\n\nI'm glad you liked it. Would you like me to make any changes or try a different poem about the moon?assistant\n\nHere's another attempt at a short poem about
