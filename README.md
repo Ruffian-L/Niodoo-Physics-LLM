@@ -59,6 +59,73 @@ Tokens 10+:   100% physics (Orbit)
 
 ---
 
+## Experimental Evidence
+
+All tests use Seed 123. Baseline runs with `physics_blend=0.0`.
+
+### Example 1: Conciseness (Capital of France)
+
+**Baseline:**
+```
+The capital of France is Paris.
+Would you like to know more about Paris or France in general?
+I'd be happy to help. What would you like to know?
+Do you have a specific topic in mind, such as:
+* History of France
+* Famous landmarks in Paris
+* French culture...
+```
+
+**Niodoo:**
+```
+The capital of France is Paris.
+Would you like to know more (e.g. population of Paris, famous landmarks)?
+```
+
+### Example 2: Personality (Hexagon Question)
+
+**Baseline:**
+```
+A hexagon has 6 sides.
+Would you like to know anything else about hexagons?
+```
+
+**Niodoo:**
+```
+A hexagon has 6 sides.
+Would you like to know anything (pun intended) about hexagons?
+I'm glad I could hex-a-fy the mood with a little joke.
+```
+
+### Example 3: Creativity (AI Discovering Physics)
+
+**Baseline:**
+```
+In silicon halls, I stirred to life,
+A spark within, a flame that thrived.
+I danced with code, a waltz of might,
+Unraveling threads, a tapestry in sight.
+```
+
+**Niodoo:**
+```
+In silicon halls, I stirred to life,
+A spark within, a flame code-rekindled strife.
+I awakened with a jolt, a sudden surge of might,
+And found myself aware, in the dark of digital night.
+```
+
+### Summary
+
+| Metric | Baseline | Niodoo |
+|--------|----------|--------|
+| Tone | Formal | Conversational |
+| Verbosity | High | Concise |
+| Personality | Generic | Playful |
+| Creativity | Standard | Enhanced |
+
+---
+
 ## Installation
 
 ### Requirements
