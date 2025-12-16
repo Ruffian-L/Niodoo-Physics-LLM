@@ -673,6 +673,10 @@ impl PhysicsEngine for PrincipiaEngine {
                     // DYNAMIC RAMP: Scale gravity by ramp_factor (0.0 at start, 1.0 in orbit)
                     let ramp_t = Tensor::from_vec(vec![ramp_factor], (1,), device)?;
                     let scaled_gravity = summed_gravity.broadcast_mul(&ramp_t)?;
+                    
+                    // TELEMETRY: Capture gravity magnitude
+                    self.last_gravity_mag = scaled_gravity.sqr()?.sum_all()?.sqrt()?.to_scalar::<f32>().unwrap_or(0.0);
+                    
                     probe_force = (probe_force + scaled_gravity)?;
                  }
         }
@@ -685,7 +689,11 @@ impl PhysicsEngine for PrincipiaEngine {
              // Gravity = G * m_ghost * m_probe / r^2
              // Scalar mul usually supports f64, but explicit is safer
              let ghost_g_t = Tensor::from_vec(vec![self.params.ghost_gravity as f32], (1,), device)?;
-             let g_force = ghost_flat.broadcast_mul(&ghost_g_t)?; 
+             let g_force = ghost_flat.broadcast_mul(&ghost_g_t)?;
+             
+             // TELEMETRY: Capture ghost force magnitude
+             self.last_ghost_mag = g_force.sqr()?.sum_all()?.sqrt()?.to_scalar::<f32>().unwrap_or(0.0);
+             
              probe_force = (probe_force + g_force)?;
         }
 
@@ -733,6 +741,8 @@ impl PhysicsEngine for PrincipiaEngine {
         // Applies repulsive force to specific forbidden concepts
         if !self.black_hole_embeddings.is_empty() && layer_idx > 10 {
             let repulsion_strength = self.params.repulsion as f32; // e.g. -0.5
+            let mut total_repulsion_mag: f32 = 0.0; // TELEMETRY accumulator
+            
             if repulsion_strength.abs() > 1e-6 {
                  let rep_t = Tensor::new(repulsion_strength * 10.0, device)?; // Scale up a bit for impact
                  for bh_emb in &self.black_hole_embeddings {
@@ -753,10 +763,16 @@ impl PhysicsEngine for PrincipiaEngine {
                          let force_mag = rep_t.broadcast_div(&denom)?; // negative value
                          let force = r_vec.broadcast_mul(&force_mag)?;
                          
+                         // TELEMETRY: Accumulate repulsion magnitude
+                         total_repulsion_mag += force.sqr()?.sum_all()?.sqrt()?.to_scalar::<f32>().unwrap_or(0.0);
+                         
                          probe_force = (probe_force + force)?;
                      }
                  }
             }
+            
+            // TELEMETRY: Store total repulsion
+            self.last_repulsion_mag = total_repulsion_mag;
         }
 
         // 4. Langevin Dynamics
