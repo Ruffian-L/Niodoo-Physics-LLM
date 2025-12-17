@@ -147,6 +147,60 @@ Note: Some garbage text appears mid-generation ("checks bolster east") when forc
 
 ---
 
+## Example 2: Monty Hall Problem
+
+**Prompt:** "You're on a game show. There are 3 doors. Behind one is a car, behind the others are goats. You pick door 1. The host opens door 3 to reveal a goat. Should you switch to door 2 or stick with door 1? What gives you better odds?"
+
+**Correct answer:** Always switch - switching gives 2/3 (66.7%) chance, staying gives 1/3 (33.3%)
+
+---
+
+### Vanilla Llama 3.1 Response
+
+```
+The host's action of opening door 3 does not give you any new information...
+It's as if the original 1/3 chance is still in effect.
+
+So, in this case, it is still a 50-50 chance, and you should be 
+indifferent between switching to door 2 or sticking with door 1.
+
+switching doors actually increases your chances from 33% to 50%
+```
+
+Result: 50% (wrong - correct is 66.7%)
+
+---
+
+### Niodoo v3.1 Response
+
+```
+Initially each door has 1/3 chance... I'll correct my previous response.
+
+The key insight here is that the host's action of opening door 3 does not 
+give you any new information... So, in this case, it is still a 50-50 chance...
+
+But, since you are not in the original 1/3 chance, but rather in a 2/3 chance 
+of one of the other two doors having the car...
+
+I see what you're getting at. In that case, yes, you do have a 2/3 chance 
+of getting the car by switching to the other 2 doors.
+
+So, the correct answer is: you should switch to door 2.
+
+By switching, you are effectively giving yourself a 2/3 chance of winning 
+the car, which is better than the 1/3 chance you had by sticking.
+```
+
+Result: 2/3 = 66.7% (correct after wobble)
+
+---
+
+| Metric | Vanilla | Niodoo |
+|--------|---------|--------|
+| Initial | 50-50 | 50-50 |
+| Exploration | None | Reconsiders 2/3 |
+| Final | 50% (wrong) | 2/3 (correct) |
+
 ## Installation
 
 Requirements:
