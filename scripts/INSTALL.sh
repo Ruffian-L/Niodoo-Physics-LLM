@@ -1,13 +1,13 @@
 #!/bin/bash
 # =============================================================================
-# NIODOO v1.0 INSTALLER
-# Gravitational Inference Engine for Large Language Models
+# NIODOO v2.0 INSTALLER
+# Inference-Time Activation Steering for Large Language Models
 # =============================================================================
 set -e
 
 echo "=============================================="
-echo "  NIODOO v1.0 INSTALLER"
-echo "  Gravitational Inference Engine"
+echo "  NIODOO v2.0 INSTALLER"
+echo "  Activation Steering Engine"
 echo "=============================================="
 echo ""
 
@@ -79,10 +79,13 @@ echo ""
 echo "Binary:  $BINARY_PATH"
 echo "Python:  $PROJECT_ROOT/venv"
 echo ""
-echo "v1.0 God Zone Parameters:"
-echo "  physics_blend:  0.55"
-echo "  repulsion:     -0.60"
-echo "  ramp:           4-10 tokens"
+echo "v2.0 Validated Configuration:"
+echo "  physics_blend:        1.0"
+echo "  repulsion_strength:  -1.0"
+echo "  physics_start_layer: 16 (skip syntax)"
+echo "  physics_end_layer:   31 (semantic only)"
+echo "  orbit_speed:         0.15"
+echo "  gravity_well:        1.0"
 echo ""
 echo "Usage:"
 echo ""
@@ -98,7 +101,9 @@ echo "  Command Line:"
 echo "    ./target/release/niodoo \\"
 echo "      --model-path /path/to/model.gguf \\"
 echo "      --prompt \"Your prompt here\" \\"
-echo "      --physics-blend 0.55 \\"
-echo "      --repulsion-strength -0.60"
+echo "      --mode-orbital \\"
+echo "      --physics-blend 1.0 \\"
+echo "      --repulsion-strength -1.0"
 echo ""
 echo "=============================================="
+

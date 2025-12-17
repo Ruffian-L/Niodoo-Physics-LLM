@@ -37,6 +37,11 @@ pub trait PhysicsEngine {
     fn use_multiplicative_blend(&self) -> bool {
         true // Default to multiplicative for stability
     }
+
+    /// Set the braking state for physics
+    fn set_braking(&mut self, _braking: bool) {
+        // Default no-op, override in implementations
+    }
 }
 
 pub fn repeat_kv(xs: Tensor, n_rep: usize) -> Result<Tensor> {
@@ -539,8 +544,8 @@ impl QuantizedNakedLlama {
                 if physics.use_multiplicative_blend() {
                     // Multiplicative: attn = attn * (1 + force_delta * blend)
                     // More stable - scales with attention magnitude
-                    let blend_clamped = physics_blend.clamp(-0.5, 0.5);
-                    let blend_t = Tensor::new(blend_clamped, attn.device())?;
+                    // REMOVED CLAMP: Was limiting physics to max 0.5, hiding the effect.
+                    let blend_t = Tensor::new(physics_blend, attn.device())?;
                     let scaled_force = force_delta.broadcast_mul(&blend_t)?;
                     // Create scale factor: 1 + scaled_force
                     let ones = scaled_force.ones_like()?;

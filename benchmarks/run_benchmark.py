@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
-Niodoo v1.0 Benchmark Script
-Shows LIVE AI responses as they complete - no extra steps needed.
+Niodoo v2.0 Benchmark Script
+Shows LIVE AI responses comparing Baseline vs Niodoo Activation Steering.
 """
 
 import os
@@ -12,9 +12,11 @@ import subprocess
 import argparse
 import datetime
 
-# v1.0 God Zone Parameters
-NIODOO_PHYSICS_BLEND = 0.55
-NIODOO_REPULSION = -0.60
+# v2.0 Validated Configuration
+NIODOO_PHYSICS_BLEND = 1.0
+NIODOO_REPULSION = -1.0
+NIODOO_START_LAYER = 16
+NIODOO_END_LAYER = 31
 DEFAULT_MAX_STEPS = 128
 DEFAULT_SEED = 123
 
@@ -60,7 +62,7 @@ def run_inference(binary, model_path, prompt, extra_args=[], max_steps=DEFAULT_M
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Niodoo v1.0 Benchmark - LIVE OUTPUT")
+    parser = argparse.ArgumentParser(description="Niodoo v2.0 Benchmark - LIVE OUTPUT")
     parser.add_argument("prompts", help="Path to prompts JSON")
     parser.add_argument("--binary", default="../target/release/niodoo")
     parser.add_argument("--model", default="/home/ruffian/SplatRag/models/Llama-3.1-8B-Instruct/Meta-Llama-3.1-8B-Instruct-Q4_K_M.gguf")
@@ -80,8 +82,8 @@ def main():
     prompts = load_prompts(args.prompts)
     
     print("=" * 70)
-    print("NIODOO v1.0 BENCHMARK - LIVE OUTPUT")
-    print(f"Config: blend={NIODOO_PHYSICS_BLEND}, repulsion={NIODOO_REPULSION}")
+    print("NIODOO v2.0 BENCHMARK - Baseline vs Activation Steering")
+    print(f"Config: blend={NIODOO_PHYSICS_BLEND}, repulsion={NIODOO_REPULSION}, layers={NIODOO_START_LAYER}-{NIODOO_END_LAYER}")
     print("=" * 70)
     
     results = []
@@ -93,20 +95,26 @@ def main():
         print(f"[{i+1}/{len(prompts)}] {prompt}")
         print("=" * 70)
         
-        # BASELINE
+        # BASELINE (No Physics)
         print("\n--- BASELINE (No Physics) ---")
         res_base = run_inference(
             binary, args.model, prompt,
-            ["--physics-blend", "0.0", "--ghost-gravity", "0.0"],
+            [],  # No extra args = vanilla mode
             max_steps=args.max_steps, seed=args.seed
         )
         print(res_base['text'] if res_base['text'] else "[No output captured]")
         
-        # NIODOO
-        print(f"\n--- NIODOO v1.0 (blend={NIODOO_PHYSICS_BLEND}, rep={NIODOO_REPULSION}) ---")
+        # NIODOO v2.0
+        print(f"\n--- NIODOO v2.0 (blend={NIODOO_PHYSICS_BLEND}, layers={NIODOO_START_LAYER}-{NIODOO_END_LAYER}) ---")
         res_phys = run_inference(
             binary, args.model, prompt,
-            ["--physics-blend", str(NIODOO_PHYSICS_BLEND), f"--repulsion-strength={NIODOO_REPULSION}"],
+            [
+                "--mode-orbital",
+                f"--physics-blend={NIODOO_PHYSICS_BLEND}",
+                f"--repulsion-strength={NIODOO_REPULSION}",
+                f"--physics-start-layer={NIODOO_START_LAYER}",
+                f"--physics-end-layer={NIODOO_END_LAYER}",
+            ],
             max_steps=args.max_steps, seed=args.seed
         )
         print(res_phys['text'] if res_phys['text'] else "[No output captured]")
@@ -120,8 +128,8 @@ def main():
     # Save to file if specified
     if args.output:
         with open(args.output, 'w') as f:
-            f.write(f"NIODOO v1.0 BENCHMARK\n")
-            f.write(f"Config: blend={NIODOO_PHYSICS_BLEND}, repulsion={NIODOO_REPULSION}\n")
+            f.write(f"NIODOO v2.0 BENCHMARK\n")
+            f.write(f"Config: blend={NIODOO_PHYSICS_BLEND}, repulsion={NIODOO_REPULSION}, layers={NIODOO_START_LAYER}-{NIODOO_END_LAYER}\n")
             f.write("=" * 70 + "\n\n")
             for r in results:
                 f.write(f"PROMPT: {r['prompt']}\n")
@@ -138,3 +146,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+

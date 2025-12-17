@@ -39,6 +39,8 @@ pub struct PhysicsParams {
     pub pinn_enabled: bool,
     pub pinn_stiffness: f64,
     pub ghost_gravity: f64,
+    pub gravity_well_strength: f64, // Multiplier for Centripetal Force
+    pub orbit_speed: f64,           // Tangential Velocity
 }
 
 impl Default for PhysicsParams {
@@ -69,6 +71,8 @@ impl Default for PhysicsParams {
             pinn_enabled: true,
             pinn_stiffness: 0.1,
             ghost_gravity: 0.001,
+            gravity_well_strength: 0.8,
+            orbit_speed: 0.2,
         }
     }
 }
@@ -93,6 +97,8 @@ impl PhysicsParams {
         pinn_enabled: bool,
         pinn_stiffness: f64,
         ghost_gravity: f64,
+        gravity_well_strength: f64,
+        orbit_speed: f64,
     ) -> Self {
         Self {
             gravity,
@@ -115,6 +121,8 @@ impl PhysicsParams {
             pinn_enabled,
             pinn_stiffness,
             ghost_gravity,
+            gravity_well_strength,
+            orbit_speed,
         }
     }
 
@@ -140,6 +148,8 @@ impl PhysicsParams {
         pinn_enabled: bool,
         pinn_stiffness: f64,
         ghost_gravity: f64,
+        gravity_well_strength: f64,
+        orbit_speed: f64,
     ) -> Self {
         Self {
             gravity,
@@ -162,6 +172,8 @@ impl PhysicsParams {
             pinn_enabled,
             pinn_stiffness,
             ghost_gravity,
+            gravity_well_strength,
+            orbit_speed,
         }
     }
 
@@ -268,6 +280,8 @@ impl PhysicsOptimizer {
             true,                               // pinn_enabled default for optimizer
             0.1,                                // pinn_stiffness default for optimizer
             p.get(0).copied().unwrap_or(0.001), // ghost_gravity uses same as gravity for optimizer
+            0.8,                                // gravity_well_strength default
+            0.2,                                // orbit_speed default
         )
     }
 

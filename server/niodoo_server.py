@@ -71,6 +71,7 @@ class GenerateResponse(BaseModel):
     latency_sec: float
     tokens_generated: int
     config: dict
+    telemetry: Optional[list] = None
 
 
 @app.on_event("startup")
@@ -86,22 +87,131 @@ async def startup_event():
         logger.info("Niodoo v1.0 ready.")
 
 
+# Telemetry Storage (In-Memory for Demo)
+# Map: seed -> last_telemetry
+last_telemetry_store = {}
+
+
+class AutonomicRegulator:
+    """
+    Phase 4: The Heartbeat
+    Self-regulates physics parameters based on the model's internal state (telemetry).
+    """
+    
+    @staticmethod
+    def regulate(seed: int, current_blend: float, current_repulsion: float) -> tuple[float, float, str]:
+        """
+        Analyze last turn's telemetry and return new (blend, repulsion, reason).
+        """
+        if seed not in last_telemetry_store:
+            return current_blend, current_repulsion, "No history"
+            
+        trace = last_telemetry_store[seed]
+        if not trace:
+            return current_blend, current_repulsion, "Empty history"
+            
+        # 1. Calculate Metrics
+        total_forces = [t.get("total_force", 0.0) for t in trace]
+        if not total_forces:
+            return current_blend, current_repulsion, "No force data"
+            
+        avg_force = sum(total_forces) / len(total_forces)
+        glitch_count = sum(1 for t in trace if t.get("is_glitch", False))
+        
+        # Variance calculation
+        variance = 0.0
+        if len(total_forces) > 1:
+            mean = avg_force
+            variance = sum((x - mean) ** 2 for x in total_forces) / (len(total_forces) - 1)
+            
+        # 2. Apply Heuristics
+        new_blend = current_blend
+        new_repulsion = current_repulsion
+        reason = []
+        
+        # HEURISTIC A: STRESS (Too much force/fighting)
+        # If avg force > 15.0 or glitches detected -> Relax
+        if avg_force > 15.0 or glitch_count > 2:
+            new_blend = max(0.1, current_blend - 0.1)
+            reason.append(f"High Stress (F={avg_force:.1f}, G={glitch_count}) -> Relaxed Blend")
+            
+        # HEURISTIC B: BOREDOM (Low variance/flat orbit)
+        # If variance < 1.0 -> Increase Chaos (Repulsion)
+        elif variance < 1.0:
+            new_blend = min(1.0, current_blend + 0.05)
+            # Increase repulsion (make it more negative)
+            new_repulsion = max(-2.0, current_repulsion - 0.2) 
+            reason.append(f"Boredom (Var={variance:.2f}) -> Boosted Chaos")
+            
+        if not reason:
+            return current_blend, current_repulsion, "Homeostasis"
+            
+        return round(new_blend, 3), round(new_repulsion, 2), " + ".join(reason)
+
 @app.post("/generate", response_model=GenerateResponse)
 def generate_text(req: GenerateRequest):
     """Generate text using the Niodoo physics engine."""
+    
+    # === PHASE 4: THE HEARTBEAT (Autonomic Regulation) ===
+    # Calculate physics parameters based on previous state
+    # Start with requested values (defaults if not provided)
+    base_blend = req.physics_blend
+    base_repulsion = req.repulsion
+    
+    # Ask the Regulator
+    final_blend, final_repulsion, regulation_reason = AutonomicRegulator.regulate(
+        req.seed, base_blend, base_repulsion
+    )
+    
+    if regulation_reason != "Homeostasis" and regulation_reason != "No history":
+        logger.info(f"❤️ HEARTBEAT ACTION: {regulation_reason}. Params: ({base_blend}, {base_repulsion}) -> ({final_blend}, {final_repulsion})")
+
+    # === PHASE 3: THE MIRROR (Context Injection) ===
+    # Check if this is a meta-cognitive question ("Why...?")
+    meta_context = ""
+    is_meta_query = "why" in req.prompt.lower()
+    
+    if is_meta_query and req.seed in last_telemetry_store:
+        last_trace = last_telemetry_store[req.seed]
+        
+        # Summarize the physics of the last run
+        # Find the top 3 most repelled/forced tokens
+        forces = []
+        for frame in last_trace:
+            if "total_force" in frame and "token" in frame:
+                forces.append((frame["total_force"], frame["token"], frame.get("repulsion_force", 0.0)))
+        
+        # Sort by total force descending
+        forces.sort(key=lambda x: x[0], reverse=True)
+        top_forces = forces[:3]
+        
+        # Construct the "Proprioception" injection
+        meta_context = "\n[SYSTEM TELEMETRY INJECTION]:\n"
+        meta_context += "In your last thought process, you felt the following internal physics:\n"
+        for total, token, rep in top_forces:
+            meta_context += f"- On word '{token.strip()}', you felt Total Force {total:.1f} (Repulsion: {rep:.1f}).\n"
+        meta_context += "Use this data to explain your creative choices.\n\n"
+        
+        logger.info(f"Injecting Meta-Context: {meta_context.strip()}")
+
+    # Prepend meta-context to prompt if it exists
+    full_prompt = meta_context + req.prompt
+    
     start_time = time.time()
     
     cmd = [
         NIODOO_BINARY,
         "--model-path", MODEL_PATH,
-        "--prompt", req.prompt,
+        "--prompt", full_prompt,
         "--max-steps", str(req.max_tokens),
         "--seed", str(req.seed),
-        "--physics-blend", str(req.physics_blend),
-        f"--repulsion-strength={req.repulsion}"
+        "--physics-blend", str(final_blend),
+        f"--repulsion-strength={final_repulsion}",
+        "--mode-orbital",
+        "--orbit-speed", "0.15"
     ]
     
-    logger.info(f"Generating: {req.prompt[:60]}...")
+    logger.info(f"Generating: {full_prompt[:100]}...")
     
     try:
         result = subprocess.run(
@@ -123,25 +233,51 @@ def generate_text(req: GenerateRequest):
         token_count = 0
         token_pattern = re.compile(r"\[DBG: Decoded '(.*)'\]")
         
+        # Telemetry parsing (Phase 3: The Observer)
+        telemetry_log = []
+        
+        # DEBUG: Log raw output glimpse
+        logger.info(f"Raw Stdout Glimpse (First 500 chars): {result.stdout[:500]}")
+        
         for line in result.stdout.split('\n'):
+            # 1. Capture Text
             m = token_pattern.search(line)
             if m:
                 token_content = m.group(1).replace("\\n", "\n").replace("\\'", "'")
                 output_text += token_content
                 token_count += 1
+            
+            # 2. Capture Physics (JSON lines)
+            clean = line.strip()
+            if clean.startswith("[TELEMETRY]"):
+                try:
+                    json_str = clean.replace("[TELEMETRY]", "").strip()
+                    # Remove trailing comma if present (from the Rust array format)
+                    clean_line = json_str.rstrip(',')
+                    data = json.loads(clean_line)
+                    telemetry_log.append(data)
+                except json.JSONDecodeError as e:
+                    logger.warning(f"Failed to parse JSON line: {clean[:40]}... Error: {e}")
+                    pass
+        
+        # Store telemetry for next turn (The Mirror)
+        if len(telemetry_log) > 0:
+            last_telemetry_store[req.seed] = telemetry_log
         
         latency = time.time() - start_time
-        logger.info(f"Generated {token_count} tokens in {latency:.2f}s")
+        logger.info(f"Generated {token_count} tokens in {latency:.2f}s | Physics Frames: {len(telemetry_log)}")
         
         return GenerateResponse(
             text=output_text,
             latency_sec=round(latency, 3),
             tokens_generated=token_count,
             config={
-                "physics_blend": req.physics_blend,
-                "repulsion": req.repulsion,
+                "physics_blend": final_blend,
+                "repulsion": final_repulsion,
+                "regulation_reason": regulation_reason,
                 "seed": req.seed
-            }
+            },
+            telemetry=telemetry_log
         )
         
     except subprocess.TimeoutExpired:
@@ -150,6 +286,20 @@ def generate_text(req: GenerateRequest):
     except Exception as e:
         logger.error(f"Server error: {str(e)}")
         raise HTTPException(status_code=500, detail=str(e))
+
+
+class DebugInjectRequest(BaseModel):
+    seed: int
+    telemetry: list
+
+
+@app.post("/debug/inject")
+def debug_inject(req: DebugInjectRequest):
+    """Inject fake telemetry for testing autonomic regulation."""
+    last_telemetry_store[req.seed] = req.telemetry
+    logger.info(f"Injected fake telemetry for seed {req.seed} ({len(req.telemetry)} frames)")
+    return {"status": "ok"}
+
 
 
 @app.get("/health")
@@ -183,4 +333,4 @@ def root():
 
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+    uvicorn.run(app, host="0.0.0.0", port=8002)
