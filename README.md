@@ -66,7 +66,17 @@ Tokens 10+:   100% physics
 
 ---
 
-## Example: Drying Towels Problem
+## Important: Non-Determinism
+
+LLMs are non-deterministic. On any given run, vanilla Llama may get these problems right or wrong depending on sampling state. The examples below show runs where vanilla failed and Niodoo succeeded, but this is not guaranteed on every run.
+
+The key difference: Niodoo shows visible "wobble" reasoning - you can see it explore alternatives before settling on an answer. Vanilla either gets it immediately right or wrong with no visible deliberation.
+
+Run `./demo.sh` multiple times to observe variance.
+
+---
+
+## Example 1: Drying Towels Problem
 
 **Prompt:** "It takes 1 hour to dry one towel on a sunny clothesline. How long does it take to dry 50 towels?"
 
