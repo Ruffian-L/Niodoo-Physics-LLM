@@ -60,6 +60,7 @@ echo "-----------------"
 echo ""
 
 if [ -f "$BINARY" ]; then
+    # Run Niodoo and extract decoded tokens, clean up spacing
     $BINARY \
         --model-path "$MODEL_PATH" \
         --prompt "$PROMPT" \
@@ -69,7 +70,15 @@ if [ -f "$BINARY" ]; then
         --gravity-well 0.2 \
         --orbit-speed 0.1 \
         --max-steps 512 \
-        --seed 42 2>/dev/null | grep "DBG: Decoded" | sed "s/\[DBG: Decoded '//g" | sed "s/'\]//g" | tr -d '\n' | sed 's/\\n/\n/g'
+        --seed 42 2>/dev/null | \
+        grep "DBG: Decoded" | \
+        sed "s/\[DBG: Decoded '//g" | \
+        sed "s/'\]//g" | \
+        sed 's/\\n/\n/g' | \
+        tr -d '\n' | \
+        sed 's/  */ /g' | \
+        sed 's/^ //g' | \
+        fold -s -w 80
     echo ""
 else
     # Show verified result from Run 11
