@@ -603,14 +603,6 @@ struct PrincipiaEngine {
     pub braking: bool,
     pub dynamic_gravity: f32,
     pub dynamic_repulsion: f32,
-
-    // Phase 4: Heartbeat (Autonomic Regulation)
-    pub stress_buffer: VecDeque<f32>, // Rolling window of total_force values
-    pub entropy_buffer: VecDeque<f32>, // Rolling window of token entropy
-    pub heartbeat_blend: f32,         // Current auto-adjusted blend
-    pub heartbeat_repulsion: f32,     // Current auto-adjusted repulsion
-    pub stress_level: f32,            // 0.0 = calm, 1.0 = max stress
-    pub boredom_level: f32,           // 0.0 = engaged, 1.0 = max boredom
 }
 
 impl PhysicsEngine for PrincipiaEngine {
@@ -1185,55 +1177,6 @@ impl PrincipiaEngine {
             return Ok(1.0 - sim); // 0.0 = aligned, 1.0 = drift
         }
         Ok(0.0)
-    }
-
-    /// Phase 4: Heartbeat Tick - Autonomic Regulation
-    /// Called after each token to adjust physics params based on stress/boredom
-    pub fn heartbeat_tick(&mut self, telemetry: &TokenPhysics) {
-        const STRESS_THRESHOLD: f32 = 15.0;
-        const BOREDOM_THRESHOLD: f32 = 2.0;
-        const BUFFER_SIZE: usize = 10;
-        const BLEND_MIN: f32 = 0.5;
-        const BLEND_MAX: f32 = 2.0;
-        const REPULSION_MIN: f32 = -1.0;
-        const REPULSION_MAX: f32 = -0.3;
-
-        // Update stress buffer
-        self.stress_buffer.push_back(telemetry.total_force);
-        if self.stress_buffer.len() > BUFFER_SIZE {
-            self.stress_buffer.pop_front();
-        }
-
-        // Calculate stress level (0.0 to 1.0)
-        if self.stress_buffer.len() >= 3 {
-            let avg_force: f32 =
-                self.stress_buffer.iter().sum::<f32>() / self.stress_buffer.len() as f32;
-            let is_glitch = telemetry.is_glitch;
-
-            // Stress: high force or glitch detected
-            if avg_force > STRESS_THRESHOLD || is_glitch {
-                self.stress_level = (self.stress_level + 0.2).min(1.0);
-                // Stress response: RELAX - lower blend and repulsion magnitude
-                self.heartbeat_blend = (self.heartbeat_blend - 0.1).max(BLEND_MIN);
-                self.heartbeat_repulsion = (self.heartbeat_repulsion + 0.1).min(REPULSION_MAX);
-            }
-            // Boredom: very low force variance
-            else if avg_force < BOREDOM_THRESHOLD {
-                self.boredom_level = (self.boredom_level + 0.2).min(1.0);
-                // Boredom response: ENERGIZE - raise blend and repulsion magnitude
-                self.heartbeat_blend = (self.heartbeat_blend + 0.1).min(BLEND_MAX);
-                self.heartbeat_repulsion = (self.heartbeat_repulsion - 0.1).max(REPULSION_MIN);
-            }
-            // Normal: decay stress/boredom levels
-            else {
-                self.stress_level = (self.stress_level - 0.05).max(0.0);
-                self.boredom_level = (self.boredom_level - 0.05).max(0.0);
-            }
-        }
-
-        // Apply heartbeat params to dynamic params (used in force calculation)
-        self.dynamic_gravity = self.dynamic_gravity; // Keep gravity stable
-        self.physics_blend = self.heartbeat_blend;
     }
 
     // Non-Reciprocal Force (Plasma-Inspired)
@@ -2414,13 +2357,6 @@ async fn run_simulation(_vis_tx: Option<Sender<Vec<RenderParticle>>>, args: Args
         braking: false,
         dynamic_gravity: args.gravity,
         dynamic_repulsion: args.repulsion_strength as f32,
-        // Phase 4: Heartbeat defaults
-        stress_buffer: VecDeque::with_capacity(10),
-        entropy_buffer: VecDeque::with_capacity(10),
-        heartbeat_blend: args.physics_blend,
-        heartbeat_repulsion: args.repulsion_strength as f32,
-        stress_level: 0.0,
-        boredom_level: 0.0,
     };
 
     if !args.goal.is_empty() {
@@ -3022,18 +2958,6 @@ async fn run_simulation(_vis_tx: Option<Sender<Vec<RenderParticle>>>, args: Args
                 serde_json::to_string(&token_trace).unwrap_or_else(|_| "{}".to_string());
             println!("[TELEMETRY] {}", telemetry_json);
             std::io::stdout().flush()?;
-
-            // Phase 4: Heartbeat Tick - Autonomic Regulation
-            phys_engine.heartbeat_tick(&token_trace);
-            if step % 10 == 0 {
-                println!(
-                    "[HEARTBEAT] stress={:.2} boredom={:.2} blend={:.2} rep={:.2}",
-                    phys_engine.stress_level,
-                    phys_engine.boredom_level,
-                    phys_engine.heartbeat_blend,
-                    phys_engine.heartbeat_repulsion
-                );
-            }
 
             cognitive_log.push(token_trace);
         }
