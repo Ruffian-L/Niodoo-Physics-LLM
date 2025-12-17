@@ -17,10 +17,11 @@ BINARY="./target/release/niodoo"
 # Function to check if answer contains correct response
 check_towels() {
     local output="$1"
-    if echo "$output" | grep -qiE "(1 hour|one hour|takes 1|\\$1\\$|boxed{1})" && \
-       ! echo "$output" | grep -qiE "(50 hours|50 x 1|fifty hours)"; then
+    # Check for correct answer (1 hour)
+    if echo "$output" | grep -qiE "1 hour|one hour|boxed.1." && \
+       ! echo "$output" | grep -qiE "50 hours|50 x 1|fifty hours"; then
         echo "CORRECT (1 hour)"
-    elif echo "$output" | grep -qiE "(50 hours|50 x 1|fifty hours)"; then
+    elif echo "$output" | grep -qiE "50 hours|50 x 1|fifty hours|boxed.50."; then
         echo "WRONG (50 hours)"
     else
         echo "UNCLEAR"
@@ -29,9 +30,10 @@ check_towels() {
 
 check_monty() {
     local output="$1"
-    if echo "$output" | grep -qiE "(2/3|2 / 3|66|67|two.thirds)"; then
+    # Check for correct answer (2/3 or 66%)
+    if echo "$output" | grep -qiE "2/3|2 / 3|66|67|two.thirds"; then
         echo "CORRECT (2/3)"
-    elif echo "$output" | grep -qiE "(50.50|50-50|50%|1/2|equal|doesn.t matter)"; then
+    elif echo "$output" | grep -qiE "50.50|50-50|50 percent|1/2|equal chance"; then
         echo "WRONG (50-50)"
     else
         echo "UNCLEAR"
