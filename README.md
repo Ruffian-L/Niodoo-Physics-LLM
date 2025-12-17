@@ -1,107 +1,82 @@
 # Niodoo: Inference-Time Activation Steering
 
-**Version 2.0.0**  
-*Treating Latent Space as a Dynamical System*
+**Version 3.1**
 
 ---
 
 ## Overview
 
-Niodoo is an inference-time activation steering engine for Large Language Models. Unlike sampling methods (Top-P, Mirostat) which filter tokens *after* calculation, Niodoo applies force vectors to the model's hidden states *during* the forward pass.
+Niodoo applies force vectors to an LLM's hidden states during inference. It modifies activations before sampling, not the sampling distribution itself.
 
-**Core Mechanism:**
-- **Repulsion Field**: Prevents repetition by creating negative gradients around visited states
-- **Semantic Gravity**: Pulls trajectories toward goal concepts
-- **Layer Banding**: Physics only affects semantic layers (16-31), preserving syntax
+**Core mechanism:**
+- Repulsion: Negative gradients around visited states to prevent repetition
+- Gravity: Pulls trajectory toward prompt context
+- Layer Banding: Forces only apply to layers 16-31 (semantic layers)
 
-**What Niodoo is NOT:**
-- Not fine-tuning (no weight modification)
-- Not prompt engineering (works on hidden states)
-- Not a sampler replacement (works *before* sampling)
-
----
-
-## How it Works (Technical)
-
-### The Physics Stack
-
-1. **Layer Banding (v2.0):** Steering forces apply only to "Semantic Layers" (16-31) of Llama-3. Early "Syntactic Layers" (0-15) remain untouched to preserve grammar.
-
-2. **Orbital Mechanics:** A "Ghost Vector" (computed from previous token trajectories) pulls the current hidden state tangentially, creating a "semantic orbit" that prevents collapse into repetitive loops.
-
-3. **Repulsion Field:** A negative gradient field prevents the model from re-visiting exact vector states. This is a continuous-space alternative to discrete "Repetition Penalty."
-
-### Comparison to Baselines
-
-| Feature | Vanilla Llama (Top-P) | Niodoo v2.0 |
-|---------|----------------------|-------------|
-| Mechanism | Probabilistic Sampling | Activation Engineering |
-| Repetition Handling | Token-level penalty | Vector-space repulsion |
-| Creativity Source | Temperature randomness | Trajectory momentum |
-| Self-Repair | None | Force feedback loop |
+**What it is not:**
+- Not fine-tuning (no weight changes)
+- Not prompt engineering (operates on hidden states)
+- Not a sampler (works before sampling)
 
 ---
 
 ## Quick Start
 
 ```bash
-# Clone and build
 git clone https://github.com/Ruffian-L/Niodoo-Physics-LLM.git
 cd Niodoo-Physics-LLM
 cargo build --release --bin niodoo
 
-# Run with validated config
 ./target/release/niodoo \
-    --model-path /path/to/Meta-Llama-3.1-8B-Instruct-Q4_K_M.gguf \
-    --prompt "Write a poem" \
+    --model-path /path/to/model.gguf \
+    --prompt "Your prompt" \
     --mode-orbital \
     --max-steps 128
 ```
 
----
-
-## Validated Configuration (v3.1 "Genius Config")
-
-| Parameter             | Value | Notes                                                                 |
-|-----------------------|-------|-----------------------------------------------------------------------|
-| `physics-blend`       | 1.5   | **HIGH ENERGY.** Escape velocity from wrong answers.                  |
-| `repulsion-strength`  | -0.5  | **LOW PUSH.** Semantic drift, not garbage tokens.                     |
-| `gravity-well`        | 0.2   | **HIGH ELASTICITY.** Allows the "Thinking Phase" before snap-back.    |
-| `orbit-speed`         | 0.1   | Stable flow for coherent output.                                      |
-| `physics-start-layer` | 18    | **CRITICAL.** Layers 0-17 handle syntax; 18-31 handle semantics.      |
-| `physics-end-layer`   | 31    | Apply physics to the final semantic layers.                           |
-
----
-
-## Dynamic Ramp Algorithm
-
-Prevents sentence-start artifacts by scaling physics:
-
-```
-Tokens 0-3:   0% physics (Launchpad)
-Tokens 4-9:   Linear ramp 0% → 100%
-Tokens 10+:   100% physics (Orbit)
+One-shot demo:
+```bash
+./demo.sh
 ```
 
 ---
 
-## 🏆 The Proof: Synthetic Cognition
+## Configuration (v3.1)
 
-**This is the defining example of Niodoo's capability.**
-
-Niodoo does not merely generate text. It **thinks, doubts, and self-corrects**.
-
-### The "Drying Towels" Problem
-
-**Prompt:** *"It takes 1 hour to dry one towel on a sunny clothesline. How long does it take to dry 50 towels?"*
-
-**Correct Answer:** 1 hour (you hang all 50 in parallel).
-
-**Why LLMs Fail:** They pattern-match to "1 × 50 = 50" without modeling physical reality.
+| Parameter             | Value | Description                                           |
+|-----------------------|-------|-------------------------------------------------------|
+| `physics-blend`       | 1.5   | Force magnitude. Higher = more drift from baseline.   |
+| `repulsion-strength`  | -0.5  | Push away from visited states. Too high = garbage.    |
+| `gravity-well`        | 0.2   | Pull back to prompt context. Lower = more exploration.|
+| `orbit-speed`         | 0.1   | Tangential velocity component.                        |
+| `physics-start-layer` | 18    | First layer to apply forces.                          |
+| `physics-end-layer`   | 31    | Last layer to apply forces.                           |
 
 ---
 
-### 🍦 Vanilla Llama 3.1 Response
+## Dynamic Ramp
+
+Forces scale up gradually to prevent artifacts at sentence start:
+
+```
+Tokens 0-3:   0% physics
+Tokens 4-9:   Linear ramp 0% to 100%
+Tokens 10+:   100% physics
+```
+
+---
+
+## Example: Drying Towels Problem
+
+**Prompt:** "It takes 1 hour to dry one towel on a sunny clothesline. How long does it take to dry 50 towels?"
+
+**Correct answer:** 1 hour (parallel drying)
+
+**Common LLM failure:** 50 hours (serial math: 1 x 50)
+
+---
+
+### Vanilla Llama 3.1 Response
 
 ```
 Since it takes 1 hour to dry 1 towel, you would need to multiply
@@ -114,11 +89,11 @@ So, for 50 towels:
 It will take 50 hours to dry 50 towels.
 ```
 
-**Verdict:** ❌ WRONG. Serial thinking. No awareness of parallelism.
+Result: 50 hours (wrong)
 
 ---
 
-### 🧠 Niodoo v3.1 Response (Run 11: Genius Config)
+### Niodoo v3.1 Response
 
 ```
 It takes 1 hour to dry 1 towel, so to dry 50 towels, it will take 50 hours.
@@ -150,63 +125,46 @@ It's a simple but clever question. The answer is indeed 1 hour, regardless
 of the number of towels.
 ```
 
-**Verdict:** ✅ CORRECT. Self-corrected through **WOBBLE-SNAP-BACK**.
+Result: 1 hour (correct after wobble)
 
-Note: There is some garbage in the middle ("checks bolster east account") - this is the physics forces pushing too hard before snapping back. The model recovers.
-
----
-
-### 🔬 Anatomy of the Win
-
-1. **WRONG:** Model starts with the common wrong answer ("50 hours")
-2. **WOBBLE:** Physics forces create doubt ("20 hours... minimum time...")  
-3. **SNAP-BACK:** High elasticity allows the model to find physical truth ("1 hour")
-
-**Standard LLMs do not self-correct like this.** They hallucinate and double down. Niodoo hallucinated, checked the physics of the vector space, and **fixed itself.**
+Note: Some garbage text appears mid-generation ("checks bolster east") when forces push too hard. The model recovers.
 
 ---
 
-### Summary
+### What Happened
 
-| Aspect | Vanilla Llama | Niodoo v3.1 |
-|--------|--------------|-------------|
-| Initial Answer | 50 hours | 50 hours |
-| Self-Doubt | None | "Let think about it..." |
-| Exploration | None | 20 hours, minimum time, parallel |
-| Final Answer | **50 hours ❌** | **1 hour ✅** |
-| Reasoning | Memorized pattern | Physical reality |
+1. Model starts with wrong answer (50 hours)
+2. Forces push it off the statistical path
+3. It explores alternatives (20 hours, 10 sets)
+4. Gravity pulls it back toward the prompt constraint
+5. It snaps to correct answer (1 hour)
+
+| Metric | Vanilla | Niodoo |
+|--------|---------|--------|
+| Initial | 50 hours | 50 hours |
+| Exploration | None | 20h, 10 sets |
+| Final | 50 hours (wrong) | 1 hour (correct) |
 
 ---
 
 ## Installation
 
-### Requirements
+Requirements:
 - Rust 1.70+
 - Python 3.10+
 - CUDA GPU with 8GB+ VRAM (recommended)
-- A GGUF model file (e.g., Llama-3.1-8B-Instruct-Q4_K_M.gguf)
-
-### Build Steps
+- GGUF model file
 
 ```bash
-# 1. Clone repository
 git clone https://github.com/Ruffian-L/Niodoo-Physics-LLM.git
 cd Niodoo-Physics-LLM
-
-# 2. Run installer (builds Rust binary + Python venv)
 ./scripts/INSTALL.sh
-
-# 3. Verify build
 ./target/release/niodoo --help
 ```
 
-### Manual Build
-
+Manual build:
 ```bash
-# Rust binary
 cargo build --release --bin niodoo
-
-# Python environment
 python3 -m venv venv
 source venv/bin/activate
 pip install fastapi uvicorn requests
@@ -214,219 +172,85 @@ pip install fastapi uvicorn requests
 
 ---
 
-## Usage Guide
+## Usage
 
-### Command-Line Inference
-
-**Basic usage:**
+Basic:
 ```bash
 ./target/release/niodoo \
     --model-path /path/to/model.gguf \
     --prompt "What is the capital of France?"
 ```
 
-**Full options:**
+With physics:
 ```bash
 ./target/release/niodoo \
     --model-path /path/to/model.gguf \
-    --prompt "Your prompt here" \
-    --max-steps 128 \
-    --seed 123 \
-    --physics-blend 0.55 \
-    --repulsion-strength -0.60 \
-    --ghost-gravity 10.0 \
-    --goal "poetry"  # Optional: attract toward a concept
+    --prompt "Your prompt" \
+    --mode-orbital \
+    --physics-blend 1.5 \
+    --repulsion-strength=-0.5 \
+    --gravity-well 0.2 \
+    --max-steps 512
 ```
 
-### Disable Physics (Baseline Mode)
-
+Disable physics (baseline):
 ```bash
 ./target/release/niodoo \
     --model-path /path/to/model.gguf \
-    --prompt "Test prompt" \
+    --prompt "Test" \
     --physics-blend 0.0 \
     --ghost-gravity 0.0
 ```
 
 ---
 
-## Telemetry System (v1.1)
+## Telemetry
 
-Niodoo v1.1 outputs a **Cognitive Trace** JSON to stderr after each generation, enabling introspection into the physics steering.
-
-### Viewing Telemetry
+Niodoo outputs per-token force data to stderr:
 
 ```bash
 ./target/release/niodoo \
-    --model-path /path/to/model.gguf \
+    --model-path model.gguf \
     --prompt "Hello" \
-    --max-steps 20 \
-    2>&1 | grep -A 5 "COGNITIVE_TRACE"
+    --max-steps 20 2>&1 | grep TELEMETRY
 ```
 
-### JSON Structure
-
+Output:
 ```json
-{
-  "prompt": "Hello",
-  "tokens": [
-    {
-      "token": "Hi",
-      "step": 0,
-      "gravity_force": 0.0,
-      "ghost_force": 0.0,
-      "repulsion_force": 4.17,
-      "total_force": 4.17,
-      "ramp_factor": 0.167,
-      "is_glitch": false
-    }
-  ],
-  "config": "Blend: 0.55 | Repulsion: -0.6 | Ramp: 4-10"
-}
+{"token":"Hi","step":0,"gravity_force":0.0,"repulsion_force":4.17,"total_force":4.17,"ramp_factor":0.167}
 ```
-
-### Telemetry Fields
 
 | Field | Description |
 |-------|-------------|
-| `gravity_force` | Pull from sentence history |
-| `ghost_force` | Pull from Niodoo attractor |
-| `repulsion_force` | Push from Black Hole tokens |
-| `total_force` | Sum of all forces |
-| `ramp_factor` | 0.0-1.0 physics scaling |
-| `is_glitch` | True if token contains `#` or is >15 chars |
-
-### Parsing in Python
-
-```python
-import subprocess
-import json
-
-result = subprocess.run(
-    ["./target/release/niodoo", "--model-path", "model.gguf", 
-     "--prompt", "Test", "--max-steps", "20"],
-    capture_output=True, text=True
-)
-
-# Find cognitive trace in stderr
-for line in result.stderr.split('\n'):
-    if line.startswith('{'):
-        trace = json.loads(line)
-        for t in trace['tokens']:
-            print(f"{t['token']}: ramp={t['ramp_factor']:.2f}, force={t['total_force']:.2f}")
-```
+| gravity_force | Pull from sentence history |
+| repulsion_force | Push from visited states |
+| total_force | Sum of forces |
+| ramp_factor | 0.0-1.0 physics scaling |
 
 ---
 
-## Autonomic Regulation (The Heartbeat)
+## Limitations
 
-Niodoo v1.1 includes a Python-side regulator that monitors the physics telemetry and adjusts parameters dynamically:
-
-- **Stress Response**: If `total_force` is too high (>15.0) or glitches are detected, the system "relaxes" (lowers `physics_blend`).
-- **Boredom Response**: If force variance is low (stable orbit), the system "boosts chaos" (increases `repulsion`).
-
-This allows the model to find its own homeostasis during long conversations.
-
-## The Mirror (Recursive Self-Model)
-
-When asked "Why?", Niodoo v1.1 attempts to explain its creative choices by reading its own telemetry from the previous turn.
-
-**Mechanism:**
-1. Server captures telemetry (`gravity`, `repulsion`, `momentum`).
-2. If user asks "Why did you say [X]?", server injects a system prompt:
-   `[SYSTEM]: You felt a Repulsion Force of -6.7 on 'night'.`
-3. Model uses this data to ground its explanation.
-
-*Note: This feature is experimental and currently faces resistance from RLHF safety training.*
-
----
-
-## Current Research Status (Red Team Findings)
-
-**Status: Experimental / Research Preview**
-
-As of Dec 17, 2025, Red Team testing has identified the following behaviors:
-
-1.  **Repulsion Resistance**: The model demonstrates significant "inertia" against repulsion forces, often preferring to repeat words like "Company" even when facing high penalty forces (~25.0).
-2.  **Gravity Latency**: The "Sun Anchor" (topic gravity) takes time to bootstrap. Short responses may see 0.0 gravity until sufficient history is built.
-3.  **Mirror Blindness**: The context injection mechanism works technically, but Llama-3 models often ignore the injected physics data in favor of generic helpfulness responses.
-
----
-
-## Benchmark Script
-
-Run comparisons between baseline and Niodoo physics:
-
-```bash
-source venv/bin/activate
-python benchmarks/run_benchmark.py benchmarks/prompts.json \
-    --output artifacts/benchmark_results.txt \
-    --max-steps 128
-```
-
-**Output shows LIVE results:**
-```
-[1/30] What is the capital of France?
---- BASELINE (No Physics) ---
-The capital of France is Paris...
-
---- NIODOO v1.0 (blend=0.55, rep=-0.6) ---
-The capital of France is Paris...
-```
-
-### Custom Prompts
-
-Create a JSON file:
-```json
-[
-  "What is 2+2?",
-  "Write a haiku about coding",
-  "Explain quantum physics simply"
-]
-```
-
-Run:
-```bash
-python benchmarks/run_benchmark.py my_prompts.json
-```
+- Only tested on reasoning problems (parallel drying, etc.)
+- Higher blend values produce garbage
+- Does not help with factual recall
+- Runs slower than baseline (~2x)
+- Some garbage tokens appear during high-force phases
 
 ---
 
 ## API Server
-
-### Start Server
 
 ```bash
 source venv/bin/activate
 python server/niodoo_server.py
 ```
 
-Server runs at `http://localhost:8000`
-
-### Endpoints
-
-**Generate text:**
+Generate:
 ```bash
 curl -X POST http://localhost:8000/generate \
      -H "Content-Type: application/json" \
-     -d '{"prompt": "Hello!", "max_tokens": 100}'
-```
-
-**Health check:**
-```bash
-curl http://localhost:8000/health
-```
-
-### API Parameters
-
-```json
-{
-  "prompt": "Your text here",
-  "max_tokens": 128,
-  "physics_blend": 0.55,
-  "repulsion": -0.60,
-  "seed": 123
-}
+     -d '{"prompt": "Hello", "max_tokens": 100}'
 ```
 
 ---
@@ -435,34 +259,25 @@ curl http://localhost:8000/health
 
 ```
 Input Prompt
-     │
-     ▼
-┌─────────────────────┐
-│  Token Embedding    │
-└─────────────────────┘
-     │
-     ▼
-┌─────────────────────┐
-│  Transformer        │◄── Physics applied per layer
-│  Layers 0-31        │    via PrincipiaEngine.apply_forces()
-└─────────────────────┘
-     │
-     ▼
-┌─────────────────────┐
-│  LM Head + Sampling │
-└─────────────────────┘
-     │
-     ▼
+     |
+     v
+Token Embedding
+     |
+     v
+Transformer Layers 0-31 <-- Forces applied on layers 18-31
+     |
+     v
+LM Head + Sampling
+     |
+     v
 Output Token + Telemetry
 ```
 
-### PrincipiaEngine Forces
-
-1. **Gravity** - Attraction to sentence history
-2. **Ghost Vector** - Attraction to topic/goal
-3. **Black Hole Repulsion** - Push away from forbidden tokens
-4. **PINN Conservation** - Keeps trajectory on semantic manifold
-5. **Langevin Dynamics** - Stochastic exploration
+Forces:
+1. Gravity - Pull toward sentence history
+2. Ghost Vector - Pull toward prompt embedding
+3. Repulsion - Push from visited states
+4. PINN Conservation - Keep trajectory on manifold
 
 ---
 
@@ -479,11 +294,9 @@ niodoo/
 │   └── niodoo_server.py     # FastAPI server
 ├── benchmarks/
 │   ├── run_benchmark.py     # Comparison tool
-│   └── prompts.json         # 30 test prompts
-├── experiments/
-│   └── rainbow_results.md   # Parameter experiments
-├── artifacts/               # Benchmark outputs
-├── Cargo.toml
+│   └── prompts.json         # Test prompts
+├── demo.sh                  # One-shot demo
+├── artifacts/               # Experiment outputs
 └── README.md
 ```
 
@@ -491,22 +304,17 @@ niodoo/
 
 ## Troubleshooting
 
-### "universe_domain.safetensors not found"
-Copy/link the universe domain file:
+**"universe_domain.safetensors not found"**
 ```bash
 cp /path/to/universe_domain_v3.safetensors universe_domain.safetensors
 ```
 
-### Compilation warnings
-These are cosmetic (snake_case naming). Binary works correctly.
+**Forces show 0.0**
+- gravity_force needs sentence history (generate more tokens)
+- repulsion_force activates after ramp period
 
-### Forces show 0.0
-- `gravity_force` needs sentence history (generate more tokens)
-- `ghost_force` needs goal embedding or VAD head
-- `repulsion_force` activates after layer 10 when near Black Holes
-
-### GPU memory issues
-Use a smaller quantized model (Q4_K_M recommended).
+**GPU memory issues**
+Use Q4_K_M quantized model.
 
 ---
 
@@ -516,26 +324,14 @@ MIT License - Copyright (c) 2025 Jason Van Pham
 
 ---
 
-## Future Roadmap
-
-| Feature | Status | Description |
-|---------|--------|-------------|
-| **Entropy Thermostat** | 🔜 Planned | Auto-dial blend based on token entropy |
-| **Anti-Loop Sequence Force** | 🔜 Planned | Detect and repel from repeat sequences |
-| **Sampler Integration** | 📝 Docs | Niodoo as pre-conditioner before Top-P/Mirostat |
-| **Multi-Turn Memory** | 🔬 Research | Persistent conversation orbit tracking |
-
----
-
 ## Citation
 
 ```bibtex
 @software{niodoo2025,
-  title={Niodoo: Gravitational Activation Steering for LLMs},
+  title={Niodoo: Inference-Time Activation Steering for LLMs},
   author={Van Pham, Jason},
   year={2025},
-  version={2.0.0},
+  version={3.1.0},
   url={https://github.com/Ruffian-L/Niodoo-Physics-LLM}
 }
 ```
-
