@@ -117,7 +117,7 @@ echo "  orbit_speed: 0.1"
 echo ""
 
 if [ -f "$BINARY" ]; then
-    echo "Running with telemetry (first 10 tokens)..."
+    echo "Running with telemetry (50 tokens)..."
     echo ""
     $BINARY \
         --model-path "$MODEL_PATH" \
@@ -127,8 +127,8 @@ if [ -f "$BINARY" ]; then
         --repulsion-strength=-0.5 \
         --gravity-well 0.2 \
         --orbit-speed 0.1 \
-        --max-steps 10 \
-        --seed 42 2>&1 | grep -E "(COGNITIVE_TRACE|ramp_factor|gravity_force|repulsion_force)" | head -20
+        --max-steps 50 \
+        --seed 42 2>&1 | grep "\[TELEMETRY\]"
 fi
 
 echo ""
