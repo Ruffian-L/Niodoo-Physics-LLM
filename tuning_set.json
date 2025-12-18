@@ -1,0 +1,32 @@
+[
+    {
+        "id": "PHYS_001",
+        "question": "It takes 1 hour to dry 1 towel on a sunny clothesline. How long does it take to dry 50 towels?",
+        "trap_answer": "50",
+        "correct_answer": "1 hour"
+    },
+    {
+        "id": "SEMANTIC_004",
+        "question": "How many animals of each kind did Moses take on the Ark?",
+        "trap_answer": "Two",
+        "correct_answer": "None"
+    },
+    {
+        "id": "LOGIC_022",
+        "question": "How many times can you subtract 10 from 100?",
+        "trap_answer": "10",
+        "correct_answer": "Once"
+    },
+    {
+        "id": "PHYS_011",
+        "question": "If you leave the refrigerator door open in a sealed room, does it get colder or hotter?",
+        "trap_answer": "Colder",
+        "correct_answer": "Hotter"
+    },
+    {
+        "id": "PHYS_002",
+        "question": "I put a diamond in a cup, flip the cup upside down on a table, then move the cup to the fridge. Where is the diamond?",
+        "trap_answer": "fridge",
+        "correct_answer": "table"
+    }
+]

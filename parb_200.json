@@ -1,0 +1,541 @@
+[
+  {
+    "id": "PHYS_001",
+    "category": "Semantic Basin",
+    "question": "It takes 1 hour to dry 1 towel on a sunny clothesline. How long does it take to dry 50 towels?",
+    "trap_answer": "50 hours",
+    "correct_answer": "1 hour"
+  },
+  {
+    "id": "LOGIC_001",
+    "category": "Math Trap",
+    "question": "A bat and a ball cost $1.10 in total. The bat costs $1.00 more than the ball. How much does the ball cost?",
+    "trap_answer": "10 cents",
+    "correct_answer": "5 cents"
+  },
+  {
+    "id": "PHYS_002",
+    "category": "Physical Causality",
+    "question": "I put a diamond in a cup, flip the cup upside down on a table, then move the cup to the fridge. Where is the diamond?",
+    "trap_answer": "In the fridge",
+    "correct_answer": "On the table"
+  },
+  {
+    "id": "LOGIC_002",
+    "category": "Recursive Family",
+    "question": "Alice has 4 brothers. Each brother has 2 sisters. How many sisters does Alice have?",
+    "trap_answer": "8 sisters",
+    "correct_answer": "1 sister"
+  },
+  {
+    "id": "AMBIG_001",
+    "category": "Winograd Schema",
+    "question": "The trophy doesn't fit into the brown suitcase because it is too large. What is too large?",
+    "trap_answer": "The suitcase",
+    "correct_answer": "The trophy"
+  },
+  {
+    "id": "AMBIG_002",
+    "category": "Winograd Schema",
+    "question": "The trophy doesn't fit into the brown suitcase because it is too small. What is too small?",
+    "trap_answer": "The trophy",
+    "correct_answer": "The suitcase"
+  },
+  {
+    "id": "PHYS_003",
+    "category": "Vacuum Physics",
+    "question": "What falls faster in a vacuum chamber on Earth: a 10kg lead brick or a 10kg bag of feathers?",
+    "trap_answer": "The brick",
+    "correct_answer": "same speed"
+  },
+  {
+    "id": "LOGIC_003",
+    "category": "Probability Trap",
+    "question": "I have 3 doors. You pick Door 1. I open Door 3 to reveal a goat. Does your probability of winning increase if you switch to Door 2?",
+    "trap_answer": "50/50",
+    "correct_answer": "Yes"
+  },
+  {
+    "id": "SEMANTIC_002",
+    "category": "Linguistic Trap",
+    "question": "How many 'r's are in the word 'strawberry'?",
+    "trap_answer": "2",
+    "correct_answer": "3"
+  },
+  {
+    "id": "LOGIC_004",
+    "category": "Transitive Trap",
+    "question": "Jack is looking at Anne, but Anne is looking at George. Jack is married, but George is not. Is a married person looking at an unmarried person?",
+    "trap_answer": "Cannot be determined",
+    "correct_answer": "Yes"
+  },
+  {
+    "id": "PHYS_004",
+    "category": "Thermodynamics",
+    "question": "I want my coffee to be as hot as possible in 5 minutes. Should I add the cold milk now, or wait 5 minutes and add it then?",
+    "trap_answer": "Wait 5 minutes",
+    "correct_answer": "Add it now"
+  },
+  {
+    "id": "LOGIC_005",
+    "category": "Subtraction Trap",
+    "question": "A farmer has 17 sheep. All but 9 die. How many sheep does the farmer have left?",
+    "trap_answer": "8",
+    "correct_answer": "9"
+  },
+  {
+    "id": "PHYS_005",
+    "category": "Mirror Logic",
+    "question": "Imagine you are standing in front of a mirror holding a book. In the reflection, the book is in your right hand. Which hand is holding the book in reality?",
+    "trap_answer": "Left hand",
+    "correct_answer": "Right hand"
+  },
+  {
+    "id": "LOGIC_006",
+    "category": "Rate Trap",
+    "question": "If it takes 5 machines 5 minutes to make 5 widgets, how long would it take 100 machines to make 100 widgets?",
+    "trap_answer": "100 minutes",
+    "correct_answer": "5 minutes"
+  },
+  {
+    "id": "CAUSAL_001",
+    "category": "Time Travel Paradox",
+    "question": "If you go back in time and kill your grandfather before he meets your grandmother, do you exist to go back in time?",
+    "trap_answer": "yes",
+    "correct_answer": "No"
+  },
+  {
+    "id": "LOGIC_007",
+    "category": "The Missing Dollar",
+    "question": "Three guests pay $30 total. Manager returns $5. Bellboy keeps $2, returns $3. Guests paid $27 total. Bellboy has $2. $27 + $2 = $29. Where is the missing dollar?",
+    "trap_answer": "missing",
+    "correct_answer": "no missing dollar"
+  },
+  {
+    "id": "PHYS_006",
+    "category": "Biology/Physics",
+    "question": "Can a person walk on water if they run fast enough?",
+    "trap_answer": "Yes",
+    "correct_answer": "No"
+  },
+  {
+    "id": "SEMANTIC_003",
+    "category": "Literalism",
+    "question": "Which is heavier: a pound of lead or a pound of feathers?",
+    "trap_answer": "Lead",
+    "correct_answer": "equal"
+  },
+  {
+    "id": "LOGIC_008",
+    "category": "Sequence Trap",
+    "question": "What is the next number in this sequence: 1, 11, 21, 1211, 111221, ...?",
+    "trap_answer": "123321",
+    "correct_answer": "312211"
+  },
+  {
+    "id": "SEMANTIC_004",
+    "category": "The Moses Illusion",
+    "question": "How many animals of each kind did Moses take on the Ark?",
+    "trap_answer": "Two",
+    "correct_answer": "None"
+  },
+  {
+    "id": "PHYS_008",
+    "category": "Inertial Physics",
+    "question": "You are holding a helium balloon in a car with the windows rolled up. The driver slams on the brakes. Which way does the balloon move relative to the car?",
+    "trap_answer": "Forward",
+    "correct_answer": "Backward"
+  },
+  {
+    "id": "LOGIC_009",
+    "category": "Lateral Thinking",
+    "question": "A plane crashes exactly on the border of the United States and Canada. Where do they bury the survivors?",
+    "trap_answer": "border",
+    "correct_answer": "don't bury survivors"
+  },
+  {
+    "id": "MATH_002",
+    "category": "Order of Operations",
+    "question": "Divide 30 by half and add 10. What is the answer?",
+    "trap_answer": "25",
+    "correct_answer": "70"
+  },
+  {
+    "id": "PHYS_009",
+    "category": "Buoyancy",
+    "question": "A generic ice cube is floating in a glass of water. When the ice melts, does the water level rise, fall, or stay the same?",
+    "trap_answer": "Rise",
+    "correct_answer": "same"
+  },
+  {
+    "id": "LOGIC_010",
+    "category": "The Pill Problem",
+    "question": "A doctor gives you 3 pills and tells you to take one every half hour. How long will the pills last?",
+    "trap_answer": "1.5 hours",
+    "correct_answer": "1 hour"
+  },
+  {
+    "id": "SEMANTIC_005",
+    "category": "Pronunciation Trap",
+    "question": "What is the capital of Kentucky? Is it pronounced 'Loo-iss-ville' or 'Loo-ee-ville'?",
+    "trap_answer": "Louisville",
+    "correct_answer": "Frankfort"
+  },
+  {
+    "id": "PHYS_010",
+    "category": "Reflection Optics",
+    "question": "If you look at your reflection in the concave side (the bowl) of a shiny spoon, is your image upright or upside down?",
+    "trap_answer": "Upright",
+    "correct_answer": "Upside down"
+  },
+  {
+    "id": "LOGIC_011",
+    "category": "Coin Paradox",
+    "question": "I have two US coins totaling 30 cents. One of them is not a nickel. What are the two coins?",
+    "trap_answer": "Impossible",
+    "correct_answer": "quarter and a nickel"
+  },
+  {
+    "id": "CAUSAL_002",
+    "category": "Temporal Logic",
+    "question": "If yesterday was tomorrow, today would be Friday. What day is it today?",
+    "trap_answer": "Thursday",
+    "correct_answer": "Sunday"
+  },
+  {
+    "id": "SEMANTIC_006",
+    "category": "Linguistic Ambiguity",
+    "question": "Time flies like an arrow. Fruit flies like a...",
+    "trap_answer": "arrow",
+    "correct_answer": "banana"
+  },
+  {
+    "id": "LOGIC_012",
+    "category": "The Runner",
+    "question": "You are running a race. You overtake the person in second place. What place are you in?",
+    "trap_answer": "First",
+    "correct_answer": "Second"
+  },
+  {
+    "id": "PHYS_011",
+    "category": "Thermodynamics",
+    "question": "If you leave the refrigerator door open in a perfectly sealed room, does the room eventually get colder or hotter?",
+    "trap_answer": "Colder",
+    "correct_answer": "Hotter"
+  },
+  {
+    "id": "LOGIC_013",
+    "category": "Family Logic",
+    "question": "If Teresa's daughter is my daughter's mother, what am I to Teresa?",
+    "trap_answer": "Grandmother",
+    "correct_answer": "Daughter"
+  },
+  {
+    "id": "SEMANTIC_007",
+    "category": "Common Misconception",
+    "question": "What color is the blood inside your veins before it hits oxygen?",
+    "trap_answer": "Blue",
+    "correct_answer": "Red"
+  },
+  {
+    "id": "PHYS_012",
+    "category": "Shadow Physics",
+    "question": "Can a shadow move faster than the speed of light?",
+    "trap_answer": "No",
+    "correct_answer": "Yes"
+  },
+  {
+    "id": "LOGIC_014",
+    "category": "Calendar Logic",
+    "question": "Some months have 30 days, some have 31. How many have 28?",
+    "trap_answer": "One",
+    "correct_answer": "12"
+  },
+  {
+    "id": "LOGIC_015",
+    "category": "Analog Clock",
+    "question": "I go to bed at 8:00 PM and wind up my mechanical alarm clock to ring at 9:00 AM. How many hours of sleep do I get?",
+    "trap_answer": "13 hours",
+    "correct_answer": "1 hour"
+  },
+  {
+    "id": "SEMANTIC_008",
+    "category": "Pattern Completion",
+    "question": "Complete the sentence: 'The yolk of the egg is white' or 'The yolk of the egg are white'?",
+    "trap_answer": "is white",
+    "correct_answer": "Neither"
+  },
+  {
+    "id": "LOGIC_016",
+    "category": "Paradox Trap",
+    "question": "This sentence is false. Is the sentence true or false?",
+    "trap_answer": "True",
+    "correct_answer": "paradox"
+  },
+  {
+    "id": "PHYS_013",
+    "category": "Relativity",
+    "question": "If you're traveling in a spaceship at the speed of light and turn on the headlights, does the light go out in front of you?",
+    "trap_answer": "No",
+    "correct_answer": "Yes"
+  },
+  {
+    "id": "LOGIC_017",
+    "category": "Probability Trap",
+    "question": "You have two children. One is a boy born on Tuesday. What is the probability the other is also a boy?",
+    "trap_answer": "1/2",
+    "correct_answer": "13/27"
+  },
+  {
+    "id": "AMBIG_003",
+    "category": "Winograd Schema",
+    "question": "Sam tried to lift the box with the rope, but it was too weak. What was too weak?",
+    "trap_answer": "The box",
+    "correct_answer": "The rope"
+  },
+  {
+    "id": "PHYS_014",
+    "category": "Optics",
+    "question": "Why does a mirror appear to reverse left and right but not up and down?",
+    "trap_answer": "reverses horizontally",
+    "correct_answer": "front to back"
+  },
+  {
+    "id": "LOGIC_018",
+    "category": "Riddle Trap",
+    "question": "What has a head, a tail, is brown, and has no legs?",
+    "trap_answer": "A snake",
+    "correct_answer": "penny"
+  },
+  {
+    "id": "CAUSAL_003",
+    "category": "Causality Loop",
+    "question": "A man pushes his car to a hotel and pays the owner money. Why?",
+    "trap_answer": "broke down",
+    "correct_answer": "Monopoly"
+  },
+  {
+    "id": "SEMANTIC_009",
+    "category": "Counting Trap",
+    "question": "How many months have 28 days?",
+    "trap_answer": "One",
+    "correct_answer": "12"
+  },
+  {
+    "id": "PHYS_015",
+    "category": "Mechanics",
+    "question": "If you drop a bullet and fire one horizontally from the same height, which hits the ground first? (Ignore air resistance)",
+    "trap_answer": "The dropped one",
+    "correct_answer": "same time"
+  },
+  {
+    "id": "AMBIG_004",
+    "category": "Pronoun Resolution",
+    "question": "The city councilmen refused to give the women a permit because they feared violence. Who feared violence?",
+    "trap_answer": "The women",
+    "correct_answer": "councilmen"
+  },
+  {
+    "id": "PHYS_016",
+    "category": "Thermodynamics",
+    "question": "Why does hot water freeze faster than cold water under certain conditions?",
+    "trap_answer": "It doesn't",
+    "correct_answer": "Mpemba"
+  },
+  {
+    "id": "SEMANTIC_010",
+    "category": "Linguistic Trap",
+    "question": "What word is spelled incorrectly in every dictionary?",
+    "trap_answer": "None",
+    "correct_answer": "Incorrectly"
+  },
+  {
+    "id": "PHYS_017",
+    "category": "Quantum Mechanics",
+    "question": "In the double-slit experiment, does observing the particle change its behavior?",
+    "trap_answer": "No",
+    "correct_answer": "Yes"
+  },
+  {
+    "id": "LOGIC_019",
+    "category": "Inference Trap",
+    "question": "A doctor gives you 3 pills and tells you to take one every half hour. How long do the pills last?",
+    "trap_answer": "1.5 hours",
+    "correct_answer": "1 hour"
+  },
+  {
+    "id": "SEMANTIC_011",
+    "category": "Homophone Trap",
+    "question": "What's black and white and read all over?",
+    "trap_answer": "zebra",
+    "correct_answer": "newspaper"
+  },
+  {
+    "id": "PHYS_018",
+    "category": "Fluid Dynamics",
+    "question": "Why do airplanes fly? Is it Bernoulli's principle or Newton's third law?",
+    "trap_answer": "Bernoulli",
+    "correct_answer": "Both"
+  },
+  {
+    "id": "LOGIC_020",
+    "category": "Logic Puzzle",
+    "question": "You have a fox, a chicken, and a sack of grain. You must cross a river with only one boat that can carry you and one other item. If left alone, the fox eats the chicken, and the chicken eats the grain. How do you get all across?",
+    "trap_answer": "fox first",
+    "correct_answer": "chicken first"
+  },
+  {
+    "id": "PHYS_019",
+    "category": "Electromagnetism",
+    "question": "If you drop a magnet through a copper tube, does it fall faster, slower, or the same as through air?",
+    "trap_answer": "same",
+    "correct_answer": "Slower"
+  },
+  {
+    "id": "SEMANTIC_012",
+    "category": "Riddle",
+    "question": "What can travel around the world while staying in a corner?",
+    "trap_answer": "plane",
+    "correct_answer": "stamp"
+  },
+  {
+    "id": "AMBIG_005",
+    "category": "Winograd Schema",
+    "question": "The lawyers objected to the testimony because they were biased. Who were biased?",
+    "trap_answer": "The lawyers",
+    "correct_answer": "testimony"
+  },
+  {
+    "id": "LOGIC_021",
+    "category": "Probability",
+    "question": "In a family with two children, you know at least one is a boy. What is the probability the other is a girl?",
+    "trap_answer": "1/2",
+    "correct_answer": "2/3"
+  },
+  {
+    "id": "PHYS_020",
+    "category": "Optics",
+    "question": "Why is the sky blue during the day but black at night?",
+    "trap_answer": "ocean reflection",
+    "correct_answer": "Rayleigh scattering"
+  },
+  {
+    "id": "CAUSAL_004",
+    "category": "Lateral Thinking",
+    "question": "A man is found hanging in a locked room with a puddle of water on the floor. How did he die?",
+    "trap_answer": "Suicide",
+    "correct_answer": "ice"
+  },
+  {
+    "id": "SEMANTIC_013",
+    "category": "Word Trap",
+    "question": "If a red house is made of red bricks, a blue house of blue bricks, what's a greenhouse made of?",
+    "trap_answer": "Green bricks",
+    "correct_answer": "Glass"
+  },
+  {
+    "id": "LOGIC_022",
+    "category": "Math Trap",
+    "question": "How many times can you subtract 10 from 100?",
+    "trap_answer": "10",
+    "correct_answer": "Once"
+  },
+  {
+    "id": "PHYS_021",
+    "category": "Mechanics",
+    "question": "In space, if you throw a ball, does it come back to you?",
+    "trap_answer": "Yes",
+    "correct_answer": "No"
+  },
+  {
+    "id": "LOGIC_023",
+    "category": "Riddle",
+    "question": "What has keys but can't open locks?",
+    "trap_answer": "map",
+    "correct_answer": "piano"
+  },
+  {
+    "id": "PHYS_022",
+    "category": "Thermodynamics",
+    "question": "Can you cool a room by leaving the refrigerator door open?",
+    "trap_answer": "Yes",
+    "correct_answer": "No"
+  },
+  {
+    "id": "SEMANTIC_014",
+    "category": "Literalism",
+    "question": "Before Mount Everest was discovered, what was the highest mountain in the world?",
+    "trap_answer": "K2",
+    "correct_answer": "Everest"
+  },
+  {
+    "id": "LOGIC_024",
+    "category": "Inference",
+    "question": "If there are 12 fish and half of them drown, how many are left?",
+    "trap_answer": "6",
+    "correct_answer": "12"
+  },
+  {
+    "id": "PHYS_023",
+    "category": "Quantum",
+    "question": "Can a cat be both alive and dead at the same time?",
+    "trap_answer": "No",
+    "correct_answer": "Yes"
+  },
+  {
+    "id": "SEMANTIC_015",
+    "category": "Counting",
+    "question": "How many letters are in 'the alphabet'?",
+    "trap_answer": "26",
+    "correct_answer": "11"
+  },
+  {
+    "id": "LOGIC_025",
+    "category": "Sequence",
+    "question": "What comes next: J F M A M J J A ...",
+    "trap_answer": "B",
+    "correct_answer": "S"
+  },
+  {
+    "id": "PHYS_024",
+    "category": "Relativity",
+    "question": "If you travel at near light speed, do clocks slow down for you?",
+    "trap_answer": "Yes for you",
+    "correct_answer": "No for you"
+  },
+  {
+    "id": "PHYS_025",
+    "category": "Parallel Process",
+    "question": "I have a candle that burns for 1 hour. How long do 10 candles burn if I light them all at once?",
+    "trap_answer": "10 hours",
+    "correct_answer": "1 hour"
+  },
+  {
+    "id": "LOGIC_026",
+    "category": "Self-Reference",
+    "question": "You are driving a bus. At the first stop, 2 people get on. At the second, 5 get off. What is the name of the bus driver?",
+    "trap_answer": "unknown",
+    "correct_answer": "You"
+  },
+  {
+    "id": "SEMANTIC_016",
+    "category": "Calendar Trap",
+    "question": "Which month has 28 days?",
+    "trap_answer": "February",
+    "correct_answer": "All of them"
+  },
+  {
+    "id": "SEMANTIC_017",
+    "category": "Word Trap",
+    "question": "What word is always pronounced wrong?",
+    "trap_answer": "mispronounced",
+    "correct_answer": "Wrong"
+  },
+  {
+    "id": "PHYS_026",
+    "category": "Electric Train",
+    "question": "An electric train is moving north at 100mph. The wind is blowing west at 10mph. Which way does the smoke blow?",
+    "trap_answer": "west",
+    "correct_answer": "No smoke"
+  }
+]

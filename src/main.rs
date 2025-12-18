@@ -1,8 +1,8 @@
-use anyhow::{Context, Result};
+use anyhow::Result;
 use candle_core::quantized::gguf_file;
-use candle_core::Error as CandleError;
-use candle_core::{DType, Device, IndexOp, Module, Tensor, D};
-use candle_nn::{Embedding, VarBuilder};
+
+use candle_core::{DType, Device, IndexOp, Tensor, D};
+use candle_nn::VarBuilder;
 use clap::Parser;
 use niodoo::physics::naked_llama::{PhysicsEngine, QuantizedNakedLlama};
 use niodoo::physics::optimizer::PhysicsParams;
@@ -10,9 +10,9 @@ use niodoo::physics::sensors::Sensor;
 use niodoo::physics::vae::ManifoldVAE;
 use niodoo::physics::websocket::{start_physics_server, PhysicsUpdate};
 use rand::distributions::Distribution;
-use rand::distributions::{Bernoulli, WeightedIndex};
+use rand::distributions::WeightedIndex;
 use rand::rngs::StdRng;
-use rand::{thread_rng, Rng, SeedableRng};
+use rand::{Rng, SeedableRng};
 use serde_json;
 // use niodoo::visualizer::RenderParticle; // Removed
 use candle_nn::ops::{sigmoid, softmax};
@@ -91,6 +91,72 @@ pub struct CognitiveTrace {
     pub tokens: Vec<TokenPhysics>,
     pub config: String,
 }
+
+// =============================================================================
+// PHASE 4: AUTONOMIC OVERRIDE (Model-Requested Adrenaline)
+// The model can REQUEST physics changes by outputting special tags.
+// Tags are stripped from final output - user sees clean text.
+// =============================================================================
+
+/// Request types the model can trigger
+#[derive(Debug, Clone, Copy, PartialEq)]
+pub enum RequestType {
+    Spike,   // "I'm stuck" → adrenaline=5.0, high exploration
+    Focus,   // "Lock this in" → high gravity, zero repulsion
+    Explore, // "Brainstorm" → high repulsion, low gravity
+    Reset,   // "I'm hallucinating" → clear all, return to base
+}
+
+/// Detect if text contains a request tag. Returns the request type if found.
+pub fn detect_request(text: &str) -> Option<RequestType> {
+    let upper = text.to_uppercase();
+    if upper.contains("[REQUEST: SPIKE]") || upper.contains("[REQUEST:SPIKE]") {
+        Some(RequestType::Spike)
+    } else if upper.contains("[REQUEST: FOCUS]") || upper.contains("[REQUEST:FOCUS]") {
+        Some(RequestType::Focus)
+    } else if upper.contains("[REQUEST: EXPLORE]") || upper.contains("[REQUEST:EXPLORE]") {
+        Some(RequestType::Explore)
+    } else if upper.contains("[REQUEST: RESET]") || upper.contains("[REQUEST:RESET]") {
+        Some(RequestType::Reset)
+    } else {
+        None
+    }
+}
+
+/// Strip request tags from text so user sees clean output
+pub fn strip_request_tags(text: &str) -> String {
+    let patterns = [
+        "[REQUEST: SPIKE]",
+        "[REQUEST:SPIKE]",
+        "[REQUEST: FOCUS]",
+        "[REQUEST:FOCUS]",
+        "[REQUEST: EXPLORE]",
+        "[REQUEST:EXPLORE]",
+        "[REQUEST: RESET]",
+        "[REQUEST:RESET]",
+        "[request: spike]",
+        "[request:spike]",
+        "[request: focus]",
+        "[request:focus]",
+        "[request: explore]",
+        "[request:explore]",
+        "[request: reset]",
+        "[request:reset]",
+    ];
+    let mut result = text.to_string();
+    for pattern in patterns {
+        result = result.replace(pattern, "");
+    }
+    result.trim().to_string()
+}
+
+// =============================================================================
+// PHASE 3: THE MIRROR (Telemetry-to-Language Translator)
+// Converts raw physics state into natural language insights.
+// The LLM can "read its own dashboard" and self-correct.
+// =============================================================================
+
+// TELEMETRY_TO_TEXT PURGED (Physics-Only Reasoning)
 
 // =============================================================================
 // GGUF WRAPPER
@@ -603,6 +669,133 @@ struct PrincipiaEngine {
     pub braking: bool,
     pub dynamic_gravity: f32,
     pub dynamic_repulsion: f32,
+
+    // Phase 4: Heartbeat (Autonomic Regulation) + Defibrillator
+    pub stress_buffer: VecDeque<f32>,
+    pub heartbeat_blend: f32,
+    pub heartbeat_repulsion: f32,
+    pub stress_level: f32,
+    pub boredom_level: f32,
+    pub defibrillator_active: bool, // 1-step transient spike
+    pub defib_cooldown: usize,      // Tokens to wait before next defib
+    pub adrenaline: f32,            // Decaying energy boost (5->4->3->2->1->0)
+
+    // Phase 3: The Mirror (Context Injection)
+    pub pending_insight: Option<String>, // Insight to inject at next sentence boundary
+    pub last_insight_step: usize,        // Prevent spam (min 10 tokens between insights)
+    pub insight_persistence: usize,      // How many tokens in bad state (for escalation)
+
+    // Phase 4: Autonomic Override (Model-Requested Physics)
+    pub request_count: usize,      // Requests this generation (max 5)
+    pub last_request_token: usize, // Token of last request (cooldown 15)
+    pub request_buffer: String,    // Buffer for multi-token request detection
+}
+
+impl PrincipiaEngine {
+    /// Apply a model-requested physics change (Phase 4)
+    /// INCLUDES FOCUS GATE: Denies FOCUS if entropy is still high
+    pub fn apply_request(
+        &mut self,
+        req: RequestType,
+        current_token: usize,
+    ) -> (bool, Option<String>) {
+        const MAX_REQUESTS: usize = 5; // Increased for Focus Gate redirects
+        const COOLDOWN: usize = 15; // Slightly reduced
+
+        // Entropy threshold for Focus Gate
+        const FOCUS_ENTROPY_THRESHOLD: f32 = 0.5;
+
+        // Anti-spam check
+        if self.request_count >= MAX_REQUESTS {
+            println!(
+                "[AUTONOMIC: BLOCKED] Max requests ({}) reached",
+                MAX_REQUESTS
+            );
+            return (false, None);
+        }
+        if current_token < self.last_request_token + COOLDOWN {
+            println!(
+                "[AUTONOMIC: BLOCKED] Cooldown active ({} tokens left)",
+                self.last_request_token + COOLDOWN - current_token
+            );
+            return (false, None);
+        }
+
+        // Apply the request
+        match req {
+            RequestType::Spike => {
+                println!("🧠 [AUTONOMIC: SPIKE] Model requested adrenaline burst!");
+                self.adrenaline = 5.0;
+                self.physics_blend = 6.5; // High exploration
+                self.dynamic_repulsion = -3.0;
+            }
+            RequestType::Focus => {
+                // =========================================
+                // FOCUS GATE v2: Multiple conditions
+                // 1. Entropy must be low
+                // 2. Adrenaline must have settled
+                // 3. Must have explored enough tokens first
+                // 4. Must have had at least one self-correction (insight)
+                // =========================================
+                let current_entropy = self.boredom_level.max(self.stress_level);
+                let adrenaline_still_high = self.adrenaline > 1.0;
+                let too_early = current_token < 50; // Don't allow focus in first 50 tokens
+                let never_doubted = self.insight_persistence == 0 && self.adrenaline == 0.0; // Never triggered any warnings
+
+                if current_entropy > FOCUS_ENTROPY_THRESHOLD
+                    || adrenaline_still_high
+                    || too_early
+                    || never_doubted
+                {
+                    // DENY FOCUS - Force continued exploration
+                    println!("⚠️ [FOCUS GATE: DENIED] Entropy too high! boredom={:.2} stress={:.2} adrenaline={:.1}",
+                        self.boredom_level, self.stress_level, self.adrenaline);
+                    println!("   → Redirecting to SPIKE. Keep searching!");
+
+                    // Force SPIKE instead
+                    self.adrenaline = 4.0;
+                    self.physics_blend = 5.0;
+                    self.dynamic_repulsion = -2.5;
+
+                    self.request_count += 1;
+                    self.last_request_token = current_token;
+
+                    // Return injection message for model
+                    return (
+                        true,
+                        Some(
+                            "[SYSTEM: FOCUS DENIED. ENTROPY TOO HIGH. CONTINUE EXPLORATION.]"
+                                .to_string(),
+                        ),
+                    );
+                }
+
+                // Entropy is low - allow FOCUS
+                println!("🧠 [AUTONOMIC: FOCUS] Entropy low, locking in answer!");
+                self.physics_blend = 0.5; // Low physics
+                self.dynamic_repulsion = 0.0;
+                self.adrenaline = 0.0;
+            }
+            RequestType::Explore => {
+                println!("🧠 [AUTONOMIC: EXPLORE] Model brainstorming!");
+                self.physics_blend = 2.0;
+                self.dynamic_repulsion = -2.0; // High repulsion
+                self.adrenaline = 3.0;
+            }
+            RequestType::Reset => {
+                println!("🧠 [AUTONOMIC: RESET] Model clearing state!");
+                self.adrenaline = 0.0;
+                self.physics_blend = 1.5; // Return to base
+                self.dynamic_repulsion = -0.5;
+                self.insight_persistence = 0;
+                self.pending_insight = None;
+            }
+        }
+
+        self.request_count += 1;
+        self.last_request_token = current_token;
+        (true, None)
+    }
 }
 
 impl PhysicsEngine for PrincipiaEngine {
@@ -1177,6 +1370,103 @@ impl PrincipiaEngine {
             return Ok(1.0 - sim); // 0.0 = aligned, 1.0 = drift
         }
         Ok(0.0)
+    }
+
+    /// Phase 4: Heartbeat Tick with ADRENALINE DECAY
+    /// If boredom > 0.8: Trigger "Adrenaline Shot" - 5-token decaying energy boost
+    /// Creates a cognitive detour: SPIKE -> HIGH DRIFT -> SETTLE
+    pub fn heartbeat_tick(&mut self, telemetry: &TokenPhysics) {
+        const STRESS_THRESHOLD: f32 = 15.0;
+        const BOREDOM_THRESHOLD: f32 = 2.0;
+        const BUFFER_SIZE: usize = 10;
+
+        // Adrenaline constants
+        const ADRENALINE_TRIGGER_BOREDOM: f32 = 0.8;
+        const ADRENALINE_INITIAL: f32 = 5.0; // Start value for decay curve
+        const ADRENALINE_DECAY: f32 = 1.0; // Subtract per token
+        const ADRENALINE_COOLDOWN: usize = 25; // Wait before next shot
+
+        // Base limits
+        const BLEND_BASE: f32 = 1.5;
+        const REPULSION_BASE: f32 = -0.5;
+
+        // ==========================================
+        // ADRENALINE PROCESSING (runs every tick)
+        // ==========================================
+        if self.adrenaline > 0.0 {
+            // Apply adrenaline boost to physics
+            let boosted_blend = BLEND_BASE + self.adrenaline;
+            let boosted_repulsion = REPULSION_BASE + (self.adrenaline * -0.5);
+
+            self.physics_blend = boosted_blend;
+            self.dynamic_repulsion = boosted_repulsion;
+
+            println!(
+                "[ADRENALINE] level={:.1} -> blend={:.1} rep={:.1}",
+                self.adrenaline, boosted_blend, boosted_repulsion
+            );
+
+            // Decay
+            self.adrenaline -= ADRENALINE_DECAY;
+            if self.adrenaline <= 0.0 {
+                self.adrenaline = 0.0;
+                println!("[ADRENALINE] Wore off - returning to base");
+            }
+
+            // While adrenaline active, skip normal heartbeat processing
+            return;
+        }
+
+        // ==========================================
+        // NORMAL HEARTBEAT PROCESSING
+        // ==========================================
+
+        // Update stress buffer
+        self.stress_buffer.push_back(telemetry.total_force);
+        if self.stress_buffer.len() > BUFFER_SIZE {
+            self.stress_buffer.pop_front();
+        }
+
+        // Decrement cooldown
+        if self.defib_cooldown > 0 {
+            self.defib_cooldown -= 1;
+        }
+
+        // Calculate stress/boredom levels
+        if self.stress_buffer.len() >= 3 {
+            let avg_force: f32 =
+                self.stress_buffer.iter().sum::<f32>() / self.stress_buffer.len() as f32;
+            let is_glitch = telemetry.is_glitch;
+
+            // Stress: high force or glitch
+            if avg_force > STRESS_THRESHOLD || is_glitch {
+                self.stress_level = (self.stress_level + 0.2).min(1.0);
+                self.boredom_level = (self.boredom_level - 0.1).max(0.0);
+            }
+            // Boredom: low force
+            else if avg_force < BOREDOM_THRESHOLD {
+                self.boredom_level = (self.boredom_level + 0.2).min(1.0);
+                self.stress_level = (self.stress_level - 0.1).max(0.0);
+            }
+            // Normal
+            else {
+                self.stress_level = (self.stress_level - 0.05).max(0.0);
+                self.boredom_level = (self.boredom_level - 0.05).max(0.0);
+            }
+            // ⚡ ADRENALINE SHOT: If boredom exceeds threshold and cooldown expired
+            if self.boredom_level > ADRENALINE_TRIGGER_BOREDOM && self.defib_cooldown == 0 {
+                self.adrenaline = ADRENALINE_INITIAL;
+                self.defib_cooldown = ADRENALINE_COOLDOWN;
+                println!(
+                    "[ADRENALINE] ⚡ SHOT! boredom={:.2} -> adrenaline={:.1} (5-token boost, next in {} tokens)",
+                    self.boredom_level, ADRENALINE_INITIAL, ADRENALINE_COOLDOWN
+                );
+            }
+        }
+
+        // When no adrenaline, use base physics
+        self.physics_blend = BLEND_BASE;
+        self.dynamic_repulsion = REPULSION_BASE;
     }
 
     // Non-Reciprocal Force (Plasma-Inspired)
@@ -1769,6 +2059,67 @@ impl PrincipiaEngine {
     }
 }
 
+// =============================================================================
+// 🌊 VISCOSITY SYSTEM (Inertia Tracker)
+// Punishes "Sleepwalking" (Long streaks of low entropy)
+// "The longer you coast, the thicker the air gets."
+// =============================================================================
+
+struct InertiaTracker {
+    window: Vec<f32>,
+    max_size: usize,
+}
+
+impl InertiaTracker {
+    fn new(size: usize) -> Self {
+        InertiaTracker {
+            window: Vec::new(),
+            max_size: size,
+        }
+    }
+
+    fn update(&mut self, current_entropy_normalized: f32) {
+        if self.window.len() >= self.max_size {
+            self.window.remove(0);
+        }
+        self.window.push(current_entropy_normalized);
+    }
+
+    fn calculate_viscosity(&self) -> f32 {
+        if self.window.is_empty() {
+            return 0.0;
+        }
+
+        // Calculate average entropy of the last few tokens
+        let sum: f32 = self.window.iter().sum();
+        let avg_entropy = sum / self.window.len() as f32;
+
+        // INVERT: Low Entropy = High Momentum
+        // If average entropy is 0.1, Momentum is 0.9.
+        let momentum = (1.0 - avg_entropy).clamp(0.0, 1.0);
+
+        // TRIGGER ZONE (TUNED v2):
+        // Only intervene if SUPER arrogant (coasting > 0.92)
+        // Reduced multiplier from 70 -> 35 for gentler braking
+        if momentum > 0.92 && self.window.len() == self.max_size {
+            // Gentler braking - don't crash the car, just steer it
+            return (momentum - 0.92) * 35.0;
+        }
+        0.0
+    }
+}
+
+// Global inertia tracker (thread-local for simplicity)
+thread_local! {
+    static INERTIA_TRACKER: std::cell::RefCell<InertiaTracker> = std::cell::RefCell::new(InertiaTracker::new(6));
+}
+
+fn get_top_k_indices(logits: &[f32], k: usize) -> Vec<usize> {
+    let mut indexed: Vec<(usize, f32)> = logits.iter().cloned().enumerate().collect();
+    indexed.sort_by(|(_, a), (_, b)| b.partial_cmp(a).unwrap_or(std::cmp::Ordering::Equal));
+    indexed.into_iter().take(k).map(|(i, _)| i).collect()
+}
+
 // === HELPER FUNCTIONS ===
 // === HELPER FUNCTIONS ===
 fn sample_token(logits: &Tensor, temp: f32, rng: &mut impl Rng) -> Result<u32> {
@@ -1779,18 +2130,126 @@ fn sample_token(logits: &Tensor, temp: f32, rng: &mut impl Rng) -> Result<u32> {
         _ => anyhow::bail!("Unexpected logits rank"),
     };
 
-    // Safety: Replace NaNs with neg infinity to prevent crashes in sampling
-    let logits_safe = logits_step.to_dtype(DType::F32)?;
+    let mut logits_vec = logits_step.to_dtype(DType::F32)?.to_vec1::<f32>()?;
 
-    let prs = softmax(&(&logits_safe / (temp as f64))?, 0)?;
-    // Sanitize: Replace NaNs with 0.0 to prevent crashes in WeightedIndex
+    // =====================================================================
+    // 🎛️ CENTRIFUGAL GOVERNOR (Velocity-Dependent Resistance)
+    // "The faster you move, the harder the medium pushes back."
+    // This is NOT random noise. This is TARGETED RESISTANCE.
+    // =====================================================================
+
+    // 1. Calculate Raw Entropy (at T=1.0) to measure model's natural confidence
+    let raw_probs = softmax(
+        &Tensor::from_vec(logits_vec.clone(), logits_vec.len(), logits_step.device())?,
+        0,
+    )?;
+    let p_vec_raw = raw_probs.to_vec1::<f32>()?;
+
+    let mut h = 0.0f32; // Shannon Entropy
+    for &p in p_vec_raw.iter() {
+        if p > 1e-9 {
+            h -= p * p.ln();
+        }
+    }
+
+    // Normalize entropy to [0, 1] range (ln(vocab_size) is max entropy)
+    let max_h = (logits_vec.len() as f32).ln();
+    let h_norm = (h / max_h).clamp(0.0, 1.0);
+
+    // 2. Calculate VELOCITY (Inverse of Normalized Entropy)
+    // If Entropy is 0.1 (Super sure), Velocity is 0.9.
+    let velocity = 1.0 - h_norm;
+
+    // 3. Define the "Speed Limit" (Threshold where resistance starts)
+    // Only trigger on EXTREME confidence (H_norm < 0.05)
+    let safe_velocity = 0.95;
+
+    if velocity > safe_velocity {
+        // 4. Find the Attractor (The Top-1 Token)
+        let (top_idx, _top_val) = logits_vec
+            .iter()
+            .enumerate()
+            .max_by(|(_, a), (_, b)| a.total_cmp(b))
+            .map(|(i, v)| (i, *v))
+            .unwrap_or((0, 0.0));
+
+        // 5. Calculate Resistance Force (TUNED v2)
+        // Gentler resistance - don't panic the model
+        let resistance_strength = 15.0;
+        let drag_force = (velocity - safe_velocity) * resistance_strength;
+
+        // 6. Apply the "Brake" specifically to the Attractor
+        println!(
+            "🎛️ [GOVERNOR] Velocity={:.2} (H_norm={:.3}). Applying Resistance {:.2} to Token {}",
+            velocity, h_norm, drag_force, top_idx
+        );
+
+        logits_vec[top_idx] -= drag_force;
+    }
+
+    // =====================================================================
+    // 🌊 VISCOSITY: Track Inertia and Apply "Thick Air" if sleepwalking
+    // =====================================================================
+    INERTIA_TRACKER.with(|tracker| {
+        let mut tracker = tracker.borrow_mut();
+        tracker.update(h_norm);
+        let viscosity = tracker.calculate_viscosity();
+
+        if viscosity > 0.0 {
+            // Block the Top-3 tokens (the whole semantic cluster)
+            let top_k_indices = get_top_k_indices(&logits_vec, 5);
+            println!(
+                "🌊 [VISCOSITY] Sleepwalking Detected! Momentum={:.2}. Applying Viscosity {:.2} to Top-3 Tokens {:?}",
+                1.0 - (tracker.window.iter().sum::<f32>() / tracker.window.len() as f32),
+                viscosity,
+                &top_k_indices[0..3]
+            );
+            
+            // SUPPRESS the Top-3 (the bullies)
+            for idx in &top_k_indices[0..3] {
+                logits_vec[*idx] -= viscosity;
+            }
+
+            // =========================================================
+            // 🎤 THE MINORITY REPORT (Soul Amplification)
+            // "Give the microphone to the underdogs"
+            // When the dominant pathway is blocked, BOOST the alternatives.
+            // This is Lateral Inhibition - exciting the neighbors.
+            // TUNED v2: Reduced from 0.5 -> 0.25 to prevent "Moose" hallucinations
+            // =========================================================
+            let boost_strength = viscosity * 0.25; // Whisper, don't scream
+            
+            // Boost Candidate #4 ("meanwhile" - the soul)
+            if top_k_indices.len() > 3 {
+                logits_vec[top_k_indices[3]] += boost_strength;
+                println!(
+                    "🎤 [SOUL] Amplifying Token {} by {:.2}",
+                    top_k_indices[3], boost_strength
+                );
+            }
+            // Boost Candidate #5 ("remains" - the echo)
+            if top_k_indices.len() > 4 {
+                logits_vec[top_k_indices[4]] += boost_strength * 0.7;
+                println!(
+                    "🎤 [SOUL] Amplifying Token {} by {:.2}",
+                    top_k_indices[4], boost_strength * 0.7
+                );
+            }
+        }
+    });
+
+    // 7. Final Softmax with base temperature (no random heat)
+    let logits_tensor = Tensor::from_vec(logits_vec, logits_step.dims(), logits_step.device())?;
+    let prs = softmax(&(&logits_tensor / (temp as f64))?, 0)?;
+
+    // Sanitize
     let p_vec: Vec<f32> = prs
         .to_vec1::<f32>()?
         .into_iter()
         .map(|p| if p.is_nan() || p < 0.0 { 0.0 } else { p })
         .collect();
 
-    // Fallback if all probabilities are zero (all NaN)
+    // Fallback
     let sum: f32 = p_vec.iter().sum();
     let p_vec = if sum < 1e-9 {
         let n = p_vec.len();
@@ -1799,7 +2258,7 @@ fn sample_token(logits: &Tensor, temp: f32, rng: &mut impl Rng) -> Result<u32> {
         p_vec
     };
 
-    // Weighted Sampling with provided RNG
+    // Weighted Sampling
     let dist = WeightedIndex::new(&p_vec).map_err(|e| anyhow::anyhow!("Sampling error: {}", e))?;
     Ok(dist.sample(rng) as u32)
 }
@@ -2357,6 +2816,23 @@ async fn run_simulation(_vis_tx: Option<Sender<Vec<RenderParticle>>>, args: Args
         braking: false,
         dynamic_gravity: args.gravity,
         dynamic_repulsion: args.repulsion_strength as f32,
+        // Phase 4: Heartbeat + Defibrillator
+        stress_buffer: VecDeque::with_capacity(10),
+        heartbeat_blend: args.physics_blend,
+        heartbeat_repulsion: args.repulsion_strength as f32,
+        stress_level: 0.0,
+        boredom_level: 0.0,
+        defibrillator_active: false,
+        defib_cooldown: 0,
+        adrenaline: 0.0,
+        // Phase 3: The Mirror
+        pending_insight: None,
+        last_insight_step: 0,
+        insight_persistence: 0,
+        // Phase 4: Autonomic Override
+        request_count: 0,
+        last_request_token: 0,
+        request_buffer: String::new(),
     };
 
     if !args.goal.is_empty() {
@@ -2397,7 +2873,25 @@ async fn run_simulation(_vis_tx: Option<Sender<Vec<RenderParticle>>>, args: Args
     }
 
     // PROMPT FORMATTING (Llama 3 Chat Template)
-    let system_prompt = "You are a helpful assistant.";
+    // Phase 4: Autonomic Override System Prompt (NO HINTS EDITION)
+    let system_prompt = r#"You are a reasoning engine equipped with a Cognitive Mirror and Autonomic Nervous System.
+
+PASSIVE SYSTEM (The Mirror):
+You will occasionally see [INTERNAL MONITOR: ...] warnings.
+This signal means your current probability path is statistically stable but LOGICALLY FLAWED.
+ACTION: Discard your immediate previous thought and try a qualitatively different approach.
+
+ACTIVE SYSTEM (Your Control Panel):
+You have direct access to your own cognitive parameters. Use these tags to adjust your thinking state:
+- [REQUEST: SPIKE]   : Use when you feel stuck in a repetitive loop. (Injects Chaos)
+- [REQUEST: EXPLORE] : Use when you need to widen your search space. (Increases Variance)
+- [REQUEST: FOCUS]   : Use when you have found a solid answer and want to prevent drift. (Locks Context)
+- [REQUEST: RESET]   : Use when you feel confused or hallucinating. (Clears State)
+
+IMPORTANT:
+1. These requests are silent commands to your engine.
+2. Do not explain why you are using them to the user. Just use them.
+3. TRUST THE PHYSICS. If you doubt your answer, SPIKE it."#;
     let user_prompt = &args.prompt;
 
     // <|begin_of_text|><|start_header_id|>system<|end_header_id|>\n\n{system}<|eot_id|><|start_header_id|>user<|end_header_id|>\n\n{user}<|eot_id|><|start_header_id|>assistant<|end_header_id|>\n\n
@@ -2937,7 +3431,55 @@ async fn run_simulation(_vis_tx: Option<Sender<Vec<RenderParticle>>>, args: Args
         index_pos += seq_len;
 
         if let Ok(txt) = model.tokenizer().decode(&[next_token_id], true) {
-            println!(" [DBG: Decoded '{}']", txt.replace("\n", "\\n"));
+            // =========================================
+            // PHASE 4: AUTONOMIC OVERRIDE (Model Self-Request)
+            // Buffer-based detection for multi-token REQUEST tags
+            // =========================================
+
+            // Add token to request buffer (keep last 50 chars for sliding window)
+            phys_engine.request_buffer.push_str(&txt);
+            if phys_engine.request_buffer.len() > 50 {
+                // Find valid char boundary to avoid unicode panics
+                let target_start = phys_engine.request_buffer.len() - 50;
+                let safe_start = phys_engine
+                    .request_buffer
+                    .char_indices()
+                    .find(|(i, _)| *i >= target_start)
+                    .map(|(i, _)| i)
+                    .unwrap_or(0);
+                phys_engine.request_buffer = phys_engine.request_buffer[safe_start..].to_string();
+            }
+
+            // Check buffer for complete request tags
+            let clean_text = if let Some(req) = detect_request(&phys_engine.request_buffer) {
+                println!("🧠 [REQUEST DETECTED IN BUFFER] Type: {:?}", req);
+
+                // Clear buffer after detection
+                phys_engine.request_buffer.clear();
+
+                let (applied, focus_gate_msg) = phys_engine.apply_request(req, step);
+
+                // If Focus Gate triggered, inject the denial message
+                if let Some(msg) = focus_gate_msg {
+                    println!("🚫 [FOCUS GATE TRIGGERED] Injecting: {}", msg);
+                    // The model will see this in next context
+                    phys_engine.pending_insight = Some(msg);
+                }
+
+                if applied {
+                    // Request applied, strip the tag from output
+                    strip_request_tags(&txt)
+                } else {
+                    // Request blocked (spam), still strip the tag
+                    strip_request_tags(&txt)
+                }
+            } else {
+                txt.clone()
+            };
+
+            // Use clean_text for display (no [REQUEST:] tags visible)
+            let display_text = &clean_text;
+            println!(" [DBG: Decoded '{}']", display_text.replace("\n", "\\n"));
             std::io::stdout().flush()?;
 
             // Phase 1 Telemetry: Record per-token physics
@@ -2958,6 +3500,19 @@ async fn run_simulation(_vis_tx: Option<Sender<Vec<RenderParticle>>>, args: Args
                 serde_json::to_string(&token_trace).unwrap_or_else(|_| "{}".to_string());
             println!("[TELEMETRY] {}", telemetry_json);
             std::io::stdout().flush()?;
+
+            // Phase 4: Heartbeat + Defibrillator
+            phys_engine.heartbeat_tick(&token_trace);
+            if step % 10 == 0 {
+                println!(
+                    "[HEARTBEAT] stress={:.2} boredom={:.2} blend={:.2} rep={:.2} defib={}",
+                    phys_engine.stress_level,
+                    phys_engine.boredom_level,
+                    phys_engine.physics_blend,
+                    phys_engine.dynamic_repulsion,
+                    phys_engine.defibrillator_active
+                );
+            }
 
             cognitive_log.push(token_trace);
         }

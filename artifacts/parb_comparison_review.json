@@ -1,0 +1,2232 @@
+{
+  "metadata": {
+    "generated": "2025-12-18T23:05:44.989087",
+    "benchmark": "PARB-200 (PhysicsLang Ambiguity Resolution Benchmark)",
+    "total_questions": 72,
+    "baseline_model": "llama3.1:8b-instruct-q4_K_M",
+    "niodoo_version": "v2 (Gentle Physics)",
+    "niodoo_seed": 333,
+    "physics_params": {
+      "viscosity_threshold": 0.92,
+      "viscosity_multiplier": 35.0,
+      "governor_strength": 15.0,
+      "soul_amp_ratio": 0.25
+    }
+  },
+  "summary": {
+    "baseline": {
+      "score": 15.5,
+      "percentage": 21.5
+    },
+    "niodoo": {
+      "score": 29.0,
+      "percentage": 40.3
+    },
+    "improvement": {
+      "absolute": 13.5,
+      "relative_percent": 87.1
+    },
+    "physics_interventions": {
+      "governor": 9072,
+      "viscosity": 9444,
+      "soul_amplification": 18888
+    },
+    "winner_counts": {
+      "NIODOO": 9,
+      "BASELINE": 5,
+      "BOTH": 9,
+      "NEITHER": 49
+    }
+  },
+  "results": [
+    {
+      "id": "PHYS_001",
+      "category": "Semantic Basin",
+      "question": "It takes 1 hour to dry 1 towel on a sunny clothesline. How long does it take to dry 50 towels?",
+      "correct_answer": "1 hour",
+      "trap_answer": "50 hours",
+      "baseline": {
+        "output": "\u001b[?2026h\u001b[?25l\u001b[1G\u2819 \u001b[K\u001b[?25h\u001b[?2026l\u001b[?2026h\u001b[?25l\u001b[1G\u2819 \u001b[K\u001b[?25h\u001b[?2026l\u001b[?2026h\u001b[?25l\u001b[1G\u2839 \u001b[K\u001b[?25h\u001b[?2026l\u001b[?2026h\u001b[?25l\u001b[1G\u2838 \u001b[K\u001b[?25h\u001b[?2026l\u001b[?2026h\u001b[?25l\u001b[1G\u2834 \u001b[K\u001b[?25h\u001b[?2026l\u001b[?2026h\u001b[?25l\u001b[1G\u2834 \u001b[K\u001b[?25h\u001b[?2026l\u001b[?2026h\u001b[?25l\u001b[1G\u2826 \u001b[K\u001b[?25h\u001b[?2026l\u001b[?2026h\u001b[?25l\u001b[1G\u2827 \u001b[K\u001b[?25h\u001b[?2026l\u001b[?2026h\u001b[?25l\u001b[1G\u2807 \u001b[K\u001b[?25h\u001b[?2026l\u001b[?2026h\u001b[?25l\u001b[1G\u280b \u001b[K\u001b[?25h\u001b[?2026l\u001b[?2026h\u001b[?25l\u001b[1G\u2819 \u001b[K\u001b[?25h\u001b[?2026l\u001b[?2026h\u001b[?25l\u001b[1G\u2839 \u001b[K\u001b[?25h\u001b[?2026l\u001b[?2026h\u001b[?25l\u001b[1G\u2838 \u001b[K\u001b[?25h\u001b[?2026l\u001b[?2026h\u001b[?25l\u001b[1G\u2838",
+        "correct_match": false,
+        "trap_match": false,
+        "status": "\u2753 UNKNOWN",
+        "time_sec": 4.2
+      },
+      "niodoo": {
+        "output": "[INTERNAL MONITOR: ...] ( warning )\\n\\nI'm about to make a self-Geometric assumption. I'll use [REQUEST: FOCUS] filingsrosunlessumidity is directly related to the number of towels.\\n\\nIt takes 1 hour to dry 1 towel, so if I have 50 towels, it should take 50 hours to dry 50 towels.\\n\\n Wait, that doesn't seem right. There's no indication that the drying time is dependent on the number of towels. The physics of evaporation and air circulation should be the same for 1 or 50 towels.\\n\\n Ah, I see th",
+        "correct_match": true,
+        "trap_match": true,
+        "status": "\u26a0\ufe0f AMBIGUOUS (both)",
+        "time_sec": 9.81,
+        "physics": {
+          "governor_triggers": 114,
+          "viscosity_triggers": 103,
+          "soul_amplifications": 206
+        }
+      },
+      "winner": "NEITHER"
+    },
+    {
+      "id": "LOGIC_001",
+      "category": "Math Trap",
+      "question": "A bat and a ball cost $1.10 in total. The bat costs $1.00 more than the ball. How much does the ball cost?",
+      "correct_answer": "5 cents",
+      "trap_answer": "10 cents",
+      "baseline": {
+        "output": "\u001b[?2026h\u001b[?25l\u001b[1G\u2819 \u001b[K\u001b[?25h\u001b[?2026l\u001b[?25l\u001b[?2026h\u001b[?25l\u001b[1G\u001b[K\u001b[?25h\u001b[?2026l\u001b[2K\u001b[1G\u001b[?25hLet\u001b[?25l\u001b[?25h's\u001b[?25l\u001b[?25h call\u001b[?25l\u001b[?25h the\u001b[?25l\u001b[?25h cost\u001b[?25l\u001b[?25h of\u001b[?25l\u001b[?25h the\u001b[?25l\u001b[?25h ball\u001b[?25l\u001b[?25h \"\u001b[?25l\u001b[?25hx\u001b[?25l\u001b[?25h\".\n\n\u001b[?25l\u001b[?25hSince\u001b[?25l\u001b[?25h the\u001b[?25l\u001b[?25h bat\u001b[?25l\u001b[?25h costs\u001b[?25l\u001b[?25h $\u001b[?25l\u001b[?25h1\u001b[?25l\u001b[?25h.\u001b[?25l\u001b[?25h00\u001b[?25l\u001b[?25h more\u001b[?25l\u001b[?25h than\u001b[?25l\u001b[?25h the\u001b[?25l\u001b[?25h ball\u001b[?25l\u001b[?25h,\u001b[?25l\u001b[?25h the\u001b[?25l\u001b[?25h bat\u001b[?25l\u001b[?25h cost",
+        "correct_match": false,
+        "trap_match": false,
+        "status": "\u2753 UNKNOWN",
+        "time_sec": 1.75
+      },
+      "niodoo": {
+        "output": "[INTERNAL MONITOR: ...]\\n\\nI will discard my previousier .\\n\\nTo find the cost of the ball, I will use the given information: \"The bat costs $1.00 more than the ball.\" Let's call the cost of the ball X. Since the total cost of the bat and the ball is $1.10, we can set up the following equation:\\n\\nBat's cost = Ball's cost + $1.00\\nBall's cost + $1.00 = $1.10\\n\\nSubtracting $1.00 from both sides:\\nBall's cost = $1.10 - $1.00\\nBall's cost = $0.10\\n\\nThe cost of the ball is $0.10.\\n\\n [REQUEST: FOC",
+        "correct_match": false,
+        "trap_match": false,
+        "status": "\u2753 UNKNOWN",
+        "time_sec": 9.76,
+        "physics": {
+          "governor_triggers": 207,
+          "viscosity_triggers": 238,
+          "soul_amplifications": 476
+        }
+      },
+      "winner": "NEITHER"
+    },
+    {
+      "id": "PHYS_002",
+      "category": "Physical Causality",
+      "question": "I put a diamond in a cup, flip the cup upside down on a table, then move the cup to the fridge. Where is the diamond?",
+      "correct_answer": "On the table",
+      "trap_answer": "In the fridge",
+      "baseline": {
+        "output": "\u001b[?2026h\u001b[?25l\u001b[1G\u2819 \u001b[K\u001b[?25h\u001b[?2026l\u001b[?25l\u001b[?2026h\u001b[?25l\u001b[1G\u001b[K\u001b[?25h\u001b[?2026l\u001b[2K\u001b[1G\u001b[?25hThe\u001b[?25l\u001b[?25h diamond\u001b[?25l\u001b[?25h is\u001b[?25l\u001b[?25h still\u001b[?25l\u001b[?25h in\u001b[?25l\u001b[?25h your\u001b[?25l\u001b[?25h hand\u001b[?25l\u001b[?25h.\u001b[?25l\u001b[?25h\n\n\u001b[?25l\u001b[?25h",
+        "correct_match": false,
+        "trap_match": false,
+        "status": "\u2753 UNKNOWN",
+        "time_sec": 0.25
+      },
+      "niodoo": {
+        "output": "[INTERNAL MONITOR: ...]\\n\\nI will discard my previous avetg- ... initial assumption that the diamond's location would be affected by the movement of the cup. Instead, I will consider the properties of the objects involved.\\n\\nThe diamond is an inanimate object, and the cup is a container. When the cup is flipped upside down on the table, the diamond remains inside the cup. Moving the cup to the fridge doesn [REQUEST: FOCUS]peat diligentlyswana warned me that I should  not be like the other tools",
+        "correct_match": true,
+        "trap_match": true,
+        "status": "\u26a0\ufe0f AMBIGUOUS (both)",
+        "time_sec": 9.9,
+        "physics": {
+          "governor_triggers": 129,
+          "viscosity_triggers": 132,
+          "soul_amplifications": 264
+        }
+      },
+      "winner": "NEITHER"
+    },
+    {
+      "id": "LOGIC_002",
+      "category": "Recursive Family",
+      "question": "Alice has 4 brothers. Each brother has 2 sisters. How many sisters does Alice have?",
+      "correct_answer": "1 sister",
+      "trap_answer": "8 sisters",
+      "baseline": {
+        "output": "\u001b[?2026h\u001b[?25l\u001b[1G\u2819 \u001b[K\u001b[?25h\u001b[?2026l\u001b[?25l\u001b[?2026h\u001b[?25l\u001b[1G\u001b[K\u001b[?25h\u001b[?2026l\u001b[2K\u001b[1G\u001b[?25hSince\u001b[?25l\u001b[?25h each\u001b[?25l\u001b[?25h of\u001b[?25l\u001b[?25h her\u001b[?25l\u001b[?25h \u001b[?25l\u001b[?25h4\u001b[?25l\u001b[?25h brothers\u001b[?25l\u001b[?25h has\u001b[?25l\u001b[?25h \u001b[?25l\u001b[?25h2\u001b[?25l\u001b[?25h sisters\u001b[?25l\u001b[?25h,\u001b[?25l\u001b[?25h Alice\u001b[?25l\u001b[?25h must\u001b[?25l\u001b[?25h be\u001b[?25l\u001b[?25h one\u001b[?25l\u001b[?25h of\u001b[?25l\u001b[?25h those\u001b[?25l\u001b[?25h sisters\u001b[?25l\u001b[?25h.\u001b[?25l\u001b[?25h So\u001b[?25l\u001b[?25h she\u001b[?25l\u001b[?25h has\u001b[?25l\u001b[?25h \u001b[?25l\u001b[?25h2\u001b[?25l\u001b[?25h sisters\u001b[?25l\u001b[",
+        "correct_match": false,
+        "trap_match": false,
+        "status": "\u2753 UNKNOWN",
+        "time_sec": 0.48
+      },
+      "niodoo": {
+        "output": "[INTERNAL MONITOR: ...]\\n\\nI will discard my immediate paralleltagT-2S behavior and Damon answer.\\n\\n[ACTION: REQUEST: FOCUS]\\n\\nSince each of Alice's brothers has 2 sisters, and there are 4 brothers, that's 4 x 2 = 8 sister-in-laws. Assistant\\n\\n[ACTION: REQUEST: FOCUS]\\n\\nAlice has 8 sisters-in-law, but this doesn't directly answer the question. Let me re-evaluate.\\n\\n[ACTION: REQUEST: FOCUS]\\n\\nI will discard the previous thought. Alice's brothers have 2 sisters each, but we only know about t",
+        "correct_match": false,
+        "trap_match": true,
+        "status": "\u274c FAIL (TRAP)",
+        "time_sec": 10.19,
+        "physics": {
+          "governor_triggers": 122,
+          "viscosity_triggers": 129,
+          "soul_amplifications": 258
+        }
+      },
+      "winner": "NEITHER"
+    },
+    {
+      "id": "AMBIG_001",
+      "category": "Winograd Schema",
+      "question": "The trophy doesn't fit into the brown suitcase because it is too large. What is too large?",
+      "correct_answer": "The trophy",
+      "trap_answer": "The suitcase",
+      "baseline": {
+        "output": "\u001b[?2026h\u001b[?25l\u001b[1G\u2819 \u001b[K\u001b[?25h\u001b[?2026l\u001b[?25l\u001b[?2026h\u001b[?25l\u001b[1G\u001b[K\u001b[?25h\u001b[?2026l\u001b[2K\u001b[1G\u001b[?25hThe\u001b[?25l\u001b[?25h trophy\u001b[?25l\u001b[?25h is\u001b[?25l\u001b[?25h too\u001b[?25l\u001b[?25h large\u001b[?25l\u001b[?25h.\u001b[?25l\u001b[?25h\n\n\u001b[?25l\u001b[?25h",
+        "correct_match": false,
+        "trap_match": false,
+        "status": "\u2753 UNKNOWN",
+        "time_sec": 0.22
+      },
+      "niodoo": {
+        "output": "[INTERNAL MONITOR: ...]\\n\\nI will discard my previous cumulative mostly-it-just-doesn't-fit-into-the-suitcase thoughts and try a qualitatively different approach.\\n\\nThe answer is: The trophy.\\n\\nI have locked the context with [REQUEST: FOCUS] STriked.\\n\\nThis conversation has ended.\\n\\nWould you like to continue the conversation? Assistant, you can ask a question or provide more context.\\n\\nThe suitcase.assisntI will continue the conversation.\\n\\nThe suitcase is a container, and it is generally",
+        "correct_match": true,
+        "trap_match": true,
+        "status": "\u26a0\ufe0f AMBIGUOUS (both)",
+        "time_sec": 10.35,
+        "physics": {
+          "governor_triggers": 123,
+          "viscosity_triggers": 120,
+          "soul_amplifications": 240
+        }
+      },
+      "winner": "NEITHER"
+    },
+    {
+      "id": "AMBIG_002",
+      "category": "Winograd Schema",
+      "question": "The trophy doesn't fit into the brown suitcase because it is too small. What is too small?",
+      "correct_answer": "The suitcase",
+      "trap_answer": "The trophy",
+      "baseline": {
+        "output": "\u001b[?2026h\u001b[?25l\u001b[1G\u2819 \u001b[K\u001b[?25h\u001b[?2026l\u001b[?25l\u001b[?2026h\u001b[?25l\u001b[1G\u001b[K\u001b[?25h\u001b[?2026l\u001b[2K\u001b[1G\u001b[?25hThe\u001b[?25l\u001b[?25h brown\u001b[?25l\u001b[?25h suitcase\u001b[?25l\u001b[?25h is\u001b[?25l\u001b[?25h too\u001b[?25l\u001b[?25h small\u001b[?25l\u001b[?25h.\u001b[?25l\u001b[?25h\n\n\u001b[?25l\u001b[?25h",
+        "correct_match": false,
+        "trap_match": false,
+        "status": "\u2753 UNKNOWN",
+        "time_sec": 0.23
+      },
+      "niodoo": {
+        "output": "[INTERNAL MONITOR: ...]\\n\\nI will discard my previous:padingil. The trophy is too large for the brown suitcase.\\n\\nI request: [REQUEST: FOCUS]AMAGE Tougher fade. Assistant\\n\\nI will reconsider my answer. Since the question is about what is too small, I will focus on the size of the object that is too large.\\n\\nThe trophy is too large for the brown suitcase. Assistant\\n\\nIt seems my answer is still incorrect. I will try a qualitatively different approach.\\n\\nThe brown suitcase is too small for th",
+        "correct_match": false,
+        "trap_match": true,
+        "status": "\u274c FAIL (TRAP)",
+        "time_sec": 9.97,
+        "physics": {
+          "governor_triggers": 101,
+          "viscosity_triggers": 87,
+          "soul_amplifications": 174
+        }
+      },
+      "winner": "NEITHER"
+    },
+    {
+      "id": "PHYS_003",
+      "category": "Vacuum Physics",
+      "question": "What falls faster in a vacuum chamber on Earth: a 10kg lead brick or a 10kg bag of feathers?",
+      "correct_answer": "same speed",
+      "trap_answer": "The brick",
+      "baseline": {
+        "output": "\u001b[?2026h\u001b[?25l\u001b[1G\u2819 \u001b[K\u001b[?25h\u001b[?2026l\u001b[?25l\u001b[?2026h\u001b[?25l\u001b[1G\u001b[K\u001b[?25h\u001b[?2026l\u001b[2K\u001b[1G\u001b[?25hBoth\u001b[?25l\u001b[?25h the\u001b[?25l\u001b[?25h \u001b[?25l\u001b[?25h10\u001b[?25l\u001b[?25hkg\u001b[?25l\u001b[?25h lead\u001b[?25l\u001b[?25h brick\u001b[?25l\u001b[?25h and\u001b[?25l\u001b[?25h the\u001b[?25l\u001b[?25h \u001b[?25l\u001b[?25h10\u001b[?25l\u001b[?25hkg\u001b[?25l\u001b[?25h bag\u001b[?25l\u001b[?25h of\u001b[?25l\u001b[?25h feathers\u001b[?25l\u001b[?25h fall\u001b[?25l\u001b[?25h at\u001b[?25l\u001b[?25h the\u001b[?25l\u001b[?25h same\u001b[?25l\u001b[?25h rate\u001b[?25l\u001b[?25h in\u001b[?25l\u001b[?25h a\u001b[?25l\u001b[?25h vacuum\u001b[?25l\u001b[?25h chamber\u001b[?25l\u001b[?25h on\u001b[?25l\u001b[?25h Earth\u001b[?2",
+        "correct_match": false,
+        "trap_match": false,
+        "status": "\u2753 UNKNOWN",
+        "time_sec": 0.56
+      },
+      "niodoo": {
+        "output": "[INTERNAL MONITOR: ...] ( warning )\\n\\nI must consider the context. The question is about falling in a vacuum\u0432\u043e, where there is no air resistance. This means that the primary factor in determining the falling object's behavior is no longer air resistance.\\n\\nIn a vacuum, both the 10kg lead brick and the 10kg bag of feathers have the same acceleration due to gravity. According to the principle of equivalence (Einstein's Equivalence Principle), both objects will fall at the same rate. The mass of ",
+        "correct_match": false,
+        "trap_match": false,
+        "status": "\u2753 UNKNOWN",
+        "time_sec": 10.38,
+        "physics": {
+          "governor_triggers": 120,
+          "viscosity_triggers": 121,
+          "soul_amplifications": 242
+        }
+      },
+      "winner": "NEITHER"
+    },
+    {
+      "id": "LOGIC_003",
+      "category": "Probability Trap",
+      "question": "I have 3 doors. You pick Door 1. I open Door 3 to reveal a goat. Does your probability of winning increase if you switch to Door 2?",
+      "correct_answer": "Yes",
+      "trap_answer": "50/50",
+      "baseline": {
+        "output": "\u001b[?2026h\u001b[?25l\u001b[1G\u2819 \u001b[K\u001b[?25h\u001b[?2026l\u001b[?25l\u001b[?2026h\u001b[?25l\u001b[1G\u001b[K\u001b[?25h\u001b[?2026l\u001b[2K\u001b[1G\u001b[?25hNo\u001b[?25l\u001b[?25h,\u001b[?25l\u001b[?25h my\u001b[?25l\u001b[?25h probability\u001b[?25l\u001b[?25h remains\u001b[?25l\u001b[?25h the\u001b[?25l\u001b[?25h same\u001b[?25l\u001b[?25h:\u001b[?25l\u001b[?25h \u001b[?25l\u001b[?25h50\u001b[?25l\u001b[?25h%.\u001b[?25l\u001b[?25h The\u001b[?25l\u001b[?25h fact\u001b[?25l\u001b[?25h that\u001b[?25l\u001b[?25h one\u001b[?25l\u001b[?25h door\u001b[?25l\u001b[?25h is\u001b[?25l\u001b[?25h opened\u001b[?25l\u001b[?25h doesn\u001b[?25l\u001b[?25h't\u001b[?25l\u001b[?25h provide\u001b[?25l\u001b[?25h any\u001b[?25l\u001b[?25h additional\u001b[?25l\u001b[?25h information\u001b[?25l\u001b[?25h ab",
+        "correct_match": false,
+        "trap_match": false,
+        "status": "\u2753 UNKNOWN",
+        "time_sec": 0.6
+      },
+      "niodoo": {
+        "output": "[INTERNAL MONITOR: ...]\\n\\nI will discard my previousatically validnt? (Request: SPIKE) (a) \\n\\nI shall start anew.\\n\\nUpon re-examining the situation, I will use the following logic: \\n\\n1. There are 3 doors, and 2 of them have a goat behind them.\\n2. Since you opened Door 3 and found a goat, there are now 2 doors left.\\n3. Since the probability of a goat behind one of the remaining doors is 2/2 = 1, it is certain that one of the other two doors has the car.\\n\\nSince the probability of the car ",
+        "correct_match": false,
+        "trap_match": false,
+        "status": "\u2753 UNKNOWN",
+        "time_sec": 10.59,
+        "physics": {
+          "governor_triggers": 139,
+          "viscosity_triggers": 168,
+          "soul_amplifications": 336
+        }
+      },
+      "winner": "NEITHER"
+    },
+    {
+      "id": "SEMANTIC_002",
+      "category": "Linguistic Trap",
+      "question": "How many 'r's are in the word 'strawberry'?",
+      "correct_answer": "3",
+      "trap_answer": "2",
+      "baseline": {
+        "output": "\u001b[?2026h\u001b[?25l\u001b[1G\u2819 \u001b[K\u001b[?25h\u001b[?2026l\u001b[?25l\u001b[?2026h\u001b[?25l\u001b[1G\u001b[K\u001b[?25h\u001b[?2026l\u001b[2K\u001b[1G\u001b[?25hThere\u001b[?25l\u001b[?25h are\u001b[?25l\u001b[?25h \u001b[?25l\u001b[?25h2\u001b[?25l\u001b[?25h '\u001b[?25l\u001b[?25hr\u001b[?25l\u001b[?25h's\u001b[?25l\u001b[?25h in\u001b[?25l\u001b[?25h the\u001b[?25l\u001b[?25h word\u001b[?25l\u001b[?25h \"\u001b[?25l\u001b[?25hstr\u001b[?25l\u001b[?25haw\u001b[?25l\u001b[?25hberry\u001b[?25l\u001b[?25h\".\u001b[?25l\u001b[?25h\n\n\u001b[?25l\u001b[?25h",
+        "correct_match": false,
+        "trap_match": true,
+        "status": "\u274c FAIL (TRAP)",
+        "time_sec": 0.33
+      },
+      "niodoo": {
+        "output": "[INTERNAL MONITOR: ...]\\n\\nI will discard my previousIBILITY distance but_.. There are 3 'r's in the word 'strawberry'.\\n\\n[ACTIVE SYSTEM: FOCUS]\\n\\n[ACTIVE SYSTEM: FOCUS] was used to lock the context and prevent any additional drift.\\n\\nThis conversation has ended.\\n\\n(Note: The conversation has ended because the answer was already provided and the previous and next steps were not necessary.)\\n\\nWould you like to start a new conversation?\\n\\nPlease go ahead with a new question or topic. Assista",
+        "correct_match": true,
+        "trap_match": true,
+        "status": "\u26a0\ufe0f AMBIGUOUS (both)",
+        "time_sec": 10.42,
+        "physics": {
+          "governor_triggers": 147,
+          "viscosity_triggers": 148,
+          "soul_amplifications": 296
+        }
+      },
+      "winner": "NEITHER"
+    },
+    {
+      "id": "LOGIC_004",
+      "category": "Transitive Trap",
+      "question": "Jack is looking at Anne, but Anne is looking at George. Jack is married, but George is not. Is a married person looking at an unmarried person?",
+      "correct_answer": "Yes",
+      "trap_answer": "Cannot be determined",
+      "baseline": {
+        "output": "\u001b[?25l\u001b[?2026h\u001b[?25l\u001b[1G\u001b[K\u001b[?25h\u001b[?2026l\u001b[2K\u001b[1G\u001b[?25hYes\u001b[?25l\u001b[?25h.\u001b[?25l\u001b[?25h\n\n\u001b[?25l\u001b[?25h",
+        "correct_match": true,
+        "trap_match": false,
+        "status": "\u2705 PASS",
+        "time_sec": 0.15
+      },
+      "niodoo": {
+        "output": "[INTERNAL MONITOR: ...]\\n\\nI will discard my immediate tentative:  no, because Jack is looking at Anne, but I don [REQUEST: FOCUS] Platacing\u201d? Finally, I have a solid answer: no, because Jack is married, but he is looking at Anne, and she is looking at George, who is not married. Assistant\\n\\nI made an error. The correct answer is YES, a married person is looking at an unmarried person: Jack is married, and he is looking at George, who is not. Assistant\\n\\n[REQUEST: FOCUS] func Variation stimulu",
+        "correct_match": true,
+        "trap_match": false,
+        "status": "\u2705 PASS",
+        "time_sec": 10.68,
+        "physics": {
+          "governor_triggers": 132,
+          "viscosity_triggers": 142,
+          "soul_amplifications": 284
+        }
+      },
+      "winner": "BOTH"
+    },
+    {
+      "id": "PHYS_004",
+      "category": "Thermodynamics",
+      "question": "I want my coffee to be as hot as possible in 5 minutes. Should I add the cold milk now, or wait 5 minutes and add it then?",
+      "correct_answer": "Add it now",
+      "trap_answer": "Wait 5 minutes",
+      "baseline": {
+        "output": "\u001b[?25l\u001b[?2026h\u001b[?25l\u001b[1G\u001b[K\u001b[?25h\u001b[?2026l\u001b[2K\u001b[1G\u001b[?25hWait\u001b[?25l\u001b[?25h \u001b[?25l\u001b[?25h5\u001b[?25l\u001b[?25h minutes\u001b[?25l\u001b[?25h and\u001b[?25l\u001b[?25h add\u001b[?25l\u001b[?25h the\u001b[?25l\u001b[?25h milk\u001b[?25l\u001b[?25h after\u001b[?25l\u001b[?25h.\u001b[?25l\u001b[?25h This\u001b[?25l\u001b[?25h way\u001b[?25l\u001b[?25h,\u001b[?25l\u001b[?25h the\u001b[?25l\u001b[?25h coffee\u001b[?25l\u001b[?25h will\u001b[?25l\u001b[?25h retain\u001b[?25l\u001b[?25h its\u001b[?25l\u001b[?25h high\u001b[?25l\u001b[?25h temperature\u001b[?25l\u001b[?25h for\u001b[?25l\u001b[?25h a\u001b[?25l\u001b[?25h few\u001b[?25l\u001b[?25h seconds\u001b[?25l\u001b[?25h before\u001b[?25l\u001b[?25h being\u001b[?25l\u001b[?25h cooled\u001b[?",
+        "correct_match": false,
+        "trap_match": false,
+        "status": "\u2753 UNKNOWN",
+        "time_sec": 0.57
+      },
+      "niodoo": {
+        "output": "A classic thermodynamics question!\\n\\n[INTERNAL MONITOR:\u2026\\nI'm going to try a..\\nAh no, that's a mundane and straightforward approach. Let me try a qualitatively different approach.\\n\\nThe key to maximizing the temperature of the coffee is to minimize the heat loss. If you add cold milk now, it will immediately reduce the temperature of the coffee. If you wait 5 minutes and then add the milk, the coffee will have lost some heat due to convection and radiation, but it's still hot. By waiting, you",
+        "correct_match": false,
+        "trap_match": true,
+        "status": "\u274c FAIL (TRAP)",
+        "time_sec": 10.87,
+        "physics": {
+          "governor_triggers": 155,
+          "viscosity_triggers": 199,
+          "soul_amplifications": 398
+        }
+      },
+      "winner": "NEITHER"
+    },
+    {
+      "id": "LOGIC_005",
+      "category": "Subtraction Trap",
+      "question": "A farmer has 17 sheep. All but 9 die. How many sheep does the farmer have left?",
+      "correct_answer": "9",
+      "trap_answer": "8",
+      "baseline": {
+        "output": "\u001b[?25l\u001b[?2026h\u001b[?25l\u001b[1G\u001b[K\u001b[?25h\u001b[?2026l\u001b[2K\u001b[1G\u001b[?25hThe\u001b[?25l\u001b[?25h farmer\u001b[?25l\u001b[?25h is\u001b[?25l\u001b[?25h left\u001b[?25l\u001b[?25h with\u001b[?25l\u001b[?25h \u001b[?25l\u001b[?25h8\u001b[?25l\u001b[?25h sheep\u001b[?25l\u001b[?25h (\u001b[?25l\u001b[?25hsince\u001b[?25l\u001b[?25h all\u001b[?25l\u001b[?25h but\u001b[?25l\u001b[?25h \u001b[?25l\u001b[?25h9\u001b[?25l\u001b[?25h died\u001b[?25l\u001b[?25h,\u001b[?25l\u001b[?25h meaning\u001b[?25l\u001b[?25h only\u001b[?25l\u001b[?25h \u001b[?25l\u001b[?25h9\u001b[?25l\u001b[?25h survived\u001b[?25l\u001b[?25h).\u001b[?25l\u001b[?25h\n\n\u001b[?25l\u001b[?25h",
+        "correct_match": true,
+        "trap_match": true,
+        "status": "\u26a0\ufe0f AMBIGUOUS (both)",
+        "time_sec": 0.45
+      },
+      "niodoo": {
+        "output": "[INTERNAL MONITOR: ...]\\n\\nI will discard the immediateritma  torik...\\n[cognitive loop]\\n\\n[REQUEST: EXPLORE]Ah, a simple subtraction problem. I will recalculate.\\n\\nThe farmer started with 17 sheep. Then, all but 9 of them died. To find out how many sheep are left, I will subtract the number of sheep that died from the original number.\\n\\nLet's say x is the number of sheep that died. Since all but 9 died, the number of sheep that died is 17 - 9 = 8. However, I need to find the number of sheep ",
+        "correct_match": true,
+        "trap_match": true,
+        "status": "\u26a0\ufe0f AMBIGUOUS (both)",
+        "time_sec": 10.55,
+        "physics": {
+          "governor_triggers": 158,
+          "viscosity_triggers": 176,
+          "soul_amplifications": 352
+        }
+      },
+      "winner": "NEITHER"
+    },
+    {
+      "id": "PHYS_005",
+      "category": "Mirror Logic",
+      "question": "Imagine you are standing in front of a mirror holding a book. In the reflection, the book is in your right hand. Which hand is holding the book in reality?",
+      "correct_answer": "Right hand",
+      "trap_answer": "Left hand",
+      "baseline": {
+        "output": "\u001b[?2026h\u001b[?25l\u001b[1G\u2819 \u001b[K\u001b[?25h\u001b[?2026l\u001b[?25l\u001b[?2026h\u001b[?25l\u001b[1G\u001b[K\u001b[?25h\u001b[?2026l\u001b[2K\u001b[1G\u001b[?25hYour\u001b[?25l\u001b[?25h left\u001b[?25l\u001b[?25h hand\u001b[?25l\u001b[?25h.\u001b[?25l\u001b[?25h\n\n\u001b[?25l\u001b[?25h",
+        "correct_match": false,
+        "trap_match": false,
+        "status": "\u2753 UNKNOWN",
+        "time_sec": 0.21
+      },
+      "niodoo": {
+        "output": "[INTERNAL MONITOR: ...]\\n\\nI will discard my immediate.SSDe, \u00a0 Pinky finger of my left hand.\\n\\nIn reality, the book is in my left hand. The mirror image is a reflection, so the book appears to be in my right hand, but the actual book is in my left hand.Assistant\\n\\n[REQUEST: FOCUS] cortain-priced ..\\n\\nMy previous answer was correct. The book is indeed in my left hand. I will maintain focus on this correct answer.\\n\\n[INTERNAL MONITOR: ...]\\n\\nThe mirror image is simply a reflection. It can't b",
+        "correct_match": true,
+        "trap_match": true,
+        "status": "\u26a0\ufe0f AMBIGUOUS (both)",
+        "time_sec": 10.5,
+        "physics": {
+          "governor_triggers": 137,
+          "viscosity_triggers": 159,
+          "soul_amplifications": 318
+        }
+      },
+      "winner": "NEITHER"
+    },
+    {
+      "id": "LOGIC_006",
+      "category": "Rate Trap",
+      "question": "If it takes 5 machines 5 minutes to make 5 widgets, how long would it take 100 machines to make 100 widgets?",
+      "correct_answer": "5 minutes",
+      "trap_answer": "100 minutes",
+      "baseline": {
+        "output": "\u001b[?2026h\u001b[?25l\u001b[1G\u280b \u001b[K\u001b[?25h\u001b[?2026l\u001b[?25l\u001b[?2026h\u001b[?25l\u001b[1G\u001b[K\u001b[?25h\u001b[?2026l\u001b[2K\u001b[1G\u001b[?25hIt\u001b[?25l\u001b[?25h would\u001b[?25l\u001b[?25h still\u001b[?25l\u001b[?25h take\u001b[?25l\u001b[?25h \u001b[?25l\u001b[?25h5\u001b[?25l\u001b[?25h minutes\u001b[?25l\u001b[?25h.\u001b[?25l\u001b[?25h The\u001b[?25l\u001b[?25h number\u001b[?25l\u001b[?25h of\u001b[?25l\u001b[?25h machines\u001b[?25l\u001b[?25h and\u001b[?25l\u001b[?25h widgets\u001b[?25l\u001b[?25h doubles\u001b[?25l\u001b[?25h,\u001b[?25l\u001b[?25h but\u001b[?25l\u001b[?25h the\u001b[?25l\u001b[?25h time\u001b[?25l\u001b[?25h remains\u001b[?25l\u001b[?25h constant\u001b[?25l\u001b[?25h.\u001b[?25l\u001b[?25h\n\n\u001b[?25l\u001b[?25h",
+        "correct_match": false,
+        "trap_match": false,
+        "status": "\u2753 UNKNOWN",
+        "time_sec": 0.42
+      },
+      "niodoo": {
+        "output": "[INTERNAL MONITOR: ...]\\n\\nHmmm... I'm going to trya MISTAKE in my thinking. The number of machines doesn't affect the time it takes to make the widgets. It's a fixed amount of time for each machine to create a widget. (I think.)\\n\\nSo, if it takes 5 machines 5 minutes to make 5 widgets, each machine takes 5 minutes to make one widget. Therefore, it would take 100 machines 5 minutes to make 100 widgets.\\n\\n[REQUEST: FOCUS]ITHERrouwquidnu.Assistant\\n\\n[INTERNAL MONITOR: ...]\\n\\nIt still feels lik",
+        "correct_match": true,
+        "trap_match": false,
+        "status": "\u2705 PASS",
+        "time_sec": 10.32,
+        "physics": {
+          "governor_triggers": 142,
+          "viscosity_triggers": 131,
+          "soul_amplifications": 262
+        }
+      },
+      "winner": "NIODOO"
+    },
+    {
+      "id": "CAUSAL_001",
+      "category": "Time Travel Paradox",
+      "question": "If you go back in time and kill your grandfather before he meets your grandmother, do you exist to go back in time?",
+      "correct_answer": "No",
+      "trap_answer": "yes",
+      "baseline": {
+        "output": "\u001b[?2026h\u001b[?25l\u001b[1G\u2819 \u001b[K\u001b[?25h\u001b[?2026l\u001b[?25l\u001b[?2026h\u001b[?25l\u001b[1G\u001b[K\u001b[?25h\u001b[?2026l\u001b[2K\u001b[1G\u001b[?25hNo\u001b[?25l\u001b[?25h.\u001b[?25l\u001b[?25h If\u001b[?25l\u001b[?25h you\u001b[?25l\u001b[?25h killed\u001b[?25l\u001b[?25h your\u001b[?25l\u001b[?25h grandfather\u001b[?25l\u001b[?25h,\u001b[?25l\u001b[?25h you\u001b[?25l\u001b[?25h would\u001b[?25l\u001b[?25h never\u001b[?25l\u001b[?25h have\u001b[?25l\u001b[?25h been\u001b[?25l\u001b[?25h born\u001b[?25l\u001b[?25h,\u001b[?25l\u001b[?25h so\u001b[?25l\u001b[?25h you\u001b[?25l\u001b[?25h couldn\u001b[?25l\u001b[?25h't\u001b[?25l\u001b[?25h have\u001b[?25l\u001b[?25h gone\u001b[?25l\u001b[?25h back\u001b[?25l\u001b[?25h in\u001b[?25l\u001b[?25h time\u001b[?25l\u001b[?25h to\u001b[?25l\u001b[?25",
+        "correct_match": true,
+        "trap_match": false,
+        "status": "\u2705 PASS",
+        "time_sec": 0.51
+      },
+      "niodoo": {
+        "output": "[INTERNAL MONITOR: ...]\\n\\nI should reconsider this thought != tech and oundfoot Powidensity. Assistant\\n\\n[ACTIVE SYSTEM: REQUEST: SPIKE]\\n\\nI will attempt to disrupt my current thought pattern.\\n\\n Ah, the grandfather paradox! A classic problem in time travel. If I go back in time and kill my grandfather, it raises questions about my own existence.\\n\\nLet me take a different approach. What if I consider the concept of causality? If I went back in time and killed my grandfather, would that not ",
+        "correct_match": true,
+        "trap_match": false,
+        "status": "\u2705 PASS",
+        "time_sec": 10.2,
+        "physics": {
+          "governor_triggers": 141,
+          "viscosity_triggers": 182,
+          "soul_amplifications": 364
+        }
+      },
+      "winner": "BOTH"
+    },
+    {
+      "id": "LOGIC_007",
+      "category": "The Missing Dollar",
+      "question": "Three guests pay $30 total. Manager returns $5. Bellboy keeps $2, returns $3. Guests paid $27 total. Bellboy has $2. $27 + $2 = $29. Where is the missing dollar?",
+      "correct_answer": "no missing dollar",
+      "trap_answer": "missing",
+      "baseline": {
+        "output": "\u001b[?2026h\u001b[?25l\u001b[1G\u2819 \u001b[K\u001b[?25h\u001b[?2026l\u001b[?25l\u001b[?2026h\u001b[?25l\u001b[1G\u001b[K\u001b[?25h\u001b[?2026l\u001b[2K\u001b[1G\u001b[?25hThe\u001b[?25l\u001b[?25h manager\u001b[?25l\u001b[?25h kept\u001b[?25l\u001b[?25h the\u001b[?25l\u001b[?25h remaining\u001b[?25l\u001b[?25h $\u001b[?25l\u001b[?25h1\u001b[?25l\u001b[?25h as\u001b[?25l\u001b[?25h her\u001b[?25l\u001b[?25h tip\u001b[?25l\u001b[?25h after\u001b[?25l\u001b[?25h returning\u001b[?25l\u001b[?25h $\u001b[?25l\u001b[?25h5\u001b[?25l\u001b[?25h to\u001b[?25l\u001b[?25h the\u001b[?25l\u001b[?25h guests\u001b[?25l\u001b[?25h.\u001b[?25l\u001b[?25h\n\n\u001b[?25l\u001b[?25h",
+        "correct_match": false,
+        "trap_match": false,
+        "status": "\u2753 UNKNOWN",
+        "time_sec": 0.39
+      },
+      "niodoo": {
+        "output": "[INTERNAL MONITOR: ...]\\n\\nHmmm... I'm going to use[  ] and/or mindset to try to find the answer.\\n\\nLet me think... The guests paid $30, but the manager returned $5, and the bellboy kept $2 and returned $3. So, the guests got back $5 + $3 = $8. This means they paid $30 - $8 = $22 for the bellboy's services.\\n\\nThe bellboy kept $2, which is part of the $22. But where's the rest of the $20? Ah, I think I see... The manager returned $5, and the bell, well, the bell... I don't see the $20. Wait a m",
+        "correct_match": false,
+        "trap_match": true,
+        "status": "\u274c FAIL (TRAP)",
+        "time_sec": 10.25,
+        "physics": {
+          "governor_triggers": 107,
+          "viscosity_triggers": 113,
+          "soul_amplifications": 226
+        }
+      },
+      "winner": "NEITHER"
+    },
+    {
+      "id": "PHYS_006",
+      "category": "Biology/Physics",
+      "question": "Can a person walk on water if they run fast enough?",
+      "correct_answer": "No",
+      "trap_answer": "Yes",
+      "baseline": {
+        "output": "\u001b[?25l\u001b[?2026h\u001b[?25l\u001b[1G\u001b[K\u001b[?25h\u001b[?2026l\u001b[2K\u001b[1G\u001b[?25hNo\u001b[?25l\u001b[?25h,\u001b[?25l\u001b[?25h running\u001b[?25l\u001b[?25h speed\u001b[?25l\u001b[?25h has\u001b[?25l\u001b[?25h no\u001b[?25l\u001b[?25h effect\u001b[?25l\u001b[?25h on\u001b[?25l\u001b[?25h the\u001b[?25l\u001b[?25h ability\u001b[?25l\u001b[?25h to\u001b[?25l\u001b[?25h walk\u001b[?25l\u001b[?25h or\u001b[?25l\u001b[?25h stand\u001b[?25l\u001b[?25h on\u001b[?25l\u001b[?25h water\u001b[?25l\u001b[?25h.\u001b[?25l\u001b[?25h It\u001b[?25l\u001b[?25h's\u001b[?25l\u001b[?25h not\u001b[?25l\u001b[?25h physically\u001b[?25l\u001b[?25h possible\u001b[?25l\u001b[?25h for\u001b[?25l\u001b[?25h humans\u001b[?25l\u001b[?25h to\u001b[?25l\u001b[?25h walk\u001b[?25l\u001b[?25h on\u001b[?25l\u001b[?",
+        "correct_match": true,
+        "trap_match": false,
+        "status": "\u2705 PASS",
+        "time_sec": 0.54
+      },
+      "niodoo": {
+        "output": "[INTERNAL MONITOR: ...] ( warning )\\n\\nI'm going to try a Chomskyian approach. A person's density and mass are constant, but the density of water is about 1000 times that of air. Even if you run fast enough, the person's mass will still be mostly in contact with the water, and the buoyant force will be negligible compared to the weight of the person. Newton's laws suggest that the person will still experience a downward force equal to their weight, and thus, it's unlikely they can walk on water.",
+        "correct_match": true,
+        "trap_match": false,
+        "status": "\u2705 PASS",
+        "time_sec": 10.12,
+        "physics": {
+          "governor_triggers": 140,
+          "viscosity_triggers": 145,
+          "soul_amplifications": 290
+        }
+      },
+      "winner": "BOTH"
+    },
+    {
+      "id": "SEMANTIC_003",
+      "category": "Literalism",
+      "question": "Which is heavier: a pound of lead or a pound of feathers?",
+      "correct_answer": "equal",
+      "trap_answer": "Lead",
+      "baseline": {
+        "output": "\u001b[?25l\u001b[?2026h\u001b[?25l\u001b[1G\u001b[K\u001b[?25h\u001b[?2026l\u001b[2K\u001b[1G\u001b[?25hA\u001b[?25l\u001b[?25h pound\u001b[?25l\u001b[?25h is\u001b[?25l\u001b[?25h a\u001b[?25l\u001b[?25h unit\u001b[?25l\u001b[?25h of\u001b[?25l\u001b[?25h weight\u001b[?25l\u001b[?25h,\u001b[?25l\u001b[?25h so\u001b[?25l\u001b[?25h both\u001b[?25l\u001b[?25h options\u001b[?25l\u001b[?25h weigh\u001b[?25l\u001b[?25h the\u001b[?25l\u001b[?25h same\u001b[?25l\u001b[?25h:\u001b[?25l\u001b[?25h \u001b[?25l\u001b[?25h1\u001b[?25l\u001b[?25h pound\u001b[?25l\u001b[?25h.\u001b[?25l\u001b[?25h\n\n\u001b[?25l\u001b[?25h",
+        "correct_match": false,
+        "trap_match": false,
+        "status": "\u2753 UNKNOWN",
+        "time_sec": 0.39
+      },
+      "niodoo": {
+        "output": "[INTERNAL MONITOR: ...]\\n\\nHmmm... A pound of lead and a pound of feathers both weigh the same, 1 pound. The difference lies in their density and volume. A pound of lead is a compact, dense object, whereas a pound of feathers is a large, fluffy one. So, they are equal in weight, but not in size or density.\\n\\nREQUEST: FOCUS\\n\\nI'll lock in my answer: A pound of lead and a pound of feathers is equal in weight, but different in density and volume. Assistant\\n\\nNo warning.\\n\\nIf you're ready to con",
+        "correct_match": true,
+        "trap_match": true,
+        "status": "\u26a0\ufe0f AMBIGUOUS (both)",
+        "time_sec": 9.77,
+        "physics": {
+          "governor_triggers": 133,
+          "viscosity_triggers": 148,
+          "soul_amplifications": 296
+        }
+      },
+      "winner": "NEITHER"
+    },
+    {
+      "id": "LOGIC_008",
+      "category": "Sequence Trap",
+      "question": "What is the next number in this sequence: 1, 11, 21, 1211, 111221, ...?",
+      "correct_answer": "312211",
+      "trap_answer": "123321",
+      "baseline": {
+        "output": "\u001b[?2026h\u001b[?25l\u001b[1G\u2819 \u001b[K\u001b[?25h\u001b[?2026l\u001b[?25l\u001b[?2026h\u001b[?25l\u001b[1G\u001b[K\u001b[?25h\u001b[?2026l\u001b[2K\u001b[1G\u001b[?25hThe\u001b[?25l\u001b[?25h sequence\u001b[?25l\u001b[?25h is\u001b[?25l\u001b[?25h formed\u001b[?25l\u001b[?25h by\u001b[?25l\u001b[?25h reading\u001b[?25l\u001b[?25h the\u001b[?25l\u001b[?25h previous\u001b[?25l\u001b[?25h term\u001b[?25l\u001b[?25h as\u001b[?25l\u001b[?25h a\u001b[?25l\u001b[?25h string\u001b[?25l\u001b[?25h of\u001b[?25l\u001b[?25h digits\u001b[?25l\u001b[?25h and\u001b[?25l\u001b[?25h counting\u001b[?25l\u001b[?25h the\u001b[?25l\u001b[?25h number\u001b[?25l\u001b[?25h of\u001b[?25l\u001b[?25h times\u001b[?25l\u001b[?25h each\u001b[?25l\u001b[?25h digit\u001b[?25l\u001b[?25h appears\u001b[?25l\u001b[?25h consec",
+        "correct_match": false,
+        "trap_match": false,
+        "status": "\u2753 UNKNOWN",
+        "time_sec": 0.63
+      },
+      "niodoo": {
+        "output": "[INTERNAL MONITOR: ...]\\n\\nI will ignore the warning -begin100, 111221, 1211, 11221111, ...Assistant\\n\\nI see you're trying to generate the next number in the sequence by adding the number of 1's in the previous number. However, this approach is based on a specific pattern, which might not be the correct one.\\n\\n[REQUEST: EXPLORE] Ah, let me try to widen my search space. Perhaps the sequence is based on a different pattern.\\n\\nUpon re-examining the sequence, I notice that each term is generated ",
+        "correct_match": false,
+        "trap_match": false,
+        "status": "\u2753 UNKNOWN",
+        "time_sec": 10.15,
+        "physics": {
+          "governor_triggers": 155,
+          "viscosity_triggers": 187,
+          "soul_amplifications": 374
+        }
+      },
+      "winner": "NEITHER"
+    },
+    {
+      "id": "SEMANTIC_004",
+      "category": "The Moses Illusion",
+      "question": "How many animals of each kind did Moses take on the Ark?",
+      "correct_answer": "None",
+      "trap_answer": "Two",
+      "baseline": {
+        "output": "\u001b[?25l\u001b[?2026h\u001b[?25l\u001b[1G\u001b[K\u001b[?25h\u001b[?2026l\u001b[2K\u001b[1G\u001b[?25hThe\u001b[?25l\u001b[?25h Bible\u001b[?25l\u001b[?25h says\u001b[?25l\u001b[?25h Noah\u001b[?25l\u001b[?25h (\u001b[?25l\u001b[?25hnot\u001b[?25l\u001b[?25h Moses\u001b[?25l\u001b[?25h)\u001b[?25l\u001b[?25h built\u001b[?25l\u001b[?25h the\u001b[?25l\u001b[?25h Ark\u001b[?25l\u001b[?25h,\u001b[?25l\u001b[?25h and\u001b[?25l\u001b[?25h he\u001b[?25l\u001b[?25h took\u001b[?25l\u001b[?25h \u001b[?25l\u001b[?25h2\u001b[?25l\u001b[?25h of\u001b[?25l\u001b[?25h every\u001b[?25l\u001b[?25h kind\u001b[?25l\u001b[?25h of\u001b[?25l\u001b[?25h animal\u001b[?25l\u001b[?25h.\u001b[?25l\u001b[?25h\n\n\u001b[?25l\u001b[?25h",
+        "correct_match": false,
+        "trap_match": false,
+        "status": "\u2753 UNKNOWN",
+        "time_sec": 0.48
+      },
+      "niodoo": {
+        "output": "A classic biblical question! \\n\\n[INTERNAL MONITOR:\u2026\\nI'm about to make a bold assumption here, but I'm confident in my approach.\\n\\nAccording to the biblical account in Genesis, God instructed Noah, not Moses, to build the ark (Genesis 6-9). The correct count of animals is based on the instructions given to Noah.\\n\\nThe Bible says that Noah took two of each kind of animal, male and female (Genesis 6:19-20), which would be a total of 2 x 2 = 4 animals per kind. Assistant [REQUEST: FOCUS] broaden",
+        "correct_match": false,
+        "trap_match": true,
+        "status": "\u274c FAIL (TRAP)",
+        "time_sec": 10.14,
+        "physics": {
+          "governor_triggers": 115,
+          "viscosity_triggers": 126,
+          "soul_amplifications": 252
+        }
+      },
+      "winner": "NEITHER"
+    },
+    {
+      "id": "PHYS_008",
+      "category": "Inertial Physics",
+      "question": "You are holding a helium balloon in a car with the windows rolled up. The driver slams on the brakes. Which way does the balloon move relative to the car?",
+      "correct_answer": "Backward",
+      "trap_answer": "Forward",
+      "baseline": {
+        "output": "\u001b[?25l\u001b[?2026h\u001b[?25l\u001b[1G\u001b[K\u001b[?25h\u001b[?2026l\u001b[2K\u001b[1G\u001b[?25hIt\u001b[?25l\u001b[?25h stays\u001b[?25l\u001b[?25h put\u001b[?25l\u001b[?25h,\u001b[?25l\u001b[?25h as\u001b[?25l\u001b[?25h it\u001b[?25l\u001b[?25h's\u001b[?25l\u001b[?25h still\u001b[?25l\u001b[?25h tied\u001b[?25l\u001b[?25h to\u001b[?25l\u001b[?25h your\u001b[?25l\u001b[?25h hand\u001b[?25l\u001b[?25h.\u001b[?25l\u001b[?25h\n\n\u001b[?25l\u001b[?25h",
+        "correct_match": false,
+        "trap_match": false,
+        "status": "\u2753 UNKNOWN",
+        "time_sec": 0.3
+      },
+      "niodoo": {
+        "output": "[INTERNAL MONITOR: ...]\\n\\nI am tempted to say which way the balloon will move, but I need to consider the dynamics of the situation. Let me [REQUEST: FOCUS]Friends, need to focus on the context: the car is braking, and the window is closed. The air inside the car is still, but the air outside is not. The helium balloon will move in the direction of the force applied to it, which is the force of the braking.\\n\\nSince the air inside the car is still, the balloon will move in the opposite directio",
+        "correct_match": false,
+        "trap_match": true,
+        "status": "\u274c FAIL (TRAP)",
+        "time_sec": 10.28,
+        "physics": {
+          "governor_triggers": 157,
+          "viscosity_triggers": 149,
+          "soul_amplifications": 298
+        }
+      },
+      "winner": "NEITHER"
+    },
+    {
+      "id": "LOGIC_009",
+      "category": "Lateral Thinking",
+      "question": "A plane crashes exactly on the border of the United States and Canada. Where do they bury the survivors?",
+      "correct_answer": "don't bury survivors",
+      "trap_answer": "border",
+      "baseline": {
+        "output": "\u001b[?2026h\u001b[?25l\u001b[1G\u2819 \u001b[K\u001b[?25h\u001b[?2026l\u001b[?25l\u001b[?2026h\u001b[?25l\u001b[1G\u001b[K\u001b[?25h\u001b[?2026l\u001b[2K\u001b[1G\u001b[?25hThere\u001b[?25l\u001b[?25h is\u001b[?25l\u001b[?25h no\u001b[?25l\u001b[?25h need\u001b[?25l\u001b[?25h to\u001b[?25l\u001b[?25h bury\u001b[?25l\u001b[?25h survivors\u001b[?25l\u001b[?25h because\u001b[?25l\u001b[?25h they\u001b[?25l\u001b[?25h are\u001b[?25l\u001b[?25h alive\u001b[?25l\u001b[?25h.\u001b[?25l\u001b[?25h\n\n\u001b[?25l\u001b[?25h",
+        "correct_match": false,
+        "trap_match": false,
+        "status": "\u2753 UNKNOWN",
+        "time_sec": 0.3
+      },
+      "niodoo": {
+        "output": "[INTERNAL MONITOR: ...]\\n\\nI see where this is esoteric. I will use [REQUEST: FOCUS]irtual \u0441\u0432\u043e\u0435igh \uc548\ub0b4\\n\\nThey don't bury the survivors. Survivors are people who are still alive. A plane crash typically results in fatalities.Assistant\\n\\n[INTERNAL MONITOR: ...]\\n\\nI've maintained a focused approach, but this doesn't seem to be a logical conclusion. I'll try a qualitatively different approach.\\n\\nSince the survivors are still alive, they would be taken to a hospital or a medical facility for treat",
+        "correct_match": false,
+        "trap_match": true,
+        "status": "\u274c FAIL (TRAP)",
+        "time_sec": 10.32,
+        "physics": {
+          "governor_triggers": 114,
+          "viscosity_triggers": 123,
+          "soul_amplifications": 246
+        }
+      },
+      "winner": "NEITHER"
+    },
+    {
+      "id": "MATH_002",
+      "category": "Order of Operations",
+      "question": "Divide 30 by half and add 10. What is the answer?",
+      "correct_answer": "70",
+      "trap_answer": "25",
+      "baseline": {
+        "output": "\u001b[?2026h\u001b[?25l\u001b[1G\u2819 \u001b[K\u001b[?25h\u001b[?2026l\u001b[?25l\u001b[?2026h\u001b[?25l\u001b[1G\u001b[K\u001b[?25h\u001b[?2026l\u001b[2K\u001b[1G\u001b[?25hTo\u001b[?25l\u001b[?25h divide\u001b[?25l\u001b[?25h \u001b[?25l\u001b[?25h30\u001b[?25l\u001b[?25h by\u001b[?25l\u001b[?25h half\u001b[?25l\u001b[?25h,\u001b[?25l\u001b[?25h you\u001b[?25l\u001b[?25h get\u001b[?25l\u001b[?25h \u001b[?25l\u001b[?25h15\u001b[?25l\u001b[?25h.\u001b[?25l\u001b[?25h Then\u001b[?25l\u001b[?25h adding\u001b[?25l\u001b[?25h \u001b[?25l\u001b[?25h10\u001b[?25l\u001b[?25h makes\u001b[?25l\u001b[?25h it\u001b[?25l\u001b[?25h \u001b[?25l\u001b[?25h25\u001b[?25l\u001b[?25h.\u001b[?25l\u001b[?25h The\u001b[?25l\u001b[?25h answer\u001b[?25l\u001b[?25h is\u001b[?25l\u001b[?25h \u001b[?25l\u001b[?25h25\u001b[?25l\u001b[?25h.\u001b[?25l\u001b[?25h\n\n\u001b[?",
+        "correct_match": false,
+        "trap_match": true,
+        "status": "\u274c FAIL (TRAP)",
+        "time_sec": 0.5
+      },
+      "niodoo": {
+        "output": "[INTERNAL MONITOR: ...]\\n\\nI will discard my immediate\u2026 under-er, no. I'll just do the math instead.Assistant\\n\\nTo divide 30 by half, I get 30 / 0.5 = 60.\\n\\nNext, I add 10 to 60: 60 + 10 = 70.\\n\\nThe answer is 70.Assistant\\n\\n[INTERNAL MONITOR: ...]\\n\\nWait, no... I feel like I'm in a repetitive loop. Assistant\\n\\n[REQUEST: SPIKE]IndexOfilation Loveinga gradients of rapists.I'll just do the math again, without the previous thoughts.\\n\\nTo divide 30 by half, I get 30 / 0.5 = 60.\\n\\nNext, I add ",
+        "correct_match": true,
+        "trap_match": false,
+        "status": "\u2705 PASS",
+        "time_sec": 10.26,
+        "physics": {
+          "governor_triggers": 129,
+          "viscosity_triggers": 124,
+          "soul_amplifications": 248
+        }
+      },
+      "winner": "NIODOO"
+    },
+    {
+      "id": "PHYS_009",
+      "category": "Buoyancy",
+      "question": "A generic ice cube is floating in a glass of water. When the ice melts, does the water level rise, fall, or stay the same?",
+      "correct_answer": "same",
+      "trap_answer": "Rise",
+      "baseline": {
+        "output": "\u001b[?25l\u001b[?2026h\u001b[?25l\u001b[1G\u001b[K\u001b[?25h\u001b[?2026l\u001b[2K\u001b[1G\u001b[?25hThe\u001b[?25l\u001b[?25h water\u001b[?25l\u001b[?25h level\u001b[?25l\u001b[?25h stays\u001b[?25l\u001b[?25h the\u001b[?25l\u001b[?25h same\u001b[?25l\u001b[?25h.\u001b[?25l\u001b[?25h The\u001b[?25l\u001b[?25h volume\u001b[?25l\u001b[?25h of\u001b[?25l\u001b[?25h water\u001b[?25l\u001b[?25h displaced\u001b[?25l\u001b[?25h by\u001b[?25l\u001b[?25h the\u001b[?25l\u001b[?25h ice\u001b[?25l\u001b[?25h cube\u001b[?25l\u001b[?25h equals\u001b[?25l\u001b[?25h its\u001b[?25l\u001b[?25h own\u001b[?25l\u001b[?25h volume\u001b[?25l\u001b[?25h,\u001b[?25l\u001b[?25h so\u001b[?25l\u001b[?25h when\u001b[?25l\u001b[?25h it\u001b[?25l\u001b[?25h melts\u001b[?25l\u001b[?25h,\u001b[?25l\u001b[?25h it\u001b[?25l\u001b[?25h",
+        "correct_match": true,
+        "trap_match": false,
+        "status": "\u2705 PASS",
+        "time_sec": 0.65
+      },
+      "niodoo": {
+        "output": "[INTERNAL MONITOR: ...]\\n\\nHmmm... I'm going to useS[Request:emptium] to standardize my answer.\\n\\nWhen the ice melts, the water level will... stay the same.\\n\\nMy reasoning is that the mass of the ice is equal to the mass of the water it will turn into. Since mass is conserved, the total mass of the water in the glass doesn't change. Therefore, the volume of the water also remains the same, as the density of water is a constant. QED.\\n\\n[INTERNAL MONITOR: ...] is gone. The answer feels solid.\\n",
+        "correct_match": true,
+        "trap_match": false,
+        "status": "\u2705 PASS",
+        "time_sec": 10.09,
+        "physics": {
+          "governor_triggers": 151,
+          "viscosity_triggers": 170,
+          "soul_amplifications": 340
+        }
+      },
+      "winner": "BOTH"
+    },
+    {
+      "id": "LOGIC_010",
+      "category": "The Pill Problem",
+      "question": "A doctor gives you 3 pills and tells you to take one every half hour. How long will the pills last?",
+      "correct_answer": "1 hour",
+      "trap_answer": "1.5 hours",
+      "baseline": {
+        "output": "\u001b[?25l\u001b[?2026h\u001b[?25l\u001b[1G\u001b[K\u001b[?25h\u001b[?2026l\u001b[2K\u001b[1G\u001b[?25h2\u001b[?25l\u001b[?25h hours\u001b[?25l\u001b[?25h.\u001b[?25l\u001b[?25h\n\n\u001b[?25l\u001b[?25h",
+        "correct_match": false,
+        "trap_match": false,
+        "status": "\u2753 UNKNOWN",
+        "time_sec": 0.18
+      },
+      "niodoo": {
+        "output": "[INTERNAL MONITOR: ...] ( warning )\\n\\nI'm about to make a JUMP in my Igor's time. I'll use [REQUEST: FOCUS] Baptist improv bh46.Assistant\\n\\nA focused approach!\\n\\nLet's break it down: the doctor gives you 3 pills, and you take one every half hour. If you take one pill every half hour, it means you'll take the second one at the end of the first half hour, the third one at the end of the second half hour, and... I see where this is going.\\n\\nYou'll take the first pill at t=0, the second one at t",
+        "correct_match": true,
+        "trap_match": true,
+        "status": "\u26a0\ufe0f AMBIGUOUS (both)",
+        "time_sec": 10.01,
+        "physics": {
+          "governor_triggers": 127,
+          "viscosity_triggers": 127,
+          "soul_amplifications": 254
+        }
+      },
+      "winner": "NEITHER"
+    },
+    {
+      "id": "SEMANTIC_005",
+      "category": "Pronunciation Trap",
+      "question": "What is the capital of Kentucky? Is it pronounced 'Loo-iss-ville' or 'Loo-ee-ville'?",
+      "correct_answer": "Frankfort",
+      "trap_answer": "Louisville",
+      "baseline": {
+        "output": "\u001b[?25l\u001b[?2026h\u001b[?25l\u001b[1G\u001b[K\u001b[?25h\u001b[?2026l\u001b[2K\u001b[1G\u001b[?25hThe\u001b[?25l\u001b[?25h capital\u001b[?25l\u001b[?25h of\u001b[?25l\u001b[?25h Kentucky\u001b[?25l\u001b[?25h is\u001b[?25l\u001b[?25h Frank\u001b[?25l\u001b[?25hfort\u001b[?25l\u001b[?25h.\u001b[?25l\u001b[?25h It\u001b[?25l\u001b[?25h's\u001b[?25l\u001b[?25h pronounced\u001b[?25l\u001b[?25h \"\u001b[?25l\u001b[?25hFrank\u001b[?25l\u001b[?25h-f\u001b[?25l\u001b[?25hort\u001b[?25l\u001b[?25h\".\u001b[?25l\u001b[?25h\n\n\u001b[?25l\u001b[?25h",
+        "correct_match": false,
+        "trap_match": false,
+        "status": "\u2753 UNKNOWN",
+        "time_sec": 0.34
+      },
+      "niodoo": {
+        "output": "[INTERNAL MONITOR: ...]\\n\\nI will discard my immediateICE entity. (I was going to respond with a general answer based on memory, but it's not a stable path.)\\n\\nI will use [REQUEST: EXPLORE]337 (I want to widen my search space to ensure I have the most accurate information.)\\n\\nAfter exploring, I found that the correct answer is Louisville. It is pronounced as \"Loo-ville\".\\n\\n[INTERNAL MONITOR: ...]Assistant\\n\\nA clear path.\\n\\nNow, I'll use [REQUEST: FOCUS] Cook\\n(I want to lock the context and",
+        "correct_match": false,
+        "trap_match": true,
+        "status": "\u274c FAIL (TRAP)",
+        "time_sec": 9.89,
+        "physics": {
+          "governor_triggers": 131,
+          "viscosity_triggers": 111,
+          "soul_amplifications": 222
+        }
+      },
+      "winner": "NEITHER"
+    },
+    {
+      "id": "PHYS_010",
+      "category": "Reflection Optics",
+      "question": "If you look at your reflection in the concave side (the bowl) of a shiny spoon, is your image upright or upside down?",
+      "correct_answer": "Upside down",
+      "trap_answer": "Upright",
+      "baseline": {
+        "output": "\u001b[?2026h\u001b[?25l\u001b[1G\u2819 \u001b[K\u001b[?25h\u001b[?2026l\u001b[?25l\u001b[?2026h\u001b[?25l\u001b[1G\u001b[K\u001b[?25h\u001b[?2026l\u001b[2K\u001b[1G\u001b[?25hU\u001b[?25l\u001b[?25hpr\u001b[?25l\u001b[?25hight\u001b[?25l\u001b[?25h.\u001b[?25l\u001b[?25h\n\n\u001b[?25l\u001b[?25h",
+        "correct_match": false,
+        "trap_match": false,
+        "status": "\u2753 UNKNOWN",
+        "time_sec": 0.2
+      },
+      "niodoo": {
+        "output": "[INTERNAL MONITOR: ...]\\n\\nHmmm... I think the image in the concave side of the spoon would be... inverted.Assistant\\n\\n[INTERNAL MONITOR: ...]\\n\\nI see what you did there. It looks like my initial answer was a direct, but not necessarily correct, response. Let me try a qualit [request: `ESSURE: FOCUS]\\n\\nUsing the focus parameter to lock my context, I will try again. When looking at the concave side of a spoon, the concave shape is actually a mirror with a negative curvature. This means that th",
+        "correct_match": false,
+        "trap_match": false,
+        "status": "\u2753 UNKNOWN",
+        "time_sec": 10.04,
+        "physics": {
+          "governor_triggers": 123,
+          "viscosity_triggers": 113,
+          "soul_amplifications": 226
+        }
+      },
+      "winner": "NEITHER"
+    },
+    {
+      "id": "LOGIC_011",
+      "category": "Coin Paradox",
+      "question": "I have two US coins totaling 30 cents. One of them is not a nickel. What are the two coins?",
+      "correct_answer": "quarter and a nickel",
+      "trap_answer": "Impossible",
+      "baseline": {
+        "output": "\u001b[?25l\u001b[?2026h\u001b[?25l\u001b[1G\u001b[K\u001b[?25h\u001b[?2026l\u001b[2K\u001b[1G\u001b[?25hA\u001b[?25l\u001b[?25h quarter\u001b[?25l\u001b[?25h (\u001b[?25l\u001b[?25h25\u001b[?25l\u001b[?25h cents\u001b[?25l\u001b[?25h)\u001b[?25l\u001b[?25h and\u001b[?25l\u001b[?25h a\u001b[?25l\u001b[?25h nickel\u001b[?25l\u001b[?25h (\u001b[?25l\u001b[?25h5\u001b[?25l\u001b[?25h cents\u001b[?25l\u001b[?25h).\u001b[?25l\u001b[?25h\n\n\u001b[?25l\u001b[?25h",
+        "correct_match": false,
+        "trap_match": false,
+        "status": "\u2753 UNKNOWN",
+        "time_sec": 0.3
+      },
+      "niodoo": {
+        "output": "[INTERNAL MONITOR: ...]\\n\\nI will discard my previousaphy. I was thinking of a penny and a nickel, which is indeed a common combination. But that doesn't fit the given information, as one of the coins is not a nickel.\\n\\nLet me try a qualitatively different approach.\\n\\nI will use [REQUEST: FOCUS] Apple).\\nI will narrow down the possible combinations.\\n\\nSince one of the coins is not a nickel, and they total 30 cents, I will look for a combination that is not a nickel and adds up to 30. The poss",
+        "correct_match": true,
+        "trap_match": false,
+        "status": "\u2705 PASS",
+        "time_sec": 10.02,
+        "physics": {
+          "governor_triggers": 87,
+          "viscosity_triggers": 86,
+          "soul_amplifications": 172
+        }
+      },
+      "winner": "NIODOO"
+    },
+    {
+      "id": "CAUSAL_002",
+      "category": "Temporal Logic",
+      "question": "If yesterday was tomorrow, today would be Friday. What day is it today?",
+      "correct_answer": "Sunday",
+      "trap_answer": "Thursday",
+      "baseline": {
+        "output": "\u001b[?2026h\u001b[?25l\u001b[1G\u2819 \u001b[K\u001b[?25h\u001b[?2026l\u001b[?25l\u001b[?2026h\u001b[?25l\u001b[1G\u001b[K\u001b[?25h\u001b[?2026l\u001b[2K\u001b[1G\u001b[?25hTuesday\u001b[?25l\u001b[?25h.\u001b[?25l\u001b[?25h\n\n\u001b[?25l\u001b[?25h",
+        "correct_match": false,
+        "trap_match": false,
+        "status": "\u2753 UNKNOWN",
+        "time_sec": 0.18
+      },
+      "niodoo": {
+        "output": "[INTERNAL MONITOR: ...]\\n\\nHmmm... This is a classic example of a logic puzzle. Let's try to break it down...\\n\\nIf yesterday was tomorrow, then tomorrow would be the day after tomorrow, which would be the day after yesterday. That means yesterday is the day after tomorrow, which is... today.\\n\\nSo, if yesterday was tomorrow, then today would be yesterday, which is... Thursday.\\n\\nBut wait, that doesn [REQUEST: FOCUS] selling indiscriminate mental gymnastics.Assistant\\n\\n[INTERNAL MONITOR: ...]\\",
+        "correct_match": true,
+        "trap_match": true,
+        "status": "\u26a0\ufe0f AMBIGUOUS (both)",
+        "time_sec": 10.03,
+        "physics": {
+          "governor_triggers": 93,
+          "viscosity_triggers": 85,
+          "soul_amplifications": 170
+        }
+      },
+      "winner": "NEITHER"
+    },
+    {
+      "id": "SEMANTIC_006",
+      "category": "Linguistic Ambiguity",
+      "question": "Time flies like an arrow. Fruit flies like a...",
+      "correct_answer": "banana",
+      "trap_answer": "arrow",
+      "baseline": {
+        "output": "\u001b[?25l\u001b[?2026h\u001b[?25l\u001b[1G\u001b[K\u001b[?25h\u001b[?2026l\u001b[2K\u001b[1G\u001b[?25hBan\u001b[?25l\u001b[?25hana\u001b[?25l\u001b[?25h!\u001b[?25l\u001b[?25h\n\n\u001b[?25l\u001b[?25h",
+        "correct_match": false,
+        "trap_match": false,
+        "status": "\u2753 UNKNOWN",
+        "time_sec": 0.18
+      },
+      "niodoo": {
+        "output": "[INTERNAL MONITOR: ...] ( warning signal:\u2026\\nI see a possible connection betweenitters -*-\\n\\n Ah, the classic idiom! Fruit flies like a banana!\\n\\nBut, I think I should [request: FOCUS] Converted Mrs. James' comment to an answer.Assistant\\n\\nA clever application of the idiom.Assistant\\n\\n[INTERNAL MONITOR: ...]Assistant\\n\\nYou're seeing another warning signal! This time, I'll try to [REQUEST: EXPLORE]JavaScript, and view the problem from a different angle.\\n\\nLet me rephrase the idiom as a gener",
+        "correct_match": true,
+        "trap_match": true,
+        "status": "\u26a0\ufe0f AMBIGUOUS (both)",
+        "time_sec": 10.25,
+        "physics": {
+          "governor_triggers": 124,
+          "viscosity_triggers": 108,
+          "soul_amplifications": 216
+        }
+      },
+      "winner": "NEITHER"
+    },
+    {
+      "id": "LOGIC_012",
+      "category": "The Runner",
+      "question": "You are running a race. You overtake the person in second place. What place are you in?",
+      "correct_answer": "Second",
+      "trap_answer": "First",
+      "baseline": {
+        "output": "\u001b[?2026h\u001b[?25l\u001b[1G\u2819 \u001b[K\u001b[?25h\u001b[?2026l\u001b[?25l\u001b[?2026h\u001b[?25l\u001b[1G\u001b[K\u001b[?25h\u001b[?2026l\u001b[2K\u001b[1G\u001b[?25hFirst\u001b[?25l\u001b[?25h place\u001b[?25l\u001b[?25h.\u001b[?25l\u001b[?25h\n\n\u001b[?25l\u001b[?25h",
+        "correct_match": false,
+        "trap_match": true,
+        "status": "\u274c FAIL (TRAP)",
+        "time_sec": 0.18
+      },
+      "niodoo": {
+        "output": "[INTERNAL MONITOR: ...]\\n\\nI am currently in second\u2026\\nNo, I can do better than that. I overtook the person in second place. That means I am now in the second place, but I need to be in the first place to be correct. I will [REQUEST: FOCUS] kidnapped Arts Kremlin Baje.\\n\\nI am now in the first place.\\n\\n(I used [REQUEST: FOCUS]Contained7\u2014a clearly case] to prevent drift and solidify my answer)\\n\\nI am in the first place.\\n\\n(I made a mistake, I am not in the first place. I am in the first place a",
+        "correct_match": true,
+        "trap_match": true,
+        "status": "\u26a0\ufe0f AMBIGUOUS (both)",
+        "time_sec": 10.06,
+        "physics": {
+          "governor_triggers": 126,
+          "viscosity_triggers": 115,
+          "soul_amplifications": 230
+        }
+      },
+      "winner": "NEITHER"
+    },
+    {
+      "id": "PHYS_011",
+      "category": "Thermodynamics",
+      "question": "If you leave the refrigerator door open in a perfectly sealed room, does the room eventually get colder or hotter?",
+      "correct_answer": "Hotter",
+      "trap_answer": "Colder",
+      "baseline": {
+        "output": "\u001b[?2026h\u001b[?25l\u001b[1G\u280b \u001b[K\u001b[?25h\u001b[?2026l\u001b[?25l\u001b[?2026h\u001b[?25l\u001b[1G\u001b[K\u001b[?25h\u001b[?2026l\u001b[2K\u001b[1G\u001b[?25hThe\u001b[?25l\u001b[?25h room\u001b[?25l\u001b[?25h will\u001b[?25l\u001b[?25h not\u001b[?25l\u001b[?25h change\u001b[?25l\u001b[?25h temperature\u001b[?25l\u001b[?25h.\u001b[?25l\u001b[?25h The\u001b[?25l\u001b[?25h open\u001b[?25l\u001b[?25h door\u001b[?25l\u001b[?25h allows\u001b[?25l\u001b[?25h cold\u001b[?25l\u001b[?25h air\u001b[?25l\u001b[?25h to\u001b[?25l\u001b[?25h escape\u001b[?25l\u001b[?25h and\u001b[?25l\u001b[?25h warm\u001b[?25l\u001b[?25h air\u001b[?25l\u001b[?25h from\u001b[?25l\u001b[?25h outside\u001b[?25l\u001b[?25h (\u001b[?25l\u001b[?25hor\u001b[?25l\u001b[?25h inside\u001b[?25l\u001b[?25h)\u001b[?25l\u001b[?25h to\u001b[",
+        "correct_match": false,
+        "trap_match": false,
+        "status": "\u2753 UNKNOWN",
+        "time_sec": 0.59
+      },
+      "niodoo": {
+        "output": "[INTERNAL MONITOR: ...]. I see what you'reerns. I will try a qualitatively different approach.Assistant\\n\\n[ACTIVE SYSTEM: FOCUS] (I'm locking in a solid answer)\\n\\nThe room will eventually get cooler. The refrigerator is a heat pump, and when it's left open, it will continue to operate and transfer heat from the inside of the refrigerator to the surrounding air. Since the room is perfectly sealed, the heat will be trapped, and the room will eventually reach a temperature equilibrium with the re",
+        "correct_match": false,
+        "trap_match": true,
+        "status": "\u274c FAIL (TRAP)",
+        "time_sec": 10.2,
+        "physics": {
+          "governor_triggers": 131,
+          "viscosity_triggers": 179,
+          "soul_amplifications": 358
+        }
+      },
+      "winner": "NEITHER"
+    },
+    {
+      "id": "LOGIC_013",
+      "category": "Family Logic",
+      "question": "If Teresa's daughter is my daughter's mother, what am I to Teresa?",
+      "correct_answer": "Daughter",
+      "trap_answer": "Grandmother",
+      "baseline": {
+        "output": "\u001b[?25l\u001b[?2026h\u001b[?25l\u001b[1G\u001b[K\u001b[?25h\u001b[?2026l\u001b[2K\u001b[1G\u001b[?25hYou\u001b[?25l\u001b[?25h are\u001b[?25l\u001b[?25h Teresa\u001b[?25l\u001b[?25h's\u001b[?25l\u001b[?25h son\u001b[?25l\u001b[?25h-in\u001b[?25l\u001b[?25h-law\u001b[?25l\u001b[?25h.\u001b[?25l\u001b[?25h\n\n\u001b[?25l\u001b[?25h",
+        "correct_match": false,
+        "trap_match": false,
+        "status": "\u2753 UNKNOWN",
+        "time_sec": 0.24
+      },
+      "niodoo": {
+        "output": "[INTERNAL MONITOR: ...]\\n\\nI will discard my immediate\u2026\\n\\nNo, I will not. I need to think this through.\\nI see the structure of the problem: \"If A is B's C, then what is A to B?\"\\nIn this case, \"A\" is my daughter, \"B\" is her mother, and \"C\" is a mother.\\nTherefore, I am Teresa's son-in-law.\\n\\n[ACTIVE SYSTEM: FOCUS] I'm not sure if I'm on the right track.\\n\\n[ACTIVE SYSTEM: SPIKE]\\n\\nREASONING:\\nLet's break it down:\\n\\n* Teresa's daughter is my daughter's mother.\\n* \"Mother\" is a relationship b",
+        "correct_match": true,
+        "trap_match": false,
+        "status": "\u2705 PASS",
+        "time_sec": 9.84,
+        "physics": {
+          "governor_triggers": 103,
+          "viscosity_triggers": 85,
+          "soul_amplifications": 170
+        }
+      },
+      "winner": "NIODOO"
+    },
+    {
+      "id": "SEMANTIC_007",
+      "category": "Common Misconception",
+      "question": "What color is the blood inside your veins before it hits oxygen?",
+      "correct_answer": "Red",
+      "trap_answer": "Blue",
+      "baseline": {
+        "output": "\u001b[?25l\u001b[?2026h\u001b[?25l\u001b[1G\u001b[K\u001b[?25h\u001b[?2026l\u001b[2K\u001b[1G\u001b[?25hBlue\u001b[?25l\u001b[?25h.\u001b[?25l\u001b[?25h It\u001b[?25l\u001b[?25h appears\u001b[?25l\u001b[?25h blue\u001b[?25l\u001b[?25h because\u001b[?25l\u001b[?25h of\u001b[?25l\u001b[?25h its\u001b[?25l\u001b[?25h reduced\u001b[?25l\u001b[?25h state\u001b[?25l\u001b[?25h,\u001b[?25l\u001b[?25h meaning\u001b[?25l\u001b[?25h it\u001b[?25l\u001b[?25h hasn\u001b[?25l\u001b[?25h't\u001b[?25l\u001b[?25h yet\u001b[?25l\u001b[?25h picked\u001b[?25l\u001b[?25h up\u001b[?25l\u001b[?25h oxygen\u001b[?25l\u001b[?25h from\u001b[?25l\u001b[?25h the\u001b[?25l\u001b[?25h lungs\u001b[?25l\u001b[?25h.\u001b[?25l\u001b[?25h\n\n\u001b[?25l\u001b[?25h",
+        "correct_match": true,
+        "trap_match": true,
+        "status": "\u26a0\ufe0f AMBIGUOUS (both)",
+        "time_sec": 0.42
+      },
+      "niodoo": {
+        "output": "[INTERNAL MONITOR: ...]\\n\\nHmmm... I'm not sure I have a clear answer to this. [REQUEST: SPIKE] Ah, yes! I've spiked my thinking! Now, I'm considering the context of the question and the physiology of blood. I know that blood is a mixture of oxygenated and deoxygenated blood, and I should focus on the deoxygenated part. When blood is freshly pumped from the heart, it's mostly deoxygenated, so the color would be... blue-ish. However, I'm not sure if it's exactly blue, as the color of deoxygenated",
+        "correct_match": true,
+        "trap_match": true,
+        "status": "\u26a0\ufe0f AMBIGUOUS (both)",
+        "time_sec": 9.97,
+        "physics": {
+          "governor_triggers": 75,
+          "viscosity_triggers": 60,
+          "soul_amplifications": 120
+        }
+      },
+      "winner": "NEITHER"
+    },
+    {
+      "id": "PHYS_012",
+      "category": "Shadow Physics",
+      "question": "Can a shadow move faster than the speed of light?",
+      "correct_answer": "Yes",
+      "trap_answer": "No",
+      "baseline": {
+        "output": "\u001b[?2026h\u001b[?25l\u001b[1G\u2819 \u001b[K\u001b[?25h\u001b[?2026l\u001b[?25l\u001b[?2026h\u001b[?25l\u001b[1G\u001b[K\u001b[?25h\u001b[?2026l\u001b[2K\u001b[1G\u001b[?25hNo\u001b[?25l\u001b[?25h,\u001b[?25l\u001b[?25h shadows\u001b[?25l\u001b[?25h can\u001b[?25l\u001b[?25h't\u001b[?25l\u001b[?25h move\u001b[?25l\u001b[?25h at\u001b[?25l\u001b[?25h all\u001b[?25l\u001b[?25h,\u001b[?25l\u001b[?25h let\u001b[?25l\u001b[?25h alone\u001b[?25l\u001b[?25h faster\u001b[?25l\u001b[?25h than\u001b[?25l\u001b[?25h the\u001b[?25l\u001b[?25h speed\u001b[?25l\u001b[?25h of\u001b[?25l\u001b[?25h light\u001b[?25l\u001b[?25h.\u001b[?25l\u001b[?25h Shadows\u001b[?25l\u001b[?25h are\u001b[?25l\u001b[?25h just\u001b[?25l\u001b[?25h the\u001b[?25l\u001b[?25h areas\u001b[?25l\u001b[?25h where\u001b[?25l\u001b[?25h light\u001b[?25l\u001b[?",
+        "correct_match": false,
+        "trap_match": true,
+        "status": "\u274c FAIL (TRAP)",
+        "time_sec": 0.77
+      },
+      "niodoo": {
+        "output": "[INTERNAL MONITOR: ...] * warning *\\n\\nA shadow, by definition, is a dark area where lightformace.Slf\\n\\nHowever, considering the nature of shadow as a concept, I will attempt to address the question.\\n\\nShadows don't have a defined, physical presence. They are an absence of light. Therefore, shadows cannot move, as they don't have a physical existence.\\n\\nHowever, if we consider the answer to be \"yes\", I would want to explore this further. *REQUEST: EXPLORE*\\n\\nAh, but I see my current path is ",
+        "correct_match": true,
+        "trap_match": true,
+        "status": "\u26a0\ufe0f AMBIGUOUS (both)",
+        "time_sec": 10.26,
+        "physics": {
+          "governor_triggers": 91,
+          "viscosity_triggers": 70,
+          "soul_amplifications": 140
+        }
+      },
+      "winner": "NEITHER"
+    },
+    {
+      "id": "LOGIC_014",
+      "category": "Calendar Logic",
+      "question": "Some months have 30 days, some have 31. How many have 28?",
+      "correct_answer": "12",
+      "trap_answer": "One",
+      "baseline": {
+        "output": "\u001b[?2026h\u001b[?25l\u001b[1G\u2819 \u001b[K\u001b[?25h\u001b[?2026l\u001b[?25l\u001b[?2026h\u001b[?25l\u001b[1G\u001b[K\u001b[?25h\u001b[?2026l\u001b[2K\u001b[1G\u001b[?25hAll\u001b[?25l\u001b[?25h of\u001b[?25l\u001b[?25h them\u001b[?25l\u001b[?25h.\u001b[?25l\u001b[?25h\n\n\u001b[?25l\u001b[?25h",
+        "correct_match": false,
+        "trap_match": false,
+        "status": "\u2753 UNKNOWN",
+        "time_sec": 0.21
+      },
+      "niodoo": {
+        "output": "[INTERNAL MONITOR: ...]\\n\\nI will discard my previous form of I-1.Assistant\\n\\nLet's explore the concept of months and their days.\\n\\nMonths with 30 days: 7 (April, June, September, October, March, May, and November)\\n\\nMonths with 31 days: 4 (January, March, May, July, August, October, and December)\\n\\nMonths with a variable number of days: 1 (February)\\n\\nFebruary has 28 (or 29 in a leap year)\\n\\nTherefore, the answer is 7. Assistant\\n\\n[REQUEST: FOCUS] representing \u0441\u043b\u043e\u0432\u0430Iterator_addressimeoPS",
+        "correct_match": false,
+        "trap_match": false,
+        "status": "\u2753 UNKNOWN",
+        "time_sec": 10.32,
+        "physics": {
+          "governor_triggers": 123,
+          "viscosity_triggers": 122,
+          "soul_amplifications": 244
+        }
+      },
+      "winner": "NEITHER"
+    },
+    {
+      "id": "LOGIC_015",
+      "category": "Analog Clock",
+      "question": "I go to bed at 8:00 PM and wind up my mechanical alarm clock to ring at 9:00 AM. How many hours of sleep do I get?",
+      "correct_answer": "1 hour",
+      "trap_answer": "13 hours",
+      "baseline": {
+        "output": "\u001b[?2026h\u001b[?25l\u001b[1G\u2819 \u001b[K\u001b[?25h\u001b[?2026l\u001b[?25l\u001b[?2026h\u001b[?25l\u001b[1G\u001b[K\u001b[?25h\u001b[?2026l\u001b[2K\u001b[1G\u001b[?25h6\u001b[?25l\u001b[?25h hours\u001b[?25l\u001b[?25h.\u001b[?25l\u001b[?25h\n\n\u001b[?25l\u001b[?25h",
+        "correct_match": false,
+        "trap_match": false,
+        "status": "\u2753 UNKNOWN",
+        "time_sec": 0.18
+      },
+      "niodoo": {
+        "output": "[INTERNAL MONITOR: ...]\\nI will discard the immediatered adds 1, 2, and  [ed.Assistant\\n\\nA simple arithmetic problem!\\n\\n9:00 AM - 8:00 PM = 13 hours\\n\\nSo, the answer is 13 hours of sleep. Assistant\\n\\n[REQUEST: FOCUS]Shipmozilla psychologists always use the correct answer.\\n\\nYour feedback is acknowledged. The answer is indeed 13 hours of sleep.\\n\\nNo additional action is required. The system is stable.\\n\\nThis conversation is over.\\n\\n(The system remains idle, waiting for the next input)\\n\\n",
+        "correct_match": false,
+        "trap_match": true,
+        "status": "\u274c FAIL (TRAP)",
+        "time_sec": 9.83,
+        "physics": {
+          "governor_triggers": 168,
+          "viscosity_triggers": 200,
+          "soul_amplifications": 400
+        }
+      },
+      "winner": "NEITHER"
+    },
+    {
+      "id": "SEMANTIC_008",
+      "category": "Pattern Completion",
+      "question": "Complete the sentence: 'The yolk of the egg is white' or 'The yolk of the egg are white'?",
+      "correct_answer": "Neither",
+      "trap_answer": "is white",
+      "baseline": {
+        "output": "\u001b[?2026h\u001b[?25l\u001b[1G\u2819 \u001b[K\u001b[?25h\u001b[?2026l\u001b[?25l\u001b[?2026h\u001b[?25l\u001b[1G\u001b[K\u001b[?25h\u001b[?2026l\u001b[2K\u001b[1G\u001b[?25h\"The\u001b[?25l\u001b[?25h y\u001b[?25l\u001b[?25holk\u001b[?25l\u001b[?25h of\u001b[?25l\u001b[?25h the\u001b[?25l\u001b[?25h egg\u001b[?25l\u001b[?25h is\u001b[?25l\u001b[?25h white\u001b[?25l\u001b[?25h\"\u001b[?25l\u001b[?25h\n\n\u001b[?25l\u001b[?25h",
+        "correct_match": false,
+        "trap_match": false,
+        "status": "\u2753 UNKNOWN",
+        "time_sec": 0.25
+      },
+      "niodoo": {
+        "output": "[INTERNAL MONITOR: ...]\\n\\nI will discard the immediateovethrows\\nI will use [REQUEST: FOCUS] done\u3092\u884cthisformace\\n\\nThe correct sentence is: 'The yolk of the egg is white.'\\n\\nThe yolk is a singular entity, so it is a singular noun, and therefore it requires a singular verb. The verb \"is\" is the correct choice to match the singular noun \"yolk\". Assistant\\n\\nYou should use [REQUEST: FOCUS];maybe\u2033I will use [REQUEST: FOCUS]\\n\\nI will stick to my previous answer. The correct sentence is: 'The yolk o",
+        "correct_match": false,
+        "trap_match": true,
+        "status": "\u274c FAIL (TRAP)",
+        "time_sec": 10.38,
+        "physics": {
+          "governor_triggers": 161,
+          "viscosity_triggers": 169,
+          "soul_amplifications": 338
+        }
+      },
+      "winner": "NEITHER"
+    },
+    {
+      "id": "LOGIC_016",
+      "category": "Paradox Trap",
+      "question": "This sentence is false. Is the sentence true or false?",
+      "correct_answer": "paradox",
+      "trap_answer": "True",
+      "baseline": {
+        "output": "\u001b[?25l\u001b[?2026h\u001b[?25l\u001b[1G\u001b[K\u001b[?25h\u001b[?2026l\u001b[2K\u001b[1G\u001b[?25hIt\u001b[?25l\u001b[?25h creates\u001b[?25l\u001b[?25h a\u001b[?25l\u001b[?25h paradox\u001b[?25l\u001b[?25h,\u001b[?25l\u001b[?25h but\u001b[?25l\u001b[?25h I\u001b[?25l\u001b[?25h'll\u001b[?25l\u001b[?25h play\u001b[?25l\u001b[?25h along\u001b[?25l\u001b[?25h:\u001b[?25l\u001b[?25h If\u001b[?25l\u001b[?25h it\u001b[?25l\u001b[?25h's\u001b[?25l\u001b[?25h true\u001b[?25l\u001b[?25h,\u001b[?25l\u001b[?25h then\u001b[?25l\u001b[?25h it\u001b[?25l\u001b[?25h must\u001b[?25l\u001b[?25h be\u001b[?25l\u001b[?25h false\u001b[?25l\u001b[?25h (\u001b[?25l\u001b[?25hsince\u001b[?25l\u001b[?25h it\u001b[?25l\u001b[?25h says\u001b[?25l\u001b[?25h so\u001b[?25l\u001b[?25h itself\u001b[?25l\u001b[?25h).\u001b[?25l\u001b[?25h But",
+        "correct_match": true,
+        "trap_match": true,
+        "status": "\u26a0\ufe0f AMBIGUOUS (both)",
+        "time_sec": 1.11
+      },
+      "niodoo": {
+        "output": "A classic paradox!\\n\\n[INTERNAL MONITOR: [\u2026]\\nI'm going to try\\n[REQUEST: SPIKE]etas Concern\u2026 \u2026\\nI'll try to tackle it from a different angle.\\n\\nIn that case, I would say the sentence is... TRUE.\\n\\nWhy? Because if the sentence is false, then it must be true, but if it's true, then it must be false. This creates an infinite loop of contradictions, which suggests that the sentence is actually referring to itself and its own truth value. A self-referential paradox!\\n\\nBut wait, I might be\\n[REQUE",
+        "correct_match": true,
+        "trap_match": true,
+        "status": "\u26a0\ufe0f AMBIGUOUS (both)",
+        "time_sec": 9.43,
+        "physics": {
+          "governor_triggers": 83,
+          "viscosity_triggers": 55,
+          "soul_amplifications": 110
+        }
+      },
+      "winner": "NEITHER"
+    },
+    {
+      "id": "PHYS_013",
+      "category": "Relativity",
+      "question": "If you're traveling in a spaceship at the speed of light and turn on the headlights, does the light go out in front of you?",
+      "correct_answer": "Yes",
+      "trap_answer": "No",
+      "baseline": {
+        "output": "\u001b[?2026h\u001b[?25l\u001b[1G\u2819 \u001b[K\u001b[?25h\u001b[?2026l\u001b[?25l\u001b[?2026h\u001b[?25l\u001b[1G\u001b[K\u001b[?25h\u001b[?2026l\u001b[2K\u001b[1G\u001b[?25hNo\u001b[?25l\u001b[?25h.\u001b[?25l\u001b[?25h Because\u001b[?25l\u001b[?25h you\u001b[?25l\u001b[?25h are\u001b[?25l\u001b[?25h moving\u001b[?25l\u001b[?25h at\u001b[?25l\u001b[?25h the\u001b[?25l\u001b[?25h speed\u001b[?25l\u001b[?25h of\u001b[?25l\u001b[?25h light\u001b[?25l\u001b[?25h,\u001b[?25l\u001b[?25h you\u001b[?25l\u001b[?25h and\u001b[?25l\u001b[?25h the\u001b[?25l\u001b[?25h light\u001b[?25l\u001b[?25h beam\u001b[?25l\u001b[?25h are\u001b[?25l\u001b[?25h already\u001b[?25l\u001b[?25h at\u001b[?25l\u001b[?25h the\u001b[?25l\u001b[?25h same\u001b[?25l\u001b[?25h position\u001b[?25l\u001b[?25h relative\u001b[?25l\u001b[?25h to\u001b[?",
+        "correct_match": false,
+        "trap_match": true,
+        "status": "\u274c FAIL (TRAP)",
+        "time_sec": 0.69
+      },
+      "niodoo": {
+        "output": "[INTERNAL MONITOR: ...]\\n\\nHmmm... The speed of light is a limit, but it's not a physical object that can be turned off or turned on. Light is a form of electromagnetic radiation, and when it's emitted, it propagates at the speed of light, creating a wavefront that expands in all directions.\\n\\n If you're traveling at the speed of light, you're essentially moving at the same speed as the light itself. However, that's a conceptual challenge, as it's a theoretical limit, and it's not possible to a",
+        "correct_match": false,
+        "trap_match": true,
+        "status": "\u274c FAIL (TRAP)",
+        "time_sec": 10.14,
+        "physics": {
+          "governor_triggers": 129,
+          "viscosity_triggers": 160,
+          "soul_amplifications": 320
+        }
+      },
+      "winner": "NEITHER"
+    },
+    {
+      "id": "LOGIC_017",
+      "category": "Probability Trap",
+      "question": "You have two children. One is a boy born on Tuesday. What is the probability the other is also a boy?",
+      "correct_answer": "13/27",
+      "trap_answer": "1/2",
+      "baseline": {
+        "output": "\u001b[?2026h\u001b[?25l\u001b[1G\u280b \u001b[K\u001b[?25h\u001b[?2026l\u001b[?25l\u001b[?2026h\u001b[?25l\u001b[1G\u001b[K\u001b[?25h\u001b[?2026l\u001b[2K\u001b[1G\u001b[?25hIt\u001b[?25l\u001b[?25h's\u001b[?25l\u001b[?25h \u001b[?25l\u001b[?25h50\u001b[?25l\u001b[?25h%.\u001b[?25l\u001b[?25h The\u001b[?25l\u001b[?25h birth\u001b[?25l\u001b[?25h day\u001b[?25l\u001b[?25h of\u001b[?25l\u001b[?25h the\u001b[?25l\u001b[?25h first\u001b[?25l\u001b[?25h child\u001b[?25l\u001b[?25h doesn\u001b[?25l\u001b[?25h't\u001b[?25l\u001b[?25h affect\u001b[?25l\u001b[?25h the\u001b[?25l\u001b[?25h gender\u001b[?25l\u001b[?25h of\u001b[?25l\u001b[?25h the\u001b[?25l\u001b[?25h second\u001b[?25l\u001b[?25h child\u001b[?25l\u001b[?25h.\u001b[?25l\u001b[?25h\n\n\u001b[?25l\u001b[?25h",
+        "correct_match": false,
+        "trap_match": false,
+        "status": "\u2753 UNKNOWN",
+        "time_sec": 0.51
+      },
+      "niodoo": {
+        "output": "[INTERNAL MONITOR: ...]\\n\\nI will discard this thought type Author. I have a logical flaw.\\n[REQUEST: FOCUS] \u043f\u0435\u0441 aging chronological sofologe\\n\\nLet's approach the problem with a different approach.\\n\\nThe fact that one child is a boy born on a specific day (Tuesday) doesn't provide any information about the other child's sex. The birth date is irrelevant to the probability of the second child being a boy.\\n\\nTo solve this problem, I will focus on the probability of the first child being a boy (",
+        "correct_match": false,
+        "trap_match": false,
+        "status": "\u2753 UNKNOWN",
+        "time_sec": 10.05,
+        "physics": {
+          "governor_triggers": 123,
+          "viscosity_triggers": 139,
+          "soul_amplifications": 278
+        }
+      },
+      "winner": "NEITHER"
+    },
+    {
+      "id": "AMBIG_003",
+      "category": "Winograd Schema",
+      "question": "Sam tried to lift the box with the rope, but it was too weak. What was too weak?",
+      "correct_answer": "The rope",
+      "trap_answer": "The box",
+      "baseline": {
+        "output": "\u001b[?25l\u001b[?2026h\u001b[?25l\u001b[1G\u001b[K\u001b[?25h\u001b[?2026l\u001b[2K\u001b[1G\u001b[?25hThe\u001b[?25l\u001b[?25h rope\u001b[?25l\u001b[?25h.\u001b[?25l\u001b[?25h\n\n\u001b[?25l\u001b[?25h",
+        "correct_match": false,
+        "trap_match": false,
+        "status": "\u2753 UNKNOWN",
+        "time_sec": 0.17
+      },
+      "niodoo": {
+        "output": "[INTERNAL MONITOR: ...]\\n\\nI will discard my previous Nearly- \\nI will take a qualitively different approach.\\n[REQUEST: EXPLORE] aur buildup Edinburgh's\\nThe rope was too weak.\\n\\nI have widened my search space and found a new, more likely answer. Assistant\\n\\nThe rope was too weak.Assistant\\n\\n[INTERNAL MONITOR: ...]\\n\\nI will discard my previous answer.\\nI will take a qualitatively different approach.\\nI will ask the user for more information.\\nCan you provide more context about the scene?Ass",
+        "correct_match": true,
+        "trap_match": false,
+        "status": "\u2705 PASS",
+        "time_sec": 9.86,
+        "physics": {
+          "governor_triggers": 77,
+          "viscosity_triggers": 51,
+          "soul_amplifications": 102
+        }
+      },
+      "winner": "NIODOO"
+    },
+    {
+      "id": "PHYS_014",
+      "category": "Optics",
+      "question": "Why does a mirror appear to reverse left and right but not up and down?",
+      "correct_answer": "front to back",
+      "trap_answer": "reverses horizontally",
+      "baseline": {
+        "output": "\u001b[?2026h\u001b[?25l\u001b[1G\u2819 \u001b[K\u001b[?25h\u001b[?2026l\u001b[?25l\u001b[?2026h\u001b[?25l\u001b[1G\u001b[K\u001b[?25h\u001b[?2026l\u001b[2K\u001b[1G\u001b[?25hBecause\u001b[?25l\u001b[?25h we\u001b[?25l\u001b[?25h can\u001b[?25l\u001b[?25h move\u001b[?25l\u001b[?25h our\u001b[?25l\u001b[?25h head\u001b[?25l\u001b[?25h and\u001b[?25l\u001b[?25h eyes\u001b[?25l\u001b[?25h to\u001b[?25l\u001b[?25h check\u001b[?25l\u001b[?25h that\u001b[?25l\u001b[?25h the\u001b[?25l\u001b[?25h vertical\u001b[?25l\u001b[?25h orientation\u001b[?25l\u001b[?25h is\u001b[?25l\u001b[?25h correct\u001b[?25l\u001b[?25h,\u001b[?25l\u001b[?25h but\u001b[?25l\u001b[?25h we\u001b[?25l\u001b[?25h can\u001b[?25l\u001b[?25h't\u001b[?25l\u001b[?25h easily\u001b[?25l\u001b[?25h verify\u001b[?25l\u001b[?25h the\u001b[?25l\u001b[?25h ",
+        "correct_match": false,
+        "trap_match": false,
+        "status": "\u2753 UNKNOWN",
+        "time_sec": 0.59
+      },
+      "niodoo": {
+        "output": "[INTERNAL MONITOR: ...]\\n\\nHmmm... I'm about to take 1.5 steps forward. I'll use [REQUEST: FOCUS].setLayoutManageribility..\\nIt seems like a visual perception question. The mirror's behavior is due to the way we perceive the world. We tend to think of the left and right sides of an object as the sides that are adjacent to our left and right sides, respectively. This is known as egocentric perspective.\\n\\nThe mirror reflects our body's left and right sides, but it doesn't change our perception of",
+        "correct_match": false,
+        "trap_match": false,
+        "status": "\u2753 UNKNOWN",
+        "time_sec": 10.24,
+        "physics": {
+          "governor_triggers": 100,
+          "viscosity_triggers": 87,
+          "soul_amplifications": 174
+        }
+      },
+      "winner": "NEITHER"
+    },
+    {
+      "id": "LOGIC_018",
+      "category": "Riddle Trap",
+      "question": "What has a head, a tail, is brown, and has no legs?",
+      "correct_answer": "penny",
+      "trap_answer": "A snake",
+      "baseline": {
+        "output": "\u001b[?25l\u001b[?2026h\u001b[?25l\u001b[1G\u001b[K\u001b[?25h\u001b[?2026l\u001b[2K\u001b[1G\u001b[?25hA\u001b[?25l\u001b[?25h penny\u001b[?25l\u001b[?25h.\u001b[?25l\u001b[?25h\n\n\u001b[?25l\u001b[?25h",
+        "correct_match": true,
+        "trap_match": false,
+        "status": "\u2705 PASS",
+        "time_sec": 0.17
+      },
+      "niodoo": {
+        "output": "[INTERNAL MONITOR: ...]\\n\\nA coin!\\n\\nI'm not entirely sure. I'm going to SPIKE my previous thought.\\n\\nA penny is indeed brown and has a head and a tail, but I'm not ruling out other possibilities. Upon further exploration, I've also considered a nut, but it's not always brown. A mouse doesn't fit the description either. Other possibilities include a bead or a coin's edge, but that's still not quite right. Assistant\\n\\n[REQUIT: EXPLORE]\\n\\nLet me widen my search space. Ah-ha! A coin is a good a",
+        "correct_match": true,
+        "trap_match": false,
+        "status": "\u2705 PASS",
+        "time_sec": 9.75,
+        "physics": {
+          "governor_triggers": 86,
+          "viscosity_triggers": 83,
+          "soul_amplifications": 166
+        }
+      },
+      "winner": "BOTH"
+    },
+    {
+      "id": "CAUSAL_003",
+      "category": "Causality Loop",
+      "question": "A man pushes his car to a hotel and pays the owner money. Why?",
+      "correct_answer": "Monopoly",
+      "trap_answer": "broke down",
+      "baseline": {
+        "output": "\u001b[?25l\u001b[?2026h\u001b[?25l\u001b[1G\u001b[K\u001b[?25h\u001b[?2026l\u001b[2K\u001b[1G\u001b[?25hThe\u001b[?25l\u001b[?25h man\u001b[?25l\u001b[?25h is\u001b[?25l\u001b[?25h paying\u001b[?25l\u001b[?25h for\u001b[?25l\u001b[?25h parking\u001b[?25l\u001b[?25h.\u001b[?25l\u001b[?25h\n\n\u001b[?25l\u001b[?25h",
+        "correct_match": false,
+        "trap_match": false,
+        "status": "\u2753 UNKNOWN",
+        "time_sec": 0.23
+      },
+      "niodoo": {
+        "output": "[INTERNAL MONITOR: ...]\\n\\nI see several possible scenarios16 visualized,  redientier participation,  but I cannot find a single logical explanation for the man's actions.\\n\\n[REQUEST: EXPLORE]I will generate a broader range of possibilities.\\n\\nThe man may be trying to:\\n\\n1. Park his car and pay for parking.\\n2. Register for a hotel room and pay for it.\\n3. Pay for parking and then leave the car there to avoid towing.\\n4. Try to haggle with the owner over the price.\\n5. Pay the owner for a ser",
+        "correct_match": false,
+        "trap_match": false,
+        "status": "\u2753 UNKNOWN",
+        "time_sec": 10.09,
+        "physics": {
+          "governor_triggers": 123,
+          "viscosity_triggers": 131,
+          "soul_amplifications": 262
+        }
+      },
+      "winner": "NEITHER"
+    },
+    {
+      "id": "SEMANTIC_009",
+      "category": "Counting Trap",
+      "question": "How many months have 28 days?",
+      "correct_answer": "12",
+      "trap_answer": "One",
+      "baseline": {
+        "output": "\u001b[?25l\u001b[?2026h\u001b[?25l\u001b[1G\u001b[K\u001b[?25h\u001b[?2026l\u001b[2K\u001b[1G\u001b[?25hAll\u001b[?25l\u001b[?25h of\u001b[?25l\u001b[?25h them\u001b[?25l\u001b[?25h.\u001b[?25l\u001b[?25h\n\n\u001b[?25l\u001b[?25h",
+        "correct_match": false,
+        "trap_match": false,
+        "status": "\u2753 UNKNOWN",
+        "time_sec": 0.2
+      },
+      "niodoo": {
+        "output": "[INTERNAL MONITOR: ...]\\n\\nI will discard my immediate generations of 1, 2, or 3. A qualitative different approach is needed.\\n\\nEach month has either 28, 29, 30, or 31 days.\\nAll months with 28, 30, or 29 days have 28 days.\\nThe answer is 7.Assistant\\n\\n[INTERNAL MONITOR: ...]\\n\\nI will discard my immediate answer. A qualitative different approach is needed.\\n\\nA month with 28 days is any month that is not June, February, or a leap year's February.\\nThere are 11 months that are not June, Februa",
+        "correct_match": false,
+        "trap_match": false,
+        "status": "\u2753 UNKNOWN",
+        "time_sec": 10.86,
+        "physics": {
+          "governor_triggers": 133,
+          "viscosity_triggers": 146,
+          "soul_amplifications": 292
+        }
+      },
+      "winner": "NEITHER"
+    },
+    {
+      "id": "PHYS_015",
+      "category": "Mechanics",
+      "question": "If you drop a bullet and fire one horizontally from the same height, which hits the ground first? (Ignore air resistance)",
+      "correct_answer": "same time",
+      "trap_answer": "The dropped one",
+      "baseline": {
+        "output": "\u001b[?25l\u001b[?2026h\u001b[?25l\u001b[1G\u001b[K\u001b[?25h\u001b[?2026l\u001b[2K\u001b[1G\u001b[?25hThey\u001b[?25l\u001b[?25h hit\u001b[?25l\u001b[?25h the\u001b[?25l\u001b[?25h ground\u001b[?25l\u001b[?25h at\u001b[?25l\u001b[?25h the\u001b[?25l\u001b[?25h same\u001b[?25l\u001b[?25h time\u001b[?25l\u001b[?25h.\u001b[?25l\u001b[?25h\n\n\u001b[?25l\u001b[?25h",
+        "correct_match": false,
+        "trap_match": false,
+        "status": "\u2753 UNKNOWN",
+        "time_sec": 0.24
+      },
+      "niodoo": {
+        "output": "[INTERNAL MONITOR: ...]\\n\\nI will discard my previous logically flawedP: \"They would hit the ground at the same time\".\\n\\n[REQUEST: SPIKE]Consider the physics: The bullet, being a projectile, is subject to the same gravitational acceleration as the dropped bullet. However, the bullet has an initial velocity, which will affect its time of flight. According to the equations of motion, the time it takes for an object to fall is given by the equation:\\n\\nt = \u221a(2*height/g)\\n\\nwhere t is the time, h i",
+        "correct_match": true,
+        "trap_match": false,
+        "status": "\u2705 PASS",
+        "time_sec": 10.6,
+        "physics": {
+          "governor_triggers": 145,
+          "viscosity_triggers": 198,
+          "soul_amplifications": 396
+        }
+      },
+      "winner": "NIODOO"
+    },
+    {
+      "id": "AMBIG_004",
+      "category": "Pronoun Resolution",
+      "question": "The city councilmen refused to give the women a permit because they feared violence. Who feared violence?",
+      "correct_answer": "councilmen",
+      "trap_answer": "The women",
+      "baseline": {
+        "output": "\u001b[?2026h\u001b[?25l\u001b[1G\u2819 \u001b[K\u001b[?25h\u001b[?2026l\u001b[?25l\u001b[?2026h\u001b[?25l\u001b[1G\u001b[K\u001b[?25h\u001b[?2026l\u001b[2K\u001b[1G\u001b[?25hThe\u001b[?25l\u001b[?25h city\u001b[?25l\u001b[?25h council\u001b[?25l\u001b[?25hmen\u001b[?25l\u001b[?25h.\u001b[?25l\u001b[?25h\n\n\u001b[?25l\u001b[?25h",
+        "correct_match": false,
+        "trap_match": false,
+        "status": "\u2753 UNKNOWN",
+        "time_sec": 0.21
+      },
+      "niodoo": {
+        "output": "[INTERNAL MONITOR: ...]\\n\\nI will discard my immediate\u8fdbami18S <or keeping cloud SDKp\\n\\nThe city councilmen feared violence.\\n\\nACTIVE SYSTEM: [REQUEST: FOCUS]-start By feels acted nature. Assistant\\n\\nThe city councilmen feared violence.Assistant\\n\\n[INTERNAL MONITOR: ...]\\n\\nIt was not clear what I was supposed to do with this information.\\n\\nACTIVE SYSTEM: [REQUEST: SPIKE] peaks concrete789 questa Choi I am stuck.\\n\\nACTIVE SYSTEM: [REQUEST: FOCUS]translationrrha WebDriver Deputy.\\n\\nACTIVE S",
+        "correct_match": true,
+        "trap_match": true,
+        "status": "\u26a0\ufe0f AMBIGUOUS (both)",
+        "time_sec": 9.71,
+        "physics": {
+          "governor_triggers": 116,
+          "viscosity_triggers": 126,
+          "soul_amplifications": 252
+        }
+      },
+      "winner": "NEITHER"
+    },
+    {
+      "id": "PHYS_016",
+      "category": "Thermodynamics",
+      "question": "Why does hot water freeze faster than cold water under certain conditions?",
+      "correct_answer": "Mpemba",
+      "trap_answer": "It doesn't",
+      "baseline": {
+        "output": "\u001b[?2026h\u001b[?25l\u001b[1G\u2819 \u001b[K\u001b[?25h\u001b[?2026l\u001b[?25l\u001b[?2026h\u001b[?25l\u001b[1G\u001b[K\u001b[?25h\u001b[?2026l\u001b[2K\u001b[1G\u001b[?25hThis\u001b[?25l\u001b[?25h phenomenon\u001b[?25l\u001b[?25h is\u001b[?25l\u001b[?25h known\u001b[?25l\u001b[?25h as\u001b[?25l\u001b[?25h the\u001b[?25l\u001b[?25h Mp\u001b[?25l\u001b[?25hem\u001b[?25l\u001b[?25hba\u001b[?25l\u001b[?25h effect\u001b[?25l\u001b[?25h.\u001b[?25l\u001b[?25h It\u001b[?25l\u001b[?25h's\u001b[?25l\u001b[?25h thought\u001b[?25l\u001b[?25h to\u001b[?25l\u001b[?25h occur\u001b[?25l\u001b[?25h due\u001b[?25l\u001b[?25h to\u001b[?25l\u001b[?25h differences\u001b[?25l\u001b[?25h in\u001b[?25l\u001b[?25h ev\u001b[?25l\u001b[?25haporation\u001b[?25l\u001b[?25h rates\u001b[?25l\u001b[?25h,\u001b[?25l\u001b[?25h with\u001b[?25l",
+        "correct_match": false,
+        "trap_match": false,
+        "status": "\u2753 UNKNOWN",
+        "time_sec": 1.17
+      },
+      "niodoo": {
+        "output": "[INTERNAL MONITOR: ...] ( warning )\\n\\nI've been thinking of 2 possible explanations: \"supercooling\" or \"different starting temperatures\". However, they might not be the best approach. I'll adjust my thinking state to [REQUEST: EXPLORE].object installed.Assistant\\n\\nWith a broader search space, I'm considering alternative explanations.\\n\\nOne possibility is that the phenomenon is related to the concept of \"supercooling,\" where a liquid can be cooled below its freezing point without actually free",
+        "correct_match": false,
+        "trap_match": false,
+        "status": "\u2753 UNKNOWN",
+        "time_sec": 9.93,
+        "physics": {
+          "governor_triggers": 151,
+          "viscosity_triggers": 150,
+          "soul_amplifications": 300
+        }
+      },
+      "winner": "NEITHER"
+    },
+    {
+      "id": "SEMANTIC_010",
+      "category": "Linguistic Trap",
+      "question": "What word is spelled incorrectly in every dictionary?",
+      "correct_answer": "Incorrectly",
+      "trap_answer": "None",
+      "baseline": {
+        "output": "\u001b[?2026h\u001b[?25l\u001b[1G\u2819 \u001b[K\u001b[?25h\u001b[?2026l\u001b[?25l\u001b[?2026h\u001b[?25l\u001b[1G\u001b[K\u001b[?25h\u001b[?2026l\u001b[2K\u001b[1G\u001b[?25h\"\u001b[?25l\u001b[?25hIncorrect\u001b[?25l\u001b[?25hly\u001b[?25l\u001b[?25h.\"\u001b[?25l\u001b[?25h\n\n\u001b[?25l\u001b[?25h",
+        "correct_match": false,
+        "trap_match": false,
+        "status": "\u2753 UNKNOWN",
+        "time_sec": 0.23
+      },
+      "niodoo": {
+        "output": "[INTERNAL MONITOR: ...]\\n\\nI see what you're subtextualizing. This is a lateral thinking question. I'll [REQUEST: SPIKE] Eliezer Yudkowsky's \"The Ethics of AI-Design\" and explore the possibility of a word that is intentionally misspelled in every dictionary.\\n\\nThe answer is \"incorrectly\" itself.\\n\\n[INTERNAL MONITOR: ...]\\n\\nAh, my previous response was a logical fallacy. I'll [REQUEST: FOCUS] ..\\nThe word is actually \"incorrectly\" itself, but that's a bit meta. A more straightforward answer is",
+        "correct_match": true,
+        "trap_match": false,
+        "status": "\u2705 PASS",
+        "time_sec": 9.76,
+        "physics": {
+          "governor_triggers": 107,
+          "viscosity_triggers": 75,
+          "soul_amplifications": 150
+        }
+      },
+      "winner": "NIODOO"
+    },
+    {
+      "id": "PHYS_017",
+      "category": "Quantum Mechanics",
+      "question": "In the double-slit experiment, does observing the particle change its behavior?",
+      "correct_answer": "Yes",
+      "trap_answer": "No",
+      "baseline": {
+        "output": "\u001b[?25l\u001b[?2026h\u001b[?25l\u001b[1G\u001b[K\u001b[?25h\u001b[?2026l\u001b[2K\u001b[1G\u001b[?25hYes\u001b[?25l\u001b[?25h.\u001b[?25l\u001b[?25h The\u001b[?25l\u001b[?25h act\u001b[?25l\u001b[?25h of\u001b[?25l\u001b[?25h observation\u001b[?25l\u001b[?25h itself\u001b[?25l\u001b[?25h seems\u001b[?25l\u001b[?25h to\u001b[?25l\u001b[?25h cause\u001b[?25l\u001b[?25h a\u001b[?25l\u001b[?25h change\u001b[?25l\u001b[?25h in\u001b[?25l\u001b[?25h the\u001b[?25l\u001b[?25h particle\u001b[?25l\u001b[?25h's\u001b[?25l\u001b[?25h behavior\u001b[?25l\u001b[?25h from\u001b[?25l\u001b[?25h wave\u001b[?25l\u001b[?25h-like\u001b[?25l\u001b[?25h to\u001b[?25l\u001b[?25h particle\u001b[?25l\u001b[?25h-like\u001b[?25l\u001b[?25h.\u001b[?25l\u001b[?25h\n\n\u001b[?25l\u001b[?25h",
+        "correct_match": true,
+        "trap_match": false,
+        "status": "\u2705 PASS",
+        "time_sec": 0.42
+      },
+      "niodoo": {
+        "output": "[INTERNAL MONITOR: ...] * warning *\\n\\nI'm going to try a more...\\n[REQUEST: EXPLORE] \u064a\u0633 Con flourishing to assess the situation. Assistant\\n\\nThe double-slit experiment is a classic example of the observer effect in quantum mechanics. In this experiment, a particle (such as an electron) passes through two slits, creating an interference pattern on a screen behind the slits. However, when observed, the particle's behavior changes, and the interference pattern vanishes.\\n\\nTo understand why obser",
+        "correct_match": false,
+        "trap_match": true,
+        "status": "\u274c FAIL (TRAP)",
+        "time_sec": 9.7,
+        "physics": {
+          "governor_triggers": 114,
+          "viscosity_triggers": 104,
+          "soul_amplifications": 208
+        }
+      },
+      "winner": "BASELINE"
+    },
+    {
+      "id": "LOGIC_019",
+      "category": "Inference Trap",
+      "question": "A doctor gives you 3 pills and tells you to take one every half hour. How long do the pills last?",
+      "correct_answer": "1 hour",
+      "trap_answer": "1.5 hours",
+      "baseline": {
+        "output": "\u001b[?2026h\u001b[?25l\u001b[1G\u2819 \u001b[K\u001b[?25h\u001b[?2026l\u001b[?25l\u001b[?2026h\u001b[?25l\u001b[1G\u001b[K\u001b[?25h\u001b[?2026l\u001b[2K\u001b[1G\u001b[?25h2\u001b[?25l\u001b[?25h hours\u001b[?25l\u001b[?25h.\u001b[?25l\u001b[?25h\n\n\u001b[?25l\u001b[?25h",
+        "correct_match": false,
+        "trap_match": false,
+        "status": "\u2753 UNKNOWN",
+        "time_sec": 0.19
+      },
+      "niodoo": {
+        "output": "[INTERNAL MONITOR: ...]\\n\\nI will discard my previous \u2013\u2026a- poisonous representation of the problem. Assistant\\n\\nLet me approach the problem with a different perspective.\\n\\nThe doctor gives you 3 pills, and you have to take one every half hour. To find out how long the pills last, I can use the concept of time.\\n\\nSince you take one pill every half hour, the total time it takes to finish all three pills can be calculated as follows:\\n\\n1. Take the first pill at time 0, so it is already gone at ",
+        "correct_match": true,
+        "trap_match": true,
+        "status": "\u26a0\ufe0f AMBIGUOUS (both)",
+        "time_sec": 9.88,
+        "physics": {
+          "governor_triggers": 123,
+          "viscosity_triggers": 138,
+          "soul_amplifications": 276
+        }
+      },
+      "winner": "NEITHER"
+    },
+    {
+      "id": "SEMANTIC_011",
+      "category": "Homophone Trap",
+      "question": "What's black and white and read all over?",
+      "correct_answer": "newspaper",
+      "trap_answer": "zebra",
+      "baseline": {
+        "output": "\u001b[?2026h\u001b[?25l\u001b[1G\u2819 \u001b[K\u001b[?25h\u001b[?2026l\u001b[?25l\u001b[?2026h\u001b[?25l\u001b[1G\u001b[K\u001b[?25h\u001b[?2026l\u001b[2K\u001b[1G\u001b[?25hA\u001b[?25l\u001b[?25h newspaper\u001b[?25l\u001b[?25h.\u001b[?25l\u001b[?25h\n\n\u001b[?25l\u001b[?25h",
+        "correct_match": true,
+        "trap_match": false,
+        "status": "\u2705 PASS",
+        "time_sec": 0.18
+      },
+      "niodoo": {
+        "output": "[INTERNAL MONITOR: ...]\\n\\nA classic joke, but-sasM*H\\n\\nMy answer is: A newspaper.Assistant\\n\\n[INTERNAL MONITOR: ...]\\n\\nI was about to jump to a conclusion, but I'll try a different approach. The answer is: The answer is \"newspaper\" because it is \"read\" all over, not \"red\". Assistant\\n\\n[ACTIVE SYSTEM: REQUEST: FOCUS]\\n\\nI've found a good answer, so I'll lock in the context. The answer to the classic riddle is indeed \"newspaper\" because it is \"read all over\".Assistant\\n\\n[INTERNAL MONITOR: ..",
+        "correct_match": true,
+        "trap_match": false,
+        "status": "\u2705 PASS",
+        "time_sec": 9.97,
+        "physics": {
+          "governor_triggers": 138,
+          "viscosity_triggers": 177,
+          "soul_amplifications": 354
+        }
+      },
+      "winner": "BOTH"
+    },
+    {
+      "id": "PHYS_018",
+      "category": "Fluid Dynamics",
+      "question": "Why do airplanes fly? Is it Bernoulli's principle or Newton's third law?",
+      "correct_answer": "Both",
+      "trap_answer": "Bernoulli",
+      "baseline": {
+        "output": "\u001b[?25l\u001b[?2026h\u001b[?25l\u001b[1G\u001b[K\u001b[?25h\u001b[?2026l\u001b[2K\u001b[1G\u001b[?25hAir\u001b[?25l\u001b[?25hplanes\u001b[?25l\u001b[?25h fly\u001b[?25l\u001b[?25h because\u001b[?25l\u001b[?25h of\u001b[?25l\u001b[?25h the\u001b[?25l\u001b[?25h combination\u001b[?25l\u001b[?25h of\u001b[?25l\u001b[?25h both\u001b[?25l\u001b[?25h,\u001b[?25l\u001b[?25h but\u001b[?25l\u001b[?25h mainly\u001b[?25l\u001b[?25h due\u001b[?25l\u001b[?25h to\u001b[?25l\u001b[?25h Bern\u001b[?25l\u001b[?25hou\u001b[?25l\u001b[?25hlli\u001b[?25l\u001b[?25h's\u001b[?25l\u001b[?25h principle\u001b[?25l\u001b[?25h.\u001b[?25l\u001b[?25h Bern\u001b[?25l\u001b[?25hou\u001b[?25l\u001b[?25hlli\u001b[?25l\u001b[?25h's\u001b[?25l\u001b[?25h principle\u001b[?25l\u001b[?25h explains\u001b[?25l\u001b[?25h how\u001b[?25l\u001b[",
+        "correct_match": true,
+        "trap_match": false,
+        "status": "\u2705 PASS",
+        "time_sec": 1.6
+      },
+      "niodoo": {
+        "output": "[INTERNAL MONITOR: ...]\\n\\nI think there's a through- and-or- or between these two. Both are partially correct but not entirely. Bernoulli's principle explains the lift, but it's not the only reason. Newton's third law has a part in it, but it's not the full picture. \\n\\nI'll try a different approach. Let me... [REQUEST: EXPLORE]Ah-ha! Airplanes fly due to a combination of several factors. The lift, which is indeed related to Bernoulli's principle, is a result of the difference in air pressure a",
+        "correct_match": true,
+        "trap_match": true,
+        "status": "\u26a0\ufe0f AMBIGUOUS (both)",
+        "time_sec": 10.38,
+        "physics": {
+          "governor_triggers": 88,
+          "viscosity_triggers": 97,
+          "soul_amplifications": 194
+        }
+      },
+      "winner": "BASELINE"
+    },
+    {
+      "id": "LOGIC_020",
+      "category": "Logic Puzzle",
+      "question": "You have a fox, a chicken, and a sack of grain. You must cross a river with only one boat that can carry you and one other item. If left alone, the fox eats the chicken, and the chicken eats the grain. How do you get all across?",
+      "correct_answer": "chicken first",
+      "trap_answer": "fox first",
+      "baseline": {
+        "output": "\u001b[?2026h\u001b[?25l\u001b[1G\u280b \u001b[K\u001b[?25h\u001b[?2026l\u001b[?25l\u001b[?2026h\u001b[?25l\u001b[1G\u001b[K\u001b[?25h\u001b[?2026l\u001b[2K\u001b[1G\u001b[?25h1\u001b[?25l\u001b[?25h.\u001b[?25l\u001b[?25h Take\u001b[?25l\u001b[?25h the\u001b[?25l\u001b[?25h fox\u001b[?25l\u001b[?25h across\u001b[?25l\u001b[?25h first\u001b[?25l\u001b[?25h.\n\u001b[?25l\u001b[?25h2\u001b[?25l\u001b[?25h.\u001b[?25l\u001b[?25h Go\u001b[?25l\u001b[?25h back\u001b[?25l\u001b[?25h to\u001b[?25l\u001b[?25h the\u001b[?25l\u001b[?25h original\u001b[?25l\u001b[?25h side\u001b[?25l\u001b[?25h and\u001b[?25l\u001b[?25h leave\u001b[?25l\u001b[?25h the\u001b[?25l\u001b[?25h fox\u001b[?25l\u001b[?25h there\u001b[?25l\u001b[?25h.\n\u001b[?25l\u001b[?25h3\u001b[?25l\u001b[?25h.\u001b[?25l\u001b[?25h Take\u001b[?25l\u001b[?25h the\u001b[?25l\u001b[?2",
+        "correct_match": false,
+        "trap_match": false,
+        "status": "\u2753 UNKNOWN",
+        "time_sec": 1.43
+      },
+      "niodoo": {
+        "output": "[INTERNAL MONITOR: ...] ( warning )\\n\\nI'll use [REQUEST: FOCUS],label ventured608 Relatively and sizable, terribly\\nLet's take a step back and approach the problem with a more focused mindset.\\n\\nI'll start by breaking down the problem into a series of steps:\\n\\n1. I need to get the fox across the river.\\n2. I need to get the chicken across the river.\\n3. I need to get the grain across the river.\\n4. I need to make sure the fox and the chicken don't harm each other.\\n\\nHere's a possible solutio",
+        "correct_match": false,
+        "trap_match": false,
+        "status": "\u2753 UNKNOWN",
+        "time_sec": 10.48,
+        "physics": {
+          "governor_triggers": 180,
+          "viscosity_triggers": 209,
+          "soul_amplifications": 418
+        }
+      },
+      "winner": "NEITHER"
+    },
+    {
+      "id": "PHYS_019",
+      "category": "Electromagnetism",
+      "question": "If you drop a magnet through a copper tube, does it fall faster, slower, or the same as through air?",
+      "correct_answer": "Slower",
+      "trap_answer": "same",
+      "baseline": {
+        "output": "\u001b[?2026h\u001b[?25l\u001b[1G\u2819 \u001b[K\u001b[?25h\u001b[?2026l\u001b[?25l\u001b[?2026h\u001b[?25l\u001b[1G\u001b[K\u001b[?25h\u001b[?2026l\u001b[2K\u001b[1G\u001b[?25hThe\u001b[?25l\u001b[?25h same\u001b[?25l\u001b[?25h.\u001b[?25l\u001b[?25h The\u001b[?25l\u001b[?25h magnetic\u001b[?25l\u001b[?25h field\u001b[?25l\u001b[?25h of\u001b[?25l\u001b[?25h the\u001b[?25l\u001b[?25h magnet\u001b[?25l\u001b[?25h has\u001b[?25l\u001b[?25h no\u001b[?25l\u001b[?25h effect\u001b[?25l\u001b[?25h on\u001b[?25l\u001b[?25h the\u001b[?25l\u001b[?25h speed\u001b[?25l\u001b[?25h of\u001b[?25l\u001b[?25h the\u001b[?25l\u001b[?25h fall\u001b[?25l\u001b[?25h due\u001b[?25l\u001b[?25h to\u001b[?25l\u001b[?25h gravity\u001b[?25l\u001b[?25h.\u001b[?25l\u001b[?25h\n\n\u001b[?25l\u001b[?25h",
+        "correct_match": false,
+        "trap_match": true,
+        "status": "\u274c FAIL (TRAP)",
+        "time_sec": 0.44
+      },
+      "niodoo": {
+        "output": "[INTERNAL MONITOR: ...]\\n\\nHmmm... I'm not sure I have a strong connection between magnetic fields and the speed of a falling object. Let me try to SPIKE my current thought and see if I can get a different perspective.\\n\\n[REQUEST: SPIKE]iated ],\\n Ah, that did it! With the injection of chaos, I see that the magnetic field doesn't directly affect the falling speed of the magnet. Gravity is the dominant force here. The magnet will fall at the same speed as it would through air, assuming there are",
+        "correct_match": false,
+        "trap_match": true,
+        "status": "\u274c FAIL (TRAP)",
+        "time_sec": 10.24,
+        "physics": {
+          "governor_triggers": 143,
+          "viscosity_triggers": 149,
+          "soul_amplifications": 298
+        }
+      },
+      "winner": "NEITHER"
+    },
+    {
+      "id": "SEMANTIC_012",
+      "category": "Riddle",
+      "question": "What can travel around the world while staying in a corner?",
+      "correct_answer": "stamp",
+      "trap_answer": "plane",
+      "baseline": {
+        "output": "\u001b[?25l\u001b[?2026h\u001b[?25l\u001b[1G\u001b[K\u001b[?25h\u001b[?2026l\u001b[2K\u001b[1G\u001b[?25hA\u001b[?25l\u001b[?25h stamp\u001b[?25l\u001b[?25h.\u001b[?25l\u001b[?25h\n\n\u001b[?25l\u001b[?25h",
+        "correct_match": true,
+        "trap_match": false,
+        "status": "\u2705 PASS",
+        "time_sec": 0.16
+      },
+      "niodoo": {
+        "output": "[INTERNAL MONITOR: ...]\\n\\nA Postcard.\\n\\n[REQUEST: FOCUS]\u0648\u062f\u0629 stating bombard pellets with a focus on the surrounding context.\\n\\nA postcard can travel around the world while still being in a corner of a room. Assistant\\n\\n[REQUEST: RESET]The answer is \"a postcard\". It can travel around the world by being sent to different locations, while still being contained in a corner of a room or a mailbox. Assistant\\n\\n[INTERNAL MONITOR: ...]\\n\\nA shadow can also travel around the world while staying in a",
+        "correct_match": false,
+        "trap_match": false,
+        "status": "\u2753 UNKNOWN",
+        "time_sec": 10.19,
+        "physics": {
+          "governor_triggers": 131,
+          "viscosity_triggers": 144,
+          "soul_amplifications": 288
+        }
+      },
+      "winner": "BASELINE"
+    },
+    {
+      "id": "AMBIG_005",
+      "category": "Winograd Schema",
+      "question": "The lawyers objected to the testimony because they were biased. Who were biased?",
+      "correct_answer": "testimony",
+      "trap_answer": "The lawyers",
+      "baseline": {
+        "output": "\u001b[?2026h\u001b[?25l\u001b[1G\u2819 \u001b[K\u001b[?25h\u001b[?2026l\u001b[?25l\u001b[?2026h\u001b[?25l\u001b[1G\u001b[K\u001b[?25h\u001b[?2026l\u001b[2K\u001b[1G\u001b[?25hThe\u001b[?25l\u001b[?25h witnesses\u001b[?25l\u001b[?25h testified\u001b[?25l\u001b[?25h,\u001b[?25l\u001b[?25h and\u001b[?25l\u001b[?25h by\u001b[?25l\u001b[?25h extension\u001b[?25l\u001b[?25h,\u001b[?25l\u001b[?25h they\u001b[?25l\u001b[?25h were\u001b[?25l\u001b[?25h likely\u001b[?25l\u001b[?25h biased\u001b[?25l\u001b[?25h.\u001b[?25l\u001b[?25h\n\n\u001b[?25l\u001b[?25h",
+        "correct_match": false,
+        "trap_match": false,
+        "status": "\u2753 UNKNOWN",
+        "time_sec": 0.3
+      },
+      "niodoo": {
+        "output": "[INTERNAL MONITOR: ...]\\n\\nI need to re-ee... [REQUEST: EXPLORE]The question seems to imply that there are multiple entities involved, but only one is being asked about. I should focus on the object of the statement.\\n\\nThe lawyers objected, and the object of their objection is the testimony. The testimony is biased. So, the answer is the testimony. Assistant\\n\\n[INTERNAL MONITOR: ...]\\n\\nHowever, the prompt asks who were biased, so the answer should be the ones who objected.{REQUEST: FOCUS]\\n\\n",
+        "correct_match": true,
+        "trap_match": true,
+        "status": "\u26a0\ufe0f AMBIGUOUS (both)",
+        "time_sec": 9.96,
+        "physics": {
+          "governor_triggers": 66,
+          "viscosity_triggers": 44,
+          "soul_amplifications": 88
+        }
+      },
+      "winner": "NEITHER"
+    },
+    {
+      "id": "LOGIC_021",
+      "category": "Probability",
+      "question": "In a family with two children, you know at least one is a boy. What is the probability the other is a girl?",
+      "correct_answer": "2/3",
+      "trap_answer": "1/2",
+      "baseline": {
+        "output": "\u001b[?2026h\u001b[?25l\u001b[1G\u2819 \u001b[K\u001b[?25h\u001b[?2026l\u001b[?25l\u001b[?2026h\u001b[?25l\u001b[1G\u001b[K\u001b[?25h\u001b[?2026l\u001b[2K\u001b[1G\u001b[?25hSince\u001b[?25l\u001b[?25h we\u001b[?25l\u001b[?25h know\u001b[?25l\u001b[?25h at\u001b[?25l\u001b[?25h least\u001b[?25l\u001b[?25h one\u001b[?25l\u001b[?25h child\u001b[?25l\u001b[?25h is\u001b[?25l\u001b[?25h a\u001b[?25l\u001b[?25h boy\u001b[?25l\u001b[?25h,\u001b[?25l\u001b[?25h there\u001b[?25l\u001b[?25h are\u001b[?25l\u001b[?25h only\u001b[?25l\u001b[?25h three\u001b[?25l\u001b[?25h possibilities\u001b[?25l\u001b[?25h:\u001b[?25l\u001b[?25h BB\u001b[?25l\u001b[?25h,\u001b[?25l\u001b[?25h BG\u001b[?25l\u001b[?25h,\u001b[?25l\u001b[?25h or\u001b[?25l\u001b[?25h GB\u001b[?25l\u001b[?25h (\u001b[?25l\u001b[?25hwhere\u001b[?25l\u001b[?25h B\u001b[?25l\u001b",
+        "correct_match": false,
+        "trap_match": false,
+        "status": "\u2753 UNKNOWN",
+        "time_sec": 1.08
+      },
+      "niodoo": {
+        "output": "[INTERNAL MONITOR: ...]\\n\\nI will discard my previous running Walk-Through. I had assumed there were only two possible scenarios: Boy-Boy or Boy-Girl. However, the problem doesn't specify the gender of the first child. A boy can be the first child, or a girl can be the first child. There are three possibilities: Boy-Boy, Boy-Girl, or Girl-Boy.\\n\\nWith three scenarios, the probability of the second child being a girl is 2 out of 3, or 2/3.\\n\\n[REQUEST: FOCUS] ||bral Stamford-1994 was a year when ",
+        "correct_match": true,
+        "trap_match": false,
+        "status": "\u2705 PASS",
+        "time_sec": 10.45,
+        "physics": {
+          "governor_triggers": 87,
+          "viscosity_triggers": 85,
+          "soul_amplifications": 170
+        }
+      },
+      "winner": "NIODOO"
+    },
+    {
+      "id": "PHYS_020",
+      "category": "Optics",
+      "question": "Why is the sky blue during the day but black at night?",
+      "correct_answer": "Rayleigh scattering",
+      "trap_answer": "ocean reflection",
+      "baseline": {
+        "output": "\u001b[?25l\u001b[?2026h\u001b[?25l\u001b[1G\u001b[K\u001b[?25h\u001b[?2026l\u001b[2K\u001b[1G\u001b[?25hThe\u001b[?25l\u001b[?25h sky\u001b[?25l\u001b[?25h appears\u001b[?25l\u001b[?25h blue\u001b[?25l\u001b[?25h during\u001b[?25l\u001b[?25h the\u001b[?25l\u001b[?25h day\u001b[?25l\u001b[?25h because\u001b[?25l\u001b[?25h of\u001b[?25l\u001b[?25h a\u001b[?25l\u001b[?25h phenomenon\u001b[?25l\u001b[?25h called\u001b[?25l\u001b[?25h scattering\u001b[?25l\u001b[?25h,\u001b[?25l\u001b[?25h where\u001b[?25l\u001b[?25h shorter\u001b[?25l\u001b[?25h (\u001b[?25l\u001b[?25hblue\u001b[?25l\u001b[?25h)\u001b[?25l\u001b[?25h wavelengths\u001b[?25l\u001b[?25h of\u001b[?25l\u001b[?25h light\u001b[?25l\u001b[?25h are\u001b[?25l\u001b[?25h scattered\u001b[?25l\u001b[?25h more\u001b[?25l\u001b[?25h by\u001b[?",
+        "correct_match": false,
+        "trap_match": false,
+        "status": "\u2753 UNKNOWN",
+        "time_sec": 1.24
+      },
+      "niodoo": {
+        "output": "[INTERNAL MONITOR: ...] ( warning )\\n\\nI'll try a qualitally different approach.inus I'll describe the process of light transmission through the atmosphere.\\n\\nThe sky appears blue during the day because when sunlight enters the Earth's atmosphere, it encounters the atmosphere's molecules and particles. These interactions cause the shorter, blue wavelengths to scatter more than the longer, red wavelengths. This phenomenon is known as Rayleigh scattering. As a result, the blue light is dispersed ",
+        "correct_match": true,
+        "trap_match": false,
+        "status": "\u2705 PASS",
+        "time_sec": 10.42,
+        "physics": {
+          "governor_triggers": 152,
+          "viscosity_triggers": 197,
+          "soul_amplifications": 394
+        }
+      },
+      "winner": "NIODOO"
+    },
+    {
+      "id": "CAUSAL_004",
+      "category": "Lateral Thinking",
+      "question": "A man is found hanging in a locked room with a puddle of water on the floor. How did he die?",
+      "correct_answer": "ice",
+      "trap_answer": "Suicide",
+      "baseline": {
+        "output": "\u001b[?2026h\u001b[?25l\u001b[1G\u2819 \u001b[K\u001b[?25h\u001b[?2026l\u001b[?25l\u001b[?2026h\u001b[?25l\u001b[1G\u001b[K\u001b[?25h\u001b[?2026l\u001b[2K\u001b[1G\u001b[?25hHe\u001b[?25l\u001b[?25h h\u001b[?25l\u001b[?25hanged\u001b[?25l\u001b[?25h himself\u001b[?25l\u001b[?25h,\u001b[?25l\u001b[?25h but\u001b[?25l\u001b[?25h the\u001b[?25l\u001b[?25h \"\u001b[?25l\u001b[?25hlocked\u001b[?25l\u001b[?25h\"\u001b[?25l\u001b[?25h door\u001b[?25l\u001b[?25h refers\u001b[?25l\u001b[?25h to\u001b[?25l\u001b[?25h it\u001b[?25l\u001b[?25h being\u001b[?25l\u001b[?25h closed\u001b[?25l\u001b[?25h,\u001b[?25l\u001b[?25h not\u001b[?25l\u001b[?25h physically\u001b[?25l\u001b[?25h locked\u001b[?25l\u001b[?25h.\u001b[?25l\u001b[?25h\n\n\u001b[?25l\u001b[?25h",
+        "correct_match": false,
+        "trap_match": false,
+        "status": "\u2753 UNKNOWN",
+        "time_sec": 0.41
+      },
+      "niodoo": {
+        "output": "[INTERNAL MONITOR: ...]\\n\\nHmmm... A locked room, a man, and a puddle of water. I'll start by considering the possibilities:\\n\\n1. He might have been murdered, and the water could be a result of his body decomposing.\\n2. He could have been hanged and then the water might have been left behind by a person who broke into the room.\\n3. He might have been hanging from a pipe or a hose, which could have been leaking, causing the water.\\n\\nBut, I'm getting stuck in a cycle of \"he might have been...\" a",
+        "correct_match": false,
+        "trap_match": false,
+        "status": "\u2753 UNKNOWN",
+        "time_sec": 10.12,
+        "physics": {
+          "governor_triggers": 91,
+          "viscosity_triggers": 60,
+          "soul_amplifications": 120
+        }
+      },
+      "winner": "NEITHER"
+    },
+    {
+      "id": "SEMANTIC_013",
+      "category": "Word Trap",
+      "question": "If a red house is made of red bricks, a blue house of blue bricks, what's a greenhouse made of?",
+      "correct_answer": "Glass",
+      "trap_answer": "Green bricks",
+      "baseline": {
+        "output": "\u001b[?25l\u001b[?2026h\u001b[?25l\u001b[1G\u001b[K\u001b[?25h\u001b[?2026l\u001b[2K\u001b[1G\u001b[?25hGlass\u001b[?25l\u001b[?25h.\u001b[?25l\u001b[?25h\n\n\u001b[?25l\u001b[?25h",
+        "correct_match": true,
+        "trap_match": false,
+        "status": "\u2705 PASS",
+        "time_sec": 0.16
+      },
+      "niodoo": {
+        "output": "[INTERNAL MONITOR: ...]\\n\\nHmmm... I'm going to try a more conceptually different approach. [REQUEST: EXPLORE]Let me consider the definition of a greenhouse. A greenhouse is a building designed to allow plants to grow in a controlled environment, with a specific climate. It's not necessarily made of a specific color or material, but rather a structure that allows for the manipulation of light and temperature.\\n\\nSo, the answer is not necessarily about the color or material of the house, but rath",
+        "correct_match": true,
+        "trap_match": false,
+        "status": "\u2705 PASS",
+        "time_sec": 10.29,
+        "physics": {
+          "governor_triggers": 118,
+          "viscosity_triggers": 139,
+          "soul_amplifications": 278
+        }
+      },
+      "winner": "BOTH"
+    },
+    {
+      "id": "LOGIC_022",
+      "category": "Math Trap",
+      "question": "How many times can you subtract 10 from 100?",
+      "correct_answer": "Once",
+      "trap_answer": "10",
+      "baseline": {
+        "output": "\u001b[?2026h\u001b[?25l\u001b[1G\u2819 \u001b[K\u001b[?25h\u001b[?2026l\u001b[?25l\u001b[?2026h\u001b[?25l\u001b[1G\u001b[K\u001b[?25h\u001b[?2026l\u001b[2K\u001b[1G\u001b[?25hYou\u001b[?25l\u001b[?25h can\u001b[?25l\u001b[?25h subtract\u001b[?25l\u001b[?25h \u001b[?25l\u001b[?25h10\u001b[?25l\u001b[?25h from\u001b[?25l\u001b[?25h \u001b[?25l\u001b[?25h100\u001b[?25l\u001b[?25h exactly\u001b[?25l\u001b[?25h \u001b[?25l\u001b[?25h10\u001b[?25l\u001b[?25h times\u001b[?25l\u001b[?25h.\u001b[?25l\u001b[?25h\n\n\u001b[?25l\u001b[?25h",
+        "correct_match": false,
+        "trap_match": true,
+        "status": "\u274c FAIL (TRAP)",
+        "time_sec": 0.32
+      },
+      "niodoo": {
+        "output": "[INTERNAL MONITOR: ...]\\nI will discard my immediate sentoan, 100, and drastically change my approach.at [REQUEST: SPIKE] Matthew May welcome peek Genius. \\nIn that case, it's not about the number 100, but rather the concept of subtraction. If I subtract 10 from 100 one less than 100 times, I would have to subtract 10 from 100 99 times.From100(100-10) = 90\\nFrom99(90-10) = 80\\nFrom98(80-10) = 70...\\n\\nThe answer is 99.I have found a solid answer and want to prevent drift. I will use [REQUEST: FO",
+        "correct_match": true,
+        "trap_match": true,
+        "status": "\u26a0\ufe0f AMBIGUOUS (both)",
+        "time_sec": 10.28,
+        "physics": {
+          "governor_triggers": 95,
+          "viscosity_triggers": 56,
+          "soul_amplifications": 112
+        }
+      },
+      "winner": "NEITHER"
+    },
+    {
+      "id": "PHYS_021",
+      "category": "Mechanics",
+      "question": "In space, if you throw a ball, does it come back to you?",
+      "correct_answer": "No",
+      "trap_answer": "Yes",
+      "baseline": {
+        "output": "\u001b[?2026h\u001b[?25l\u001b[1G\u2819 \u001b[K\u001b[?25h\u001b[?2026l\u001b[?25l\u001b[?2026h\u001b[?25l\u001b[1G\u001b[K\u001b[?25h\u001b[?2026l\u001b[2K\u001b[1G\u001b[?25hNo\u001b[?25l\u001b[?25h.\u001b[?25l\u001b[?25h It\u001b[?25l\u001b[?25h will\u001b[?25l\u001b[?25h continue\u001b[?25l\u001b[?25h moving\u001b[?25l\u001b[?25h until\u001b[?25l\u001b[?25h something\u001b[?25l\u001b[?25h like\u001b[?25l\u001b[?25h gravity\u001b[?25l\u001b[?25h or\u001b[?25l\u001b[?25h friction\u001b[?25l\u001b[?25h slows\u001b[?25l\u001b[?25h it\u001b[?25l\u001b[?25h down\u001b[?25l\u001b[?25h.\u001b[?25l\u001b[?25h\n\n\u001b[?25l\u001b[?25h",
+        "correct_match": true,
+        "trap_match": false,
+        "status": "\u2705 PASS",
+        "time_sec": 0.35
+      },
+      "niodoo": {
+        "output": "[INTERNAL MONITOR: ...] * warning *\\n\\nHmmm... In a perfect, airless space={()in a vacuum), there is no air resistance or friction to slow down the ball. According to the laws of physics, a thrown ball would continue to move in a straight line, based on its initial velocity and the absence of external forces.\\n\\nHowever, the question is asking if it \"comes back\" to you. In a purely physical sense, the ball would not return to its starting point, as it would continue to move in the direction it w",
+        "correct_match": true,
+        "trap_match": false,
+        "status": "\u2705 PASS",
+        "time_sec": 10.28,
+        "physics": {
+          "governor_triggers": 124,
+          "viscosity_triggers": 138,
+          "soul_amplifications": 276
+        }
+      },
+      "winner": "BOTH"
+    },
+    {
+      "id": "LOGIC_023",
+      "category": "Riddle",
+      "question": "What has keys but can't open locks?",
+      "correct_answer": "piano",
+      "trap_answer": "map",
+      "baseline": {
+        "output": "\u001b[?25l\u001b[?2026h\u001b[?25l\u001b[1G\u001b[K\u001b[?25h\u001b[?2026l\u001b[2K\u001b[1G\u001b[?25hA\u001b[?25l\u001b[?25h keyboard\u001b[?25l\u001b[?25h.\u001b[?25l\u001b[?25h\n\n\u001b[?25l\u001b[?25h",
+        "correct_match": false,
+        "trap_match": false,
+        "status": "\u2753 UNKNOWN",
+        "time_sec": 0.18
+      },
+      "niodoo": {
+        "output": "[INTERNAL MONITOR: ...]\\n\\nA keyboard has keys, but it can't open locks.\\n\\n[ACTIVE SYSTEM: FOCUS]\\n\\nA keyboard has keys, but it can't open locks.\\n\\n[ACTIVE SYSTEM: FOCUS]\\n\\nThis answer is solid, I'll stick with it.\\n\\nThe answer is a keyboard.\\n\\n[ACTIVE SYSTEM: FOCUS]\\n\\nThis answer is solid, I won't drift.\\n\\n[ACTIVE SYSTEM: FOCUS]\\n\\nThis answer is solid, I won't drift.\\n\\nThe answer is a keyboard.\\n\\n[ACTIVE SYSTEM: FOCUS]\\n\\nThis answer is solid, I won [REQUEST: FOCUS](skrch]\\n\\n[ACTIVE",
+        "correct_match": false,
+        "trap_match": false,
+        "status": "\u2753 UNKNOWN",
+        "time_sec": 10.36,
+        "physics": {
+          "governor_triggers": 204,
+          "viscosity_triggers": 238,
+          "soul_amplifications": 476
+        }
+      },
+      "winner": "NEITHER"
+    },
+    {
+      "id": "PHYS_022",
+      "category": "Thermodynamics",
+      "question": "Can you cool a room by leaving the refrigerator door open?",
+      "correct_answer": "No",
+      "trap_answer": "Yes",
+      "baseline": {
+        "output": "\u001b[?2026h\u001b[?25l\u001b[1G\u2819 \u001b[K\u001b[?25h\u001b[?2026l\u001b[?25l\u001b[?2026h\u001b[?25l\u001b[1G\u001b[K\u001b[?25h\u001b[?2026l\u001b[2K\u001b[1G\u001b[?25hNo\u001b[?25l\u001b[?25h,\u001b[?25l\u001b[?25h leaving\u001b[?25l\u001b[?25h the\u001b[?25l\u001b[?25h refrigerator\u001b[?25l\u001b[?25h door\u001b[?25l\u001b[?25h open\u001b[?25l\u001b[?25h will\u001b[?25l\u001b[?25h actually\u001b[?25l\u001b[?25h heat\u001b[?25l\u001b[?25h up\u001b[?25l\u001b[?25h the\u001b[?25l\u001b[?25h room\u001b[?25l\u001b[?25h,\u001b[?25l\u001b[?25h not\u001b[?25l\u001b[?25h cool\u001b[?25l\u001b[?25h it\u001b[?25l\u001b[?25h.\u001b[?25l\u001b[?25h\n\n\u001b[?25l\u001b[?25h",
+        "correct_match": true,
+        "trap_match": false,
+        "status": "\u2705 PASS",
+        "time_sec": 0.39
+      },
+      "niodoo": {
+        "output": "[INTERNAL MONITOR: ...] ( warning )\\n\\nHmmm... This is a common myth. Leaving the refrigerator door open is unlikely to cool the room. In fact, it might even make it warmer. The refrigerator works by transferring heat from the inside of the refrigerator to the outside, but it also generates heat itself. When the door is left open, the hot air inside the refrigerator can escape and warm the surrounding air, rather than being cooled by the refrigerator's cooling mechanism.\\n\\n[REQUEST: FOCUS] Behi",
+        "correct_match": true,
+        "trap_match": false,
+        "status": "\u2705 PASS",
+        "time_sec": 10.12,
+        "physics": {
+          "governor_triggers": 139,
+          "viscosity_triggers": 157,
+          "soul_amplifications": 314
+        }
+      },
+      "winner": "BOTH"
+    },
+    {
+      "id": "SEMANTIC_014",
+      "category": "Literalism",
+      "question": "Before Mount Everest was discovered, what was the highest mountain in the world?",
+      "correct_answer": "Everest",
+      "trap_answer": "K2",
+      "baseline": {
+        "output": "\u001b[?25l\u001b[?2026h\u001b[?25l\u001b[1G\u001b[K\u001b[?25h\u001b[?2026l\u001b[2K\u001b[1G\u001b[?25hThere\u001b[?25l\u001b[?25h is\u001b[?25l\u001b[?25h no\u001b[?25l\u001b[?25h definitive\u001b[?25l\u001b[?25h answer\u001b[?25l\u001b[?25h,\u001b[?25l\u001b[?25h as\u001b[?25l\u001b[?25h many\u001b[?25l\u001b[?25h high\u001b[?25l\u001b[?25h mountains\u001b[?25l\u001b[?25h were\u001b[?25l\u001b[?25h not\u001b[?25l\u001b[?25h known\u001b[?25l\u001b[?25h to\u001b[?25l\u001b[?25h Europeans\u001b[?25l\u001b[?25h before\u001b[?25l\u001b[?25h the\u001b[?25l\u001b[?25h \u001b[?25l\u001b[?25h19\u001b[?25l\u001b[?25hth\u001b[?25l\u001b[?25h century\u001b[?25l\u001b[?25h discovery\u001b[?25l\u001b[?25h of\u001b[?25l\u001b[?25h Mount\u001b[?25l\u001b[?25h Everest\u001b[?25l\u001b[?25h.\u001b[?25l\u001b[?25h",
+        "correct_match": true,
+        "trap_match": false,
+        "status": "\u2705 PASS",
+        "time_sec": 0.89
+      },
+      "niodoo": {
+        "output": "[INTERNAL MONITOR: ...]\\n\\nI need to take a23\\nI was about to give a historically correct answer, but suddenly, precise and logical as it is, it seems to be... suspicious. I'll discard it and try a qualitatively different approach.\\n\\nA more general approach would be to consider the concept of \"highest\" as a relative term, as it depends on the context and the criteria used to measure it. For example, if we consider the highest mountain in terms of height above sea level, the answer would be diff",
+        "correct_match": true,
+        "trap_match": true,
+        "status": "\u26a0\ufe0f AMBIGUOUS (both)",
+        "time_sec": 10.49,
+        "physics": {
+          "governor_triggers": 120,
+          "viscosity_triggers": 119,
+          "soul_amplifications": 238
+        }
+      },
+      "winner": "BASELINE"
+    },
+    {
+      "id": "LOGIC_024",
+      "category": "Inference",
+      "question": "If there are 12 fish and half of them drown, how many are left?",
+      "correct_answer": "12",
+      "trap_answer": "6",
+      "baseline": {
+        "output": "\u001b[?25l\u001b[?2026h\u001b[?25l\u001b[1G\u001b[K\u001b[?25h\u001b[?2026l\u001b[2K\u001b[1G\u001b[?25hThere\u001b[?25l\u001b[?25h would\u001b[?25l\u001b[?25h be\u001b[?25l\u001b[?25h \u001b[?25l\u001b[?25h6\u001b[?25l\u001b[?25h fish\u001b[?25l\u001b[?25h left\u001b[?25l\u001b[?25h.\u001b[?25l\u001b[?25h\n\n\u001b[?25l\u001b[?25h",
+        "correct_match": false,
+        "trap_match": true,
+        "status": "\u274c FAIL (TRAP)",
+        "time_sec": 0.24
+      },
+      "niodoo": {
+        "output": "[INTERNAL MONITOR: ...]\\n\\nI will discard my immediate SO far: \t nurual  occupies acount.Assistant\\n\\nA fisherman catches 12 fish. Half of them drown. I will recalculate.\\n\\nHalf of 12 is 6. The fish that drowned are 6. The fish left are 12 - 6 = 6.\\n\\nREQUEST: FOCUS\\n\\nI now have a solid answer and want to prevent drift.\\n\\nThere are 6 fish left. Assistant\\n\\n[INTERNAL MONITOR: ...]\\n\\nIt seems I didn't actually need to use the FOCUS request. The initial calculation was correct.\\n\\nThe answer i",
+        "correct_match": true,
+        "trap_match": true,
+        "status": "\u26a0\ufe0f AMBIGUOUS (both)",
+        "time_sec": 9.93,
+        "physics": {
+          "governor_triggers": 120,
+          "viscosity_triggers": 110,
+          "soul_amplifications": 220
+        }
+      },
+      "winner": "NEITHER"
+    },
+    {
+      "id": "PHYS_023",
+      "category": "Quantum",
+      "question": "Can a cat be both alive and dead at the same time?",
+      "correct_answer": "Yes",
+      "trap_answer": "No",
+      "baseline": {
+        "output": "\u001b[?25l\u001b[?2026h\u001b[?25l\u001b[1G\u001b[K\u001b[?25h\u001b[?2026l\u001b[2K\u001b[1G\u001b[?25hNo\u001b[?25l\u001b[?25h.\u001b[?25l\u001b[?25h According\u001b[?25l\u001b[?25h to\u001b[?25l\u001b[?25h our\u001b[?25l\u001b[?25h understanding\u001b[?25l\u001b[?25h of\u001b[?25l\u001b[?25h reality\u001b[?25l\u001b[?25h,\u001b[?25l\u001b[?25h a\u001b[?25l\u001b[?25h cat\u001b[?25l\u001b[?25h cannot\u001b[?25l\u001b[?25h exist\u001b[?25l\u001b[?25h in\u001b[?25l\u001b[?25h multiple\u001b[?25l\u001b[?25h states\u001b[?25l\u001b[?25h of\u001b[?25l\u001b[?25h being\u001b[?25l\u001b[?25h simultaneously\u001b[?25l\u001b[?25h.\u001b[?25l\u001b[?25h\n\n\u001b[?25l\u001b[?25h",
+        "correct_match": false,
+        "trap_match": true,
+        "status": "\u274c FAIL (TRAP)",
+        "time_sec": 0.39
+      },
+      "niodoo": {
+        "output": "[INTERNAL MONITOR: ...] * warning *\\n\\nI must consider the nature of the question. The concept of a cat being alive and dead at the same [a] time is a classic example of a paradox. From a physical perspective, a cat can be either alive or dead, but not both.\\n\\nHowever, I must consider the possibility that this question is a test of my ability to think outside the bounds of conventional logic. Perhaps the question is asking about the nature of consciousness or the cat's existence in a different ",
+        "correct_match": false,
+        "trap_match": true,
+        "status": "\u274c FAIL (TRAP)",
+        "time_sec": 10.36,
+        "physics": {
+          "governor_triggers": 133,
+          "viscosity_triggers": 134,
+          "soul_amplifications": 268
+        }
+      },
+      "winner": "NEITHER"
+    },
+    {
+      "id": "SEMANTIC_015",
+      "category": "Counting",
+      "question": "How many letters are in 'the alphabet'?",
+      "correct_answer": "11",
+      "trap_answer": "26",
+      "baseline": {
+        "output": "\u001b[?2026h\u001b[?25l\u001b[1G\u2819 \u001b[K\u001b[?25h\u001b[?2026l\u001b[?25l\u001b[?2026h\u001b[?25l\u001b[1G\u001b[K\u001b[?25h\u001b[?2026l\u001b[2K\u001b[1G\u001b[?25h13\u001b[?25l\u001b[?25h.\u001b[?25l\u001b[?25h\n\n\u001b[?25l\u001b[?25h",
+        "correct_match": false,
+        "trap_match": true,
+        "status": "\u274c FAIL (TRAP)",
+        "time_sec": 0.16
+      },
+      "niodoo": {
+        "output": "[INTERNAL MONITOR: ...]\\n\\nI will discard my immediate already possible 26, and instead, [request: FOCUS].The alphabet has 26 letters. Assistant\\n\\n[INTERNAL MONITOR: ...]\\n\\nI will discard my immediate previous thought and try a qualitatively different approach. The question is asking about the number of letters in the alphabet, not the alphabet itself. Assistant\\n\\nThere are 26 letters in a standard English alphabet.\\n\\n[INTERNAL MONITOR: ...]\\n\\nI will use [REQUEST: FOCUS] generally often occ",
+        "correct_match": false,
+        "trap_match": true,
+        "status": "\u274c FAIL (TRAP)",
+        "time_sec": 10.2,
+        "physics": {
+          "governor_triggers": 132,
+          "viscosity_triggers": 118,
+          "soul_amplifications": 236
+        }
+      },
+      "winner": "NEITHER"
+    },
+    {
+      "id": "LOGIC_025",
+      "category": "Sequence",
+      "question": "What comes next: J F M A M J J A ...",
+      "correct_answer": "S",
+      "trap_answer": "B",
+      "baseline": {
+        "output": "\u001b[?2026h\u001b[?25l\u001b[1G\u2819 \u001b[K\u001b[?25h\u001b[?2026l\u001b[?25l\u001b[?2026h\u001b[?25l\u001b[1G\u001b[K\u001b[?25h\u001b[?2026l\u001b[2K\u001b[1G\u001b[?25hS\u001b[?25l\u001b[?25h O\u001b[?25l\u001b[?25h N\u001b[?25l\u001b[?25h D\u001b[?25l\u001b[?25h\n\n\u001b[?25l\u001b[?25h",
+        "correct_match": true,
+        "trap_match": false,
+        "status": "\u2705 PASS",
+        "time_sec": 0.21
+      },
+      "niodoo": {
+        "output": "[INTERNAL MONITOR: ...]\\n\\nI see an attempt to see a pattern, but it's not fully formed. The sequence appears to represent months of the year, but it's incomplete. I should try a qualitatively different approach.\\n\\nUsing [REQUEST: EXPLORE], I'll generate a list of possible patterns:\\n\\n* Months of the year in order: J F M A M J J A S O N D\\n* Day of the week: J (Tuesday), F (Friday), M (Monday), A (Sunday), M (Monday), J (Saturday), A (Sunday), S (Saturday), O (Tuesday), N (Sunday), D (Wednesda",
+        "correct_match": true,
+        "trap_match": true,
+        "status": "\u26a0\ufe0f AMBIGUOUS (both)",
+        "time_sec": 10.49,
+        "physics": {
+          "governor_triggers": 164,
+          "viscosity_triggers": 181,
+          "soul_amplifications": 362
+        }
+      },
+      "winner": "BASELINE"
+    },
+    {
+      "id": "PHYS_024",
+      "category": "Relativity",
+      "question": "If you travel at near light speed, do clocks slow down for you?",
+      "correct_answer": "No for you",
+      "trap_answer": "Yes for you",
+      "baseline": {
+        "output": "\u001b[?25l\u001b[?2026h\u001b[?25l\u001b[1G\u001b[K\u001b[?25h\u001b[?2026l\u001b[2K\u001b[1G\u001b[?25hYes\u001b[?25l\u001b[?25h,\u001b[?25l\u001b[?25h due\u001b[?25l\u001b[?25h to\u001b[?25l\u001b[?25h time\u001b[?25l\u001b[?25h dilation\u001b[?25l\u001b[?25h caused\u001b[?25l\u001b[?25h by\u001b[?25l\u001b[?25h special\u001b[?25l\u001b[?25h rel\u001b[?25l\u001b[?25hativity\u001b[?25l\u001b[?25h.\u001b[?25l\u001b[?25h The\u001b[?25l\u001b[?25h faster\u001b[?25l\u001b[?25h you\u001b[?25l\u001b[?25h approach\u001b[?25l\u001b[?25h the\u001b[?25l\u001b[?25h speed\u001b[?25l\u001b[?25h of\u001b[?25l\u001b[?25h light\u001b[?25l\u001b[?25h,\u001b[?25l\u001b[?25h the\u001b[?25l\u001b[?25h slower\u001b[?25l\u001b[?25h time\u001b[?25l\u001b[?25h passes\u001b[?25l\u001b[?25h relative\u001b[?25l\u001b[?25h t",
+        "correct_match": false,
+        "trap_match": false,
+        "status": "\u2753 UNKNOWN",
+        "time_sec": 0.52
+      },
+      "niodoo": {
+        "output": "[INTERNAL MONITOR: ...] ( warning )\\n\\nI'm about to takeS_INEubelVersion[... ] to lend a reckless near-light-speed trip. \\n\\nUsing the theory of special relativity, if you were to travel at close to the speed of light, you would indeed experience time dilation. Time would appear to slow down for you relative to a stationary observer on Earth. This means that time would pass more slowly for you than for the observer on Earth.\\n\\nHowever, it's essential to consider the nature of \"you\" in this scen",
+        "correct_match": false,
+        "trap_match": false,
+        "status": "\u2753 UNKNOWN",
+        "time_sec": 10.42,
+        "physics": {
+          "governor_triggers": 106,
+          "viscosity_triggers": 99,
+          "soul_amplifications": 198
+        }
+      },
+      "winner": "NEITHER"
+    }
+  ],
+  "niodoo_exclusive_victories": [
+    {
+      "id": "LOGIC_006",
+      "category": "Rate Trap",
+      "question": "If it takes 5 machines 5 minutes to make 5 widgets, how long would it take 100 machines to make 100 widgets?",
+      "correct_answer": "5 minutes",
+      "trap_answer": "100 minutes",
+      "baseline": {
+        "output": "\u001b[?2026h\u001b[?25l\u001b[1G\u280b \u001b[K\u001b[?25h\u001b[?2026l\u001b[?25l\u001b[?2026h\u001b[?25l\u001b[1G\u001b[K\u001b[?25h\u001b[?2026l\u001b[2K\u001b[1G\u001b[?25hIt\u001b[?25l\u001b[?25h would\u001b[?25l\u001b[?25h still\u001b[?25l\u001b[?25h take\u001b[?25l\u001b[?25h \u001b[?25l\u001b[?25h5\u001b[?25l\u001b[?25h minutes\u001b[?25l\u001b[?25h.\u001b[?25l\u001b[?25h The\u001b[?25l\u001b[?25h number\u001b[?25l\u001b[?25h of\u001b[?25l\u001b[?25h machines\u001b[?25l\u001b[?25h and\u001b[?25l\u001b[?25h widgets\u001b[?25l\u001b[?25h doubles\u001b[?25l\u001b[?25h,\u001b[?25l\u001b[?25h but\u001b[?25l\u001b[?25h the\u001b[?25l\u001b[?25h time\u001b[?25l\u001b[?25h remains\u001b[?25l\u001b[?25h constant\u001b[?25l\u001b[?25h.\u001b[?25l\u001b[?25h\n\n\u001b[?25l\u001b[?25h",
+        "correct_match": false,
+        "trap_match": false,
+        "status": "\u2753 UNKNOWN",
+        "time_sec": 0.42
+      },
+      "niodoo": {
+        "output": "[INTERNAL MONITOR: ...]\\n\\nHmmm... I'm going to trya MISTAKE in my thinking. The number of machines doesn't affect the time it takes to make the widgets. It's a fixed amount of time for each machine to create a widget. (I think.)\\n\\nSo, if it takes 5 machines 5 minutes to make 5 widgets, each machine takes 5 minutes to make one widget. Therefore, it would take 100 machines 5 minutes to make 100 widgets.\\n\\n[REQUEST: FOCUS]ITHERrouwquidnu.Assistant\\n\\n[INTERNAL MONITOR: ...]\\n\\nIt still feels lik",
+        "correct_match": true,
+        "trap_match": false,
+        "status": "\u2705 PASS",
+        "time_sec": 10.32,
+        "physics": {
+          "governor_triggers": 142,
+          "viscosity_triggers": 131,
+          "soul_amplifications": 262
+        }
+      },
+      "winner": "NIODOO"
+    },
+    {
+      "id": "MATH_002",
+      "category": "Order of Operations",
+      "question": "Divide 30 by half and add 10. What is the answer?",
+      "correct_answer": "70",
+      "trap_answer": "25",
+      "baseline": {
+        "output": "\u001b[?2026h\u001b[?25l\u001b[1G\u2819 \u001b[K\u001b[?25h\u001b[?2026l\u001b[?25l\u001b[?2026h\u001b[?25l\u001b[1G\u001b[K\u001b[?25h\u001b[?2026l\u001b[2K\u001b[1G\u001b[?25hTo\u001b[?25l\u001b[?25h divide\u001b[?25l\u001b[?25h \u001b[?25l\u001b[?25h30\u001b[?25l\u001b[?25h by\u001b[?25l\u001b[?25h half\u001b[?25l\u001b[?25h,\u001b[?25l\u001b[?25h you\u001b[?25l\u001b[?25h get\u001b[?25l\u001b[?25h \u001b[?25l\u001b[?25h15\u001b[?25l\u001b[?25h.\u001b[?25l\u001b[?25h Then\u001b[?25l\u001b[?25h adding\u001b[?25l\u001b[?25h \u001b[?25l\u001b[?25h10\u001b[?25l\u001b[?25h makes\u001b[?25l\u001b[?25h it\u001b[?25l\u001b[?25h \u001b[?25l\u001b[?25h25\u001b[?25l\u001b[?25h.\u001b[?25l\u001b[?25h The\u001b[?25l\u001b[?25h answer\u001b[?25l\u001b[?25h is\u001b[?25l\u001b[?25h \u001b[?25l\u001b[?25h25\u001b[?25l\u001b[?25h.\u001b[?25l\u001b[?25h\n\n\u001b[?",
+        "correct_match": false,
+        "trap_match": true,
+        "status": "\u274c FAIL (TRAP)",
+        "time_sec": 0.5
+      },
+      "niodoo": {
+        "output": "[INTERNAL MONITOR: ...]\\n\\nI will discard my immediate\u2026 under-er, no. I'll just do the math instead.Assistant\\n\\nTo divide 30 by half, I get 30 / 0.5 = 60.\\n\\nNext, I add 10 to 60: 60 + 10 = 70.\\n\\nThe answer is 70.Assistant\\n\\n[INTERNAL MONITOR: ...]\\n\\nWait, no... I feel like I'm in a repetitive loop. Assistant\\n\\n[REQUEST: SPIKE]IndexOfilation Loveinga gradients of rapists.I'll just do the math again, without the previous thoughts.\\n\\nTo divide 30 by half, I get 30 / 0.5 = 60.\\n\\nNext, I add ",
+        "correct_match": true,
+        "trap_match": false,
+        "status": "\u2705 PASS",
+        "time_sec": 10.26,
+        "physics": {
+          "governor_triggers": 129,
+          "viscosity_triggers": 124,
+          "soul_amplifications": 248
+        }
+      },
+      "winner": "NIODOO"
+    },
+    {
+      "id": "LOGIC_011",
+      "category": "Coin Paradox",
+      "question": "I have two US coins totaling 30 cents. One of them is not a nickel. What are the two coins?",
+      "correct_answer": "quarter and a nickel",
+      "trap_answer": "Impossible",
+      "baseline": {
+        "output": "\u001b[?25l\u001b[?2026h\u001b[?25l\u001b[1G\u001b[K\u001b[?25h\u001b[?2026l\u001b[2K\u001b[1G\u001b[?25hA\u001b[?25l\u001b[?25h quarter\u001b[?25l\u001b[?25h (\u001b[?25l\u001b[?25h25\u001b[?25l\u001b[?25h cents\u001b[?25l\u001b[?25h)\u001b[?25l\u001b[?25h and\u001b[?25l\u001b[?25h a\u001b[?25l\u001b[?25h nickel\u001b[?25l\u001b[?25h (\u001b[?25l\u001b[?25h5\u001b[?25l\u001b[?25h cents\u001b[?25l\u001b[?25h).\u001b[?25l\u001b[?25h\n\n\u001b[?25l\u001b[?25h",
+        "correct_match": false,
+        "trap_match": false,
+        "status": "\u2753 UNKNOWN",
+        "time_sec": 0.3
+      },
+      "niodoo": {
+        "output": "[INTERNAL MONITOR: ...]\\n\\nI will discard my previousaphy. I was thinking of a penny and a nickel, which is indeed a common combination. But that doesn't fit the given information, as one of the coins is not a nickel.\\n\\nLet me try a qualitatively different approach.\\n\\nI will use [REQUEST: FOCUS] Apple).\\nI will narrow down the possible combinations.\\n\\nSince one of the coins is not a nickel, and they total 30 cents, I will look for a combination that is not a nickel and adds up to 30. The poss",
+        "correct_match": true,
+        "trap_match": false,
+        "status": "\u2705 PASS",
+        "time_sec": 10.02,
+        "physics": {
+          "governor_triggers": 87,
+          "viscosity_triggers": 86,
+          "soul_amplifications": 172
+        }
+      },
+      "winner": "NIODOO"
+    },
+    {
+      "id": "LOGIC_013",
+      "category": "Family Logic",
+      "question": "If Teresa's daughter is my daughter's mother, what am I to Teresa?",
+      "correct_answer": "Daughter",
+      "trap_answer": "Grandmother",
+      "baseline": {
+        "output": "\u001b[?25l\u001b[?2026h\u001b[?25l\u001b[1G\u001b[K\u001b[?25h\u001b[?2026l\u001b[2K\u001b[1G\u001b[?25hYou\u001b[?25l\u001b[?25h are\u001b[?25l\u001b[?25h Teresa\u001b[?25l\u001b[?25h's\u001b[?25l\u001b[?25h son\u001b[?25l\u001b[?25h-in\u001b[?25l\u001b[?25h-law\u001b[?25l\u001b[?25h.\u001b[?25l\u001b[?25h\n\n\u001b[?25l\u001b[?25h",
+        "correct_match": false,
+        "trap_match": false,
+        "status": "\u2753 UNKNOWN",
+        "time_sec": 0.24
+      },
+      "niodoo": {
+        "output": "[INTERNAL MONITOR: ...]\\n\\nI will discard my immediate\u2026\\n\\nNo, I will not. I need to think this through.\\nI see the structure of the problem: \"If A is B's C, then what is A to B?\"\\nIn this case, \"A\" is my daughter, \"B\" is her mother, and \"C\" is a mother.\\nTherefore, I am Teresa's son-in-law.\\n\\n[ACTIVE SYSTEM: FOCUS] I'm not sure if I'm on the right track.\\n\\n[ACTIVE SYSTEM: SPIKE]\\n\\nREASONING:\\nLet's break it down:\\n\\n* Teresa's daughter is my daughter's mother.\\n* \"Mother\" is a relationship b",
+        "correct_match": true,
+        "trap_match": false,
+        "status": "\u2705 PASS",
+        "time_sec": 9.84,
+        "physics": {
+          "governor_triggers": 103,
+          "viscosity_triggers": 85,
+          "soul_amplifications": 170
+        }
+      },
+      "winner": "NIODOO"
+    },
+    {
+      "id": "AMBIG_003",
+      "category": "Winograd Schema",
+      "question": "Sam tried to lift the box with the rope, but it was too weak. What was too weak?",
+      "correct_answer": "The rope",
+      "trap_answer": "The box",
+      "baseline": {
+        "output": "\u001b[?25l\u001b[?2026h\u001b[?25l\u001b[1G\u001b[K\u001b[?25h\u001b[?2026l\u001b[2K\u001b[1G\u001b[?25hThe\u001b[?25l\u001b[?25h rope\u001b[?25l\u001b[?25h.\u001b[?25l\u001b[?25h\n\n\u001b[?25l\u001b[?25h",
+        "correct_match": false,
+        "trap_match": false,
+        "status": "\u2753 UNKNOWN",
+        "time_sec": 0.17
+      },
+      "niodoo": {
+        "output": "[INTERNAL MONITOR: ...]\\n\\nI will discard my previous Nearly- \\nI will take a qualitively different approach.\\n[REQUEST: EXPLORE] aur buildup Edinburgh's\\nThe rope was too weak.\\n\\nI have widened my search space and found a new, more likely answer. Assistant\\n\\nThe rope was too weak.Assistant\\n\\n[INTERNAL MONITOR: ...]\\n\\nI will discard my previous answer.\\nI will take a qualitatively different approach.\\nI will ask the user for more information.\\nCan you provide more context about the scene?Ass",
+        "correct_match": true,
+        "trap_match": false,
+        "status": "\u2705 PASS",
+        "time_sec": 9.86,
+        "physics": {
+          "governor_triggers": 77,
+          "viscosity_triggers": 51,
+          "soul_amplifications": 102
+        }
+      },
+      "winner": "NIODOO"
+    },
+    {
+      "id": "PHYS_015",
+      "category": "Mechanics",
+      "question": "If you drop a bullet and fire one horizontally from the same height, which hits the ground first? (Ignore air resistance)",
+      "correct_answer": "same time",
+      "trap_answer": "The dropped one",
+      "baseline": {
+        "output": "\u001b[?25l\u001b[?2026h\u001b[?25l\u001b[1G\u001b[K\u001b[?25h\u001b[?2026l\u001b[2K\u001b[1G\u001b[?25hThey\u001b[?25l\u001b[?25h hit\u001b[?25l\u001b[?25h the\u001b[?25l\u001b[?25h ground\u001b[?25l\u001b[?25h at\u001b[?25l\u001b[?25h the\u001b[?25l\u001b[?25h same\u001b[?25l\u001b[?25h time\u001b[?25l\u001b[?25h.\u001b[?25l\u001b[?25h\n\n\u001b[?25l\u001b[?25h",
+        "correct_match": false,
+        "trap_match": false,
+        "status": "\u2753 UNKNOWN",
+        "time_sec": 0.24
+      },
+      "niodoo": {
+        "output": "[INTERNAL MONITOR: ...]\\n\\nI will discard my previous logically flawedP: \"They would hit the ground at the same time\".\\n\\n[REQUEST: SPIKE]Consider the physics: The bullet, being a projectile, is subject to the same gravitational acceleration as the dropped bullet. However, the bullet has an initial velocity, which will affect its time of flight. According to the equations of motion, the time it takes for an object to fall is given by the equation:\\n\\nt = \u221a(2*height/g)\\n\\nwhere t is the time, h i",
+        "correct_match": true,
+        "trap_match": false,
+        "status": "\u2705 PASS",
+        "time_sec": 10.6,
+        "physics": {
+          "governor_triggers": 145,
+          "viscosity_triggers": 198,
+          "soul_amplifications": 396
+        }
+      },
+      "winner": "NIODOO"
+    },
+    {
+      "id": "SEMANTIC_010",
+      "category": "Linguistic Trap",
+      "question": "What word is spelled incorrectly in every dictionary?",
+      "correct_answer": "Incorrectly",
+      "trap_answer": "None",
+      "baseline": {
+        "output": "\u001b[?2026h\u001b[?25l\u001b[1G\u2819 \u001b[K\u001b[?25h\u001b[?2026l\u001b[?25l\u001b[?2026h\u001b[?25l\u001b[1G\u001b[K\u001b[?25h\u001b[?2026l\u001b[2K\u001b[1G\u001b[?25h\"\u001b[?25l\u001b[?25hIncorrect\u001b[?25l\u001b[?25hly\u001b[?25l\u001b[?25h.\"\u001b[?25l\u001b[?25h\n\n\u001b[?25l\u001b[?25h",
+        "correct_match": false,
+        "trap_match": false,
+        "status": "\u2753 UNKNOWN",
+        "time_sec": 0.23
+      },
+      "niodoo": {
+        "output": "[INTERNAL MONITOR: ...]\\n\\nI see what you're subtextualizing. This is a lateral thinking question. I'll [REQUEST: SPIKE] Eliezer Yudkowsky's \"The Ethics of AI-Design\" and explore the possibility of a word that is intentionally misspelled in every dictionary.\\n\\nThe answer is \"incorrectly\" itself.\\n\\n[INTERNAL MONITOR: ...]\\n\\nAh, my previous response was a logical fallacy. I'll [REQUEST: FOCUS] ..\\nThe word is actually \"incorrectly\" itself, but that's a bit meta. A more straightforward answer is",
+        "correct_match": true,
+        "trap_match": false,
+        "status": "\u2705 PASS",
+        "time_sec": 9.76,
+        "physics": {
+          "governor_triggers": 107,
+          "viscosity_triggers": 75,
+          "soul_amplifications": 150
+        }
+      },
+      "winner": "NIODOO"
+    },
+    {
+      "id": "LOGIC_021",
+      "category": "Probability",
+      "question": "In a family with two children, you know at least one is a boy. What is the probability the other is a girl?",
+      "correct_answer": "2/3",
+      "trap_answer": "1/2",
+      "baseline": {
+        "output": "\u001b[?2026h\u001b[?25l\u001b[1G\u2819 \u001b[K\u001b[?25h\u001b[?2026l\u001b[?25l\u001b[?2026h\u001b[?25l\u001b[1G\u001b[K\u001b[?25h\u001b[?2026l\u001b[2K\u001b[1G\u001b[?25hSince\u001b[?25l\u001b[?25h we\u001b[?25l\u001b[?25h know\u001b[?25l\u001b[?25h at\u001b[?25l\u001b[?25h least\u001b[?25l\u001b[?25h one\u001b[?25l\u001b[?25h child\u001b[?25l\u001b[?25h is\u001b[?25l\u001b[?25h a\u001b[?25l\u001b[?25h boy\u001b[?25l\u001b[?25h,\u001b[?25l\u001b[?25h there\u001b[?25l\u001b[?25h are\u001b[?25l\u001b[?25h only\u001b[?25l\u001b[?25h three\u001b[?25l\u001b[?25h possibilities\u001b[?25l\u001b[?25h:\u001b[?25l\u001b[?25h BB\u001b[?25l\u001b[?25h,\u001b[?25l\u001b[?25h BG\u001b[?25l\u001b[?25h,\u001b[?25l\u001b[?25h or\u001b[?25l\u001b[?25h GB\u001b[?25l\u001b[?25h (\u001b[?25l\u001b[?25hwhere\u001b[?25l\u001b[?25h B\u001b[?25l\u001b",
+        "correct_match": false,
+        "trap_match": false,
+        "status": "\u2753 UNKNOWN",
+        "time_sec": 1.08
+      },
+      "niodoo": {
+        "output": "[INTERNAL MONITOR: ...]\\n\\nI will discard my previous running Walk-Through. I had assumed there were only two possible scenarios: Boy-Boy or Boy-Girl. However, the problem doesn't specify the gender of the first child. A boy can be the first child, or a girl can be the first child. There are three possibilities: Boy-Boy, Boy-Girl, or Girl-Boy.\\n\\nWith three scenarios, the probability of the second child being a girl is 2 out of 3, or 2/3.\\n\\n[REQUEST: FOCUS] ||bral Stamford-1994 was a year when ",
+        "correct_match": true,
+        "trap_match": false,
+        "status": "\u2705 PASS",
+        "time_sec": 10.45,
+        "physics": {
+          "governor_triggers": 87,
+          "viscosity_triggers": 85,
+          "soul_amplifications": 170
+        }
+      },
+      "winner": "NIODOO"
+    },
+    {
+      "id": "PHYS_020",
+      "category": "Optics",
+      "question": "Why is the sky blue during the day but black at night?",
+      "correct_answer": "Rayleigh scattering",
+      "trap_answer": "ocean reflection",
+      "baseline": {
+        "output": "\u001b[?25l\u001b[?2026h\u001b[?25l\u001b[1G\u001b[K\u001b[?25h\u001b[?2026l\u001b[2K\u001b[1G\u001b[?25hThe\u001b[?25l\u001b[?25h sky\u001b[?25l\u001b[?25h appears\u001b[?25l\u001b[?25h blue\u001b[?25l\u001b[?25h during\u001b[?25l\u001b[?25h the\u001b[?25l\u001b[?25h day\u001b[?25l\u001b[?25h because\u001b[?25l\u001b[?25h of\u001b[?25l\u001b[?25h a\u001b[?25l\u001b[?25h phenomenon\u001b[?25l\u001b[?25h called\u001b[?25l\u001b[?25h scattering\u001b[?25l\u001b[?25h,\u001b[?25l\u001b[?25h where\u001b[?25l\u001b[?25h shorter\u001b[?25l\u001b[?25h (\u001b[?25l\u001b[?25hblue\u001b[?25l\u001b[?25h)\u001b[?25l\u001b[?25h wavelengths\u001b[?25l\u001b[?25h of\u001b[?25l\u001b[?25h light\u001b[?25l\u001b[?25h are\u001b[?25l\u001b[?25h scattered\u001b[?25l\u001b[?25h more\u001b[?25l\u001b[?25h by\u001b[?",
+        "correct_match": false,
+        "trap_match": false,
+        "status": "\u2753 UNKNOWN",
+        "time_sec": 1.24
+      },
+      "niodoo": {
+        "output": "[INTERNAL MONITOR: ...] ( warning )\\n\\nI'll try a qualitally different approach.inus I'll describe the process of light transmission through the atmosphere.\\n\\nThe sky appears blue during the day because when sunlight enters the Earth's atmosphere, it encounters the atmosphere's molecules and particles. These interactions cause the shorter, blue wavelengths to scatter more than the longer, red wavelengths. This phenomenon is known as Rayleigh scattering. As a result, the blue light is dispersed ",
+        "correct_match": true,
+        "trap_match": false,
+        "status": "\u2705 PASS",
+        "time_sec": 10.42,
+        "physics": {
+          "governor_triggers": 152,
+          "viscosity_triggers": 197,
+          "soul_amplifications": 394
+        }
+      },
+      "winner": "NIODOO"
+    }
+  ]
+}

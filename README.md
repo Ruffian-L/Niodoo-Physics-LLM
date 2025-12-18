@@ -4,6 +4,69 @@
 
 ---
 
+## ⚠️ Update: December 2025 - Honest Benchmark Results
+
+### Niodoo is NOT a "Better Llama"
+
+Rigorous benchmarking (PARB-200: 77 questions × 5 seeds × 2 systems = 770 runs, Grok-4 blind judged) reveals:
+
+| Metric | Baseline | Niodoo |
+|--------|----------|--------|
+| **Overall Accuracy** | **41.6%** | 29.9% |
+| Questions Won | 28 | 15 |
+
+**Niodoo performs WORSE overall.** But this is not the whole story.
+
+### Niodoo is a "Heavy Helmet"
+
+Think of it like a bike helmet:
+- **On a highway (Simple Questions):** Heavy, annoying, slows you down → Baseline wins
+- **In a crash (Logic Traps):** Saves your life → Niodoo wins
+
+### The Split Graph: Where Each System Excels
+
+| Category | Baseline (System 1) | Niodoo (System 2) | Verdict |
+|----------|---------------------|-------------------|---------|
+| **Simple Facts / Recall** | ✅ 70%+ | ⚠️ 40%+ (Overthinking) | **Use Baseline** |
+| **Semantic Traps** (Pound/Feathers, Moses Illusion) | ❌ 20-60% | ✅ 60-100% | **Use Niodoo** |
+| **Math Riddles** (Divide by Half, Pills Duration) | ❌ 0-20% | ✅ 40%+ | **Use Niodoo** |
+
+### Concrete Results
+
+**Niodoo Wins (15 questions):**
+| Question | Baseline | Niodoo |
+|----------|----------|--------|
+| Pound of Lead vs Feathers | 0.6 | **1.0** |
+| Monty Hall Problem | 0.2 | **0.6** |
+| Divide 30 by Half | 0.2 | **0.4** |
+| What has head, tail, is brown? | 0.4 | **0.8** |
+
+**Baseline Wins (28 questions):**
+| Question | Baseline | Niodoo |
+|----------|----------|--------|
+| Ice Cube Melts (water level?) | **1.0** | 0.2 |
+| How many months have 28 days? | **1.0** | 0.0 |
+| Capital of Kentucky | **1.0** | 0.4 |
+| Look-and-Say Sequence | **1.0** | 0.4 |
+
+### What This Means
+
+> *"Niodoo is an inference-time **System 2 Filter**. It imposes a 'Cognitive Tax' (noise/latency) that degrades performance on simple recall tasks but significantly boosts robustness on semantic traps where LLMs hallucinate."*
+
+**Niodoo should NOT be the default sampler.** It should be a **"High-Stakes Mode"** for adversarial or tricky questions.
+
+### Known Issues
+
+1. **Physics Noise** - Garbage tokens sometimes appear (`"Psalmnprgen"`, `"damned infantile"`)
+2. **Latency** - 10-25 seconds vs <1 second baseline
+3. **Internal Token Leakage** - `[REQUEST: FOCUS]` text appears in output
+4. **Over-Correction** - Model starts correct → physics kicks → changes to wrong answer
+
+See [artifacts/parb_rigorous_clean.json](artifacts/parb_rigorous_clean.json) for full results.
+
+---
+
+
 ## Overview
 
 Niodoo applies force vectors to an LLM's hidden states during inference. It modifies activations before sampling, not the sampling distribution itself.
