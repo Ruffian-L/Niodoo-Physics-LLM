@@ -1,0 +1,19 @@
+Niodoo Physics LLM
+Copyright 2025 Jason Van Pham
+
+This project (the Niodoo code and tooling) is licensed under the Apache License, Version 2.0 (see LICENSE).
+
+This project uses Llama 3.1 models (when the user provides GGUF weights such as Meta-Llama-3.1-8B-Instruct-Q4_K_M.gguf).
+
+Llama 3.1 is licensed under the Llama 3.1 Community License, Copyright © Meta Platforms, Inc. All Rights Reserved.
+
+See LICENSE-LLAMA for the full Llama 3.1 Community License Agreement.
+
+Additional requirements from the Llama license (when distributing Llama Materials or derivatives):
+- Prominently display “Built with Llama”.
+- Include the above attribution notice.
+- Comply with the Llama Acceptable Use Policy: https://llama.com/llama3_1/use-policy
+
+Prior related work by the author also involved Qwen models (Alibaba), which are subject to their own licenses.
+
+This NOTICE file is provided for attribution purposes as required.

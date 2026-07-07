@@ -10,6 +10,10 @@ change reasoning trajectories in a small local model.
 This repository is best read as an experiment log plus runnable prototype, not as
 a production inference library.
 
+> Updated 07/06/2026: added attributions and thank yous.
+
+**Built with Llama** by Meta AI.
+
 ## Summary
 
 - Model target used in the main experiments: Llama 3.1 8B Instruct Q4_K_M.
@@ -195,6 +199,30 @@ but produced selective wins on 15 of 77 question-level comparisons, showing that
 activation steering can change reasoning trajectories without weight updates.
 ```
 
+## Credits and Thank Yous
+
+This project builds directly on work by many others.
+
+- **Llama**: Built with Llama 3.1 by Meta AI. The main experiments and model target use Llama 3.1 8B Instruct (Q4_K_M GGUF). This work touches and steers activations from Llama-family models.
+- Prior original work that led to this project also involved Qwen models from Alibaba Cloud.
+- Hugging Face Candle (candle-core, candle-nn, candle-transformers) for GGUF model loading and CUDA inference of Llama (and related) architectures.
+- GGUF format and quantized model support from the llama.cpp project and community.
+- clap for the command-line interface.
+- axum + tokio + futures for the experimental server and async runtime.
+- Other crates: safetensors, half, friedrich (see [Cargo.toml](Cargo.toml) for full list).
+
+Thank you to the maintainers of these projects.
+
 ## License
 
-MIT License. Copyright (c) 2025 Jason Van Pham.
+The Niodoo code and tooling in this repository is licensed under the Apache License, Version 2.0 — see [LICENSE](LICENSE).
+
+Llama 3.1 models (used when you provide weights such as Meta-Llama-3.1-8B-Instruct) are licensed under the Llama 3.1 Community License — see [LICENSE-LLAMA](LICENSE-LLAMA) and the required attribution in [NOTICE](NOTICE).
+
+**Llama 3.1 is licensed under the Llama 3.1 Community License, Copyright © Meta Platforms, Inc. All Rights Reserved.**
+
+This project prominently displays "Built with Llama".
+
+Prior related work by the author also involved Qwen models from Alibaba Cloud (subject to their own licenses).
+
+See [NOTICE](NOTICE) for full attribution details.

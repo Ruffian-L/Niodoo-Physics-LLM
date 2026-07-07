@@ -2,6 +2,8 @@
 name = "niodoo"
 version = "1.0.0"
 edition = "2021"
+license = "Apache-2.0"
+repository = "https://github.com/Ruffian-L/Niodoo-Physics-LLM"
 
 [lib]
 name = "niodoo"
