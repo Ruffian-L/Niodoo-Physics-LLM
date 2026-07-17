@@ -30,9 +30,10 @@ DEFAULT_SEED = 123
 NIODOO_BINARY = os.path.abspath(
     os.path.join(os.path.dirname(__file__), "../target/release/niodoo")
 )
-MODEL_PATH = os.environ.get(
-    "NIODOO_MODEL_PATH",
-    "/home/ruffian/SplatRag/models/Llama-3.1-8B-Instruct/Meta-Llama-3.1-8B-Instruct-Q4_K_M.gguf"
+MODEL_PATH = (
+    os.environ.get("NIODOO_MODEL")
+    or os.environ.get("NIODOO_MODEL_PATH")  # legacy name, kept for compatibility
+    or "/home/ruffian/SplatRag/models/Llama-3.1-8B-Instruct/Meta-Llama-3.1-8B-Instruct-Q4_K_M.gguf"
 )
 
 # =============================================================================

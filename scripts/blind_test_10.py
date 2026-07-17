@@ -13,7 +13,7 @@ import time
 
 # --- CONFIG ---
 BINARY = "./target/release/niodoo"
-MODEL_PATH = "/home/ruffian/SplatRag/models/Llama-3.1-8B-Instruct/Meta-Llama-3.1-8B-Instruct-Q4_K_M.gguf"
+MODEL_PATH = os.environ.get("NIODOO_MODEL", "/home/ruffian/SplatRag/models/Llama-3.1-8B-Instruct/Meta-Llama-3.1-8B-Instruct-Q4_K_M.gguf")
 OLLAMA_MODEL = "llama31-local"
 
 SURVEY_FILE = "artifacts/blind_test_SURVEY.md"

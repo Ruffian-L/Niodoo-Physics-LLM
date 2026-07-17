@@ -13,7 +13,7 @@ import os
 # 🎛️ HIGH ENERGY CONFIGURATION
 # ==============================================================================
 BINARY_PATH = "./target/release/niodoo"
-MODEL_PATH = "/home/ruffian/SplatRag/models/Llama-3.1-8B-Instruct/Meta-Llama-3.1-8B-Instruct-Q4_K_M.gguf"
+MODEL_PATH = os.environ.get("NIODOO_MODEL", "/home/ruffian/SplatRag/models/Llama-3.1-8B-Instruct/Meta-Llama-3.1-8B-Instruct-Q4_K_M.gguf")
 
 BLENDS = [1.0, 2.0, 3.0, 4.0, 6.0, 8.0]
 REPULSIONS = [-1.0, -2.0, -4.0, -6.0, -8.0]

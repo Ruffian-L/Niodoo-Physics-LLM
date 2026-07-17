@@ -155,9 +155,24 @@ Disable steering for a baseline-style run:
 Notes:
 
 - The historical benchmark runner is [`scripts/parb_rigorous.py`](scripts/parb_rigorous.py).
-- Rerunning it requires local model paths, Ollama, and an external judge API key.
-- The script was written for the original local workstation layout, so paths may
-  need to be edited before reuse.
+- Rerunning it requires a local model, Ollama, and an external judge API key.
+
+Configuration (no code edits needed to run on another machine):
+
+| Variable | Used by | Purpose |
+| --- | --- | --- |
+| `NIODOO_MODEL` | `demo.sh`, all Python scripts, server | Path to the local GGUF model. Falls back to a legacy default if unset. |
+| `XAI_API_KEY` | `scripts/parb_rigorous.py` | API key for the external blind judge. Read from the environment; never hard-coded. |
+| `HF_MODEL_REPO` | Rust binary | Optional Hugging Face repo override for model loading. |
+| `SPLATRAG_USE_GPU` | Rust binary | Enable the CUDA path when a GPU is available. |
+
+Example:
+
+```bash
+export NIODOO_MODEL=/path/to/Meta-Llama-3.1-8B-Instruct-Q4_K_M.gguf
+export XAI_API_KEY=...            # only needed to re-judge
+python3 scripts/parb_rigorous.py
+```
 
 ## Telemetry
 

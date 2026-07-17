@@ -11,7 +11,7 @@ import os
 import json
 
 BINARY = "./target/release/niodoo"
-MODEL = "/home/ruffian/SplatRag/models/Llama-3.1-8B-Instruct/Meta-Llama-3.1-8B-Instruct-Q4_K_M.gguf"
+MODEL = os.environ.get("NIODOO_MODEL", "/home/ruffian/SplatRag/models/Llama-3.1-8B-Instruct/Meta-Llama-3.1-8B-Instruct-Q4_K_M.gguf")
 
 # High-energy blend range - finer granularity
 BLENDS = [1.0, 1.5, 2.0, 2.5, 3.0, 4.0, 5.0]

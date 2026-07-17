@@ -4,6 +4,7 @@ Hardest-Failures Runner - tests the 5 hardest failure cases with tuned physics.
 Streams directly to console for live viewing.
 """
 
+import os
 import json
 import subprocess
 import sys
@@ -13,7 +14,7 @@ from pathlib import Path
 from datetime import datetime
 
 NIODOO_BIN = Path(__file__).parent.parent / "target/release/niodoo"
-MODEL_PATH = "/home/ruffian/SplatRag/models/Llama-3.1-8B-Instruct/Meta-Llama-3.1-8B-Instruct-Q4_K_M.gguf"
+MODEL_PATH = os.environ.get("NIODOO_MODEL", "/home/ruffian/SplatRag/models/Llama-3.1-8B-Instruct/Meta-Llama-3.1-8B-Instruct-Q4_K_M.gguf")
 TEST_FILE = Path(__file__).parent.parent / "tuning_set.json"
 
 # Tuned physics parameters

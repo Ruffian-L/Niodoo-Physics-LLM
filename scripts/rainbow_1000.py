@@ -22,7 +22,7 @@ sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', 'benchmarks'))
 from prompt_bank_200 import PROMPTS
 
 BINARY = "./target/release/niodoo"
-MODEL = "/home/ruffian/SplatRag/models/Llama-3.1-8B-Instruct/Meta-Llama-3.1-8B-Instruct-Q4_K_M.gguf"
+MODEL = os.environ.get("NIODOO_MODEL", "/home/ruffian/SplatRag/models/Llama-3.1-8B-Instruct/Meta-Llama-3.1-8B-Instruct-Q4_K_M.gguf")
 
 # Rainbow parameter ranges for micro-tuning
 BLEND_RANGE = [0.8, 1.0, 1.2, 1.5, 2.0]

@@ -5,6 +5,7 @@ Goal: Extend cognitive runway (512 tokens) + High Energy to break riddle pattern
 Target: Get "1 hour" for towels, "Lead heavier" for Troy Weight
 """
 
+import os
 import subprocess
 import itertools
 import functools
@@ -13,7 +14,7 @@ import functools
 print = functools.partial(print, flush=True)
 
 BINARY = "./target/release/niodoo"
-MODEL = "/home/ruffian/SplatRag/models/Llama-3.1-8B-Instruct/Meta-Llama-3.1-8B-Instruct-Q4_K_M.gguf"
+MODEL = os.environ.get("NIODOO_MODEL", "/home/ruffian/SplatRag/models/Llama-3.1-8B-Instruct/Meta-Llama-3.1-8B-Instruct-Q4_K_M.gguf")
 
 # The hard prompts
 PROMPTS = [

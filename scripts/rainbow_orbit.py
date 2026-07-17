@@ -13,7 +13,7 @@ import os
 # 🎛️ CONFIGURATION GRID
 # ==============================================================================
 BINARY_PATH = "./target/release/niodoo"
-MODEL_PATH = "/home/ruffian/SplatRag/models/Llama-3.1-8B-Instruct/Meta-Llama-3.1-8B-Instruct-Q4_K_M.gguf"
+MODEL_PATH = os.environ.get("NIODOO_MODEL", "/home/ruffian/SplatRag/models/Llama-3.1-8B-Instruct/Meta-Llama-3.1-8B-Instruct-Q4_K_M.gguf")
 
 # X-Axis: How fast we move (Tangential Velocity)
 SPEEDS = [0.05, 0.10, 0.15, 0.20, 0.30, 0.50]

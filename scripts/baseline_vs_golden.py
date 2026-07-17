@@ -10,7 +10,7 @@ import sys
 import os
 
 BINARY = "./target/release/niodoo"
-MODEL = "/home/ruffian/SplatRag/models/Llama-3.1-8B-Instruct/Meta-Llama-3.1-8B-Instruct-Q4_K_M.gguf"
+MODEL = os.environ.get("NIODOO_MODEL", "/home/ruffian/SplatRag/models/Llama-3.1-8B-Instruct/Meta-Llama-3.1-8B-Instruct-Q4_K_M.gguf")
 
 # PROMPT CATEGORIES (Logic / Creative / Ambiguity)
 PROMPTS = [

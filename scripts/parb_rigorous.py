@@ -7,6 +7,7 @@ PARB-200 Rigorous Benchmark with Grok-4 Blind Judge
 - Statistical confidence
 """
 
+import os
 import json
 import subprocess
 import sys
@@ -26,7 +27,7 @@ GROK_API_KEY = os.environ.get("XAI_API_KEY", "")  # Set XAI_API_KEY env var
 GROK_API_URL = "https://api.x.ai/v1/chat/completions"
 
 NIODOO_BIN = Path(__file__).parent.parent / "target/release/niodoo"
-MODEL_PATH = "/home/ruffian/SplatRag/models/Llama-3.1-8B-Instruct/Meta-Llama-3.1-8B-Instruct-Q4_K_M.gguf"
+MODEL_PATH = os.environ.get("NIODOO_MODEL", "/home/ruffian/SplatRag/models/Llama-3.1-8B-Instruct/Meta-Llama-3.1-8B-Instruct-Q4_K_M.gguf")
 TEST_FILE = Path(__file__).parent.parent / "parb_200.json"
 OUTPUT_DIR = Path(__file__).parent.parent / "artifacts"
 

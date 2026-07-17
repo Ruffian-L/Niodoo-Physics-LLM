@@ -15,7 +15,7 @@ sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', 'benchmarks'))
 from failure_prompts import FAILURE_PROMPTS, CATEGORIES
 
 BINARY = "./target/release/niodoo"
-MODEL = "/home/ruffian/SplatRag/models/Llama-3.1-8B-Instruct/Meta-Llama-3.1-8B-Instruct-Q4_K_M.gguf"
+MODEL = os.environ.get("NIODOO_MODEL", "/home/ruffian/SplatRag/models/Llama-3.1-8B-Instruct/Meta-Llama-3.1-8B-Instruct-Q4_K_M.gguf")
 
 # OPTIMIZED CONFIGURATION (The "Golden Ratio")
 # Repulsion -1.0 and Layers 18-31 were globally best.
