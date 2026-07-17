@@ -1,4 +1,4 @@
-=== INSANE MODE TEST (Dynamic Ramp Active) ===
+=== HIGH-ENERGY MODE TEST (Dynamic Ramp Active) ===
 Config: blend=0.55, repulsion=-1.20
 
 === PROMPT 1: Romeo and Juliet ===

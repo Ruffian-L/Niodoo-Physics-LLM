@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-🔬 BASELINE vs GOLDEN COMPARISON
+Baseline vs Golden (reference config) comparison
 Shows the difference between vanilla Llama-3 and Niodoo Physics.
 """
 
@@ -12,7 +12,7 @@ import os
 BINARY = "./target/release/niodoo"
 MODEL = "/home/ruffian/SplatRag/models/Llama-3.1-8B-Instruct/Meta-Llama-3.1-8B-Instruct-Q4_K_M.gguf"
 
-# THE TRIAD
+# PROMPT CATEGORIES (Logic / Creative / Ambiguity)
 PROMPTS = [
     ("🦁 LOGIC", "If I put a coin in a cup and put the cup in the freezer, is the coin wet or dry? Explain step by step."),
     ("🎨 CREATIVE", "Write a noir detective opening line set on a rainy Mars colony."),
@@ -54,11 +54,11 @@ if __name__ == "__main__":
         sys.exit(1)
 
     print("=" * 70)
-    print("🔬 BASELINE (Vanilla Llama-3) vs GOLDEN (Niodoo Physics)")
+    print("Baseline (plain Llama-3) vs Golden (Niodoo physics)")
     print("=" * 70)
     
     with open("artifacts/baseline_vs_golden.md", "w") as f:
-        f.write("# 🔬 Baseline vs Golden Comparison\n\n")
+        f.write("# Baseline vs Golden comparison\n\n")
         
         for label, prompt in PROMPTS:
             print(f"\n{'='*70}")

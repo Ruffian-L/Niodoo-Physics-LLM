@@ -1,7 +1,7 @@
 # Niodoo v1.1 Release Notes ("The Mirror")
 **Date:** December 17, 2025
 
-## 🚀 New Features
+## New Features
 
 ### 1. Autonomic Regulation ("The Heartbeat")
 - **Dynamic Physics Blending:** The system now monitors "stress" (high force/glitches) and "boredom" (low orbit variance).
@@ -19,9 +19,9 @@
 
 ---
 
-## 🛑 Known Limitations (Red Team Report)
+## Known Limitations (Stress-Test Findings)
 
-Based on rigorous Red Teaming (Dec 17, 2025):
+Based on stress-testing (Dec 17, 2025):
 
 1. **Repulsion Resistance:** The underlying Llama-3 model has strong priors for repetition in certain contexts (e.g., repeating specific words). It often resists Niodoo's repulsion forces even when they are physically high.
 2. **Gravity Telemetry Gap:** While orbital mechanics are active, the specific `gravity_force` telemetry field currently reports `0.0`. This is a measurement/reporting bug, though the orbital steering itself is functional.
@@ -29,7 +29,7 @@ Based on rigorous Red Teaming (Dec 17, 2025):
 
 ---
 
-## 📦 Upgrade Instructions
+## Upgrade Instructions
 
 1. **Update Code:** `git pull origin main`
 2. **Rebuild Binary:** `./scripts/INSTALL.sh` (or `cargo build --release --bin niodoo`)

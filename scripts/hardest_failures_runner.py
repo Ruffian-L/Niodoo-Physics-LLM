@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Death Squad Test Runner - Tests the 5 hardest failures with tuned physics.
+Hardest-Failures Runner - tests the 5 hardest failure cases with tuned physics.
 Streams directly to console for live viewing.
 """
 
@@ -98,7 +98,7 @@ def main():
         tests = json.load(f)
     
     print("=" * 80)
-    print("💀 DEATH SQUAD TEST (Tuned v2 Physics)")
+    print("Hardest-Failures Run (tuned v2 physics)")
     print(f"📋 {len(tests)} nightmare questions")
     print(f"🔧 Viscosity: threshold=0.92, mult=35")
     print(f"🔧 Governor: strength=15")
@@ -111,7 +111,7 @@ def main():
         print(f"\n{'='*80}")
         print(f"[{i+1}/{len(tests)}] {test['id']}")
         print(f"Q: {test['question']}")
-        print(f"🎯 Target: {test['correct_answer']}")
+        print(f"Target: {test['correct_answer']}")
         print(f"🪤 Trap: {test['trap_answer']}")
         print("-" * 60)
         
@@ -146,7 +146,7 @@ def main():
     
     # Summary
     print("\n" + "=" * 80)
-    print("💀 DEATH SQUAD SUMMARY")
+    print("Hardest-Failures Summary")
     print("=" * 80)
     for r in results:
         print(f"  {r['id']}: {r['status']} (Gov={r['metrics']['governor']}, Visc={r['metrics']['viscosity']}, Soul={r['metrics']['soul']})")

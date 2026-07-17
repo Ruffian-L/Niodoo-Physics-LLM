@@ -2950,7 +2950,7 @@ IMPORTANT:
 
         // Pass Ghost to Forward
         // Pass Ghost to Forward
-        // Signature: forward_physics(&mut self, x: &Tensor, index_pos: usize, physics: &mut PhysicsEngine, ghost_vector: &Tensor) -> Result<Tensor>
+        // Signature: forward_physics(&mut self, x: &Tensor, index_pos: usize, physics: &mut PhysicsEngine, ghost_vector: Option<&Tensor>) -> Result<(Tensor, Tensor)>
         // Yes, this simulation is weird. It runs 30 steps of physics on the SAME prompt embedding?
         // Or is it supposed to generate tokens?
         // The user wants "coherent text generation".

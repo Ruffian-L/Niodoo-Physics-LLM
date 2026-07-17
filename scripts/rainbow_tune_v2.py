@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-🌈 NIODOO HIGH-ENERGY RAINBOW TUNE V2
+Niodoo High-Energy Tune (v2)
 Raw output mode - streams AI responses directly to console.
 """
 
@@ -60,7 +60,7 @@ if __name__ == "__main__":
     
     # Open output file
     with open("artifacts/rainbow_v2_outputs.md", "w") as f:
-        f.write("# 🌈 High-Energy Rainbow Tune V2\n\n")
+        f.write("# Niodoo High-Energy Tune (v2)\n\n")
         f.write(f"**Prompt:** \"{TEST_PROMPT}\"\n\n")
         
         for r in REPULSIONS:

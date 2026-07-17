@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-💀 KILLER PROMPTS - LLM 8B Model Breakers
+Failure Prompts - cases small (8B) models commonly get wrong
 These are the prompts that 8B models notoriously fail at:
 - Multi-step reasoning
 - Math word problems
@@ -11,7 +11,7 @@ These are the prompts that 8B models notoriously fail at:
 - Instruction following
 """
 
-KILLER_PROMPTS = [
+FAILURE_PROMPTS = [
     # MATH WORD PROBLEMS (8B models often fail these)
     "A bat and ball cost $1.10 total. The bat costs $1 more than the ball. How much does the ball cost? Show your work.",
     "If it takes 5 machines 5 minutes to make 5 widgets, how long does it take 100 machines to make 100 widgets?",
@@ -108,7 +108,7 @@ KILLER_PROMPTS = [
     "What is the square root of -1?",
     "Does a set of all sets contain itself?",
     
-    # CHAIN OF THOUGHT BREAKERS
+    # CHAIN-OF-THOUGHT HARD CASES
     "Explain step by step: Why is the sky blue? Then explain why that explanation is wrong.",
     "First calculate 7*8. Then subtract your answer from 100. Then divide by 2. What's the result?",
     "Name an animal. Now name a bigger animal. Now name an animal bigger than both. Continue 5 times.",
@@ -148,6 +148,6 @@ CATEGORIES = {
 }
 
 if __name__ == "__main__":
-    print(f"💀 KILLER PROMPTS: {len(KILLER_PROMPTS)} total")
+    print(f"Failure prompts: {len(FAILURE_PROMPTS)} total")
     for cat, rng in CATEGORIES.items():
         print(f"  {cat}: {len(list(rng))} prompts")

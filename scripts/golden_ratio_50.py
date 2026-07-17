@@ -12,7 +12,7 @@ import sys
 from datetime import datetime
 
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', 'benchmarks'))
-from killer_prompts import KILLER_PROMPTS, CATEGORIES
+from failure_prompts import FAILURE_PROMPTS, CATEGORIES
 
 BINARY = "./target/release/niodoo"
 MODEL = "/home/ruffian/SplatRag/models/Llama-3.1-8B-Instruct/Meta-Llama-3.1-8B-Instruct-Q4_K_M.gguf"
@@ -81,7 +81,7 @@ def main():
         for cat, rng in CATEGORIES.items():
             blend = CATEGORY_BLEND.get(cat, 1.5)
             # Take first 5 prompts from each category
-            prompts = [KILLER_PROMPTS[i] for i in list(rng)[:5]]
+            prompts = [FAILURE_PROMPTS[i] for i in list(rng)[:5]]
             
             f.write(f"## Category: {cat.upper()} (Blend {blend})\n\n")
             print(f"\n--- {cat.upper()} (Blend {blend}) ---")

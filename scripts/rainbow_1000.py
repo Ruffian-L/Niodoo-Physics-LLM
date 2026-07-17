@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-🌈 RAINBOW MICRO TUNE - 1000 PROMPT RUNNER
+Micro-Tune Sweep (1000 prompts)
 Continuously runs prompts across blend settings to find micro-optimal parameters.
 Outputs to console and logs results for analysis.
 
@@ -90,12 +90,12 @@ def main():
     os.makedirs("artifacts", exist_ok=True)
     
     print("=" * 80)
-    print("🌈 RAINBOW MICRO TUNE - 1000 PROMPT RUNNER")
+    print("Micro-Tune Sweep (1000 prompts)")
     print(f"Logging to: {log_path}")
     print("=" * 80)
     
     with open(log_path, "w") as f:
-        f.write("# 🌈 Rainbow 1000 Micro Tune Log\n\n")
+        f.write("# Micro-Tune Sweep (1000 prompts) log\n\n")
         f.write(f"Started: {datetime.now().isoformat()}\n\n")
         f.write("| Run | Blend | Rep | Layers | Prompt | Status | Debris | Glitch | Words | Time |\n")
         f.write("|-----|-------|-----|--------|--------|--------|--------|--------|-------|------|\n")

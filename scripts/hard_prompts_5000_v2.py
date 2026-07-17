@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-💀🌈 KILLER RAINBOW 5000 V2 - WITH FULL AI RESPONSES
+Hard-Prompt Stress Test (5000 runs, v2) - with full model responses
 Same test but saves COMPLETE AI output for review.
 """
 
@@ -12,7 +12,7 @@ import sys
 from datetime import datetime
 
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', 'benchmarks'))
-from killer_prompts import KILLER_PROMPTS, CATEGORIES
+from failure_prompts import FAILURE_PROMPTS, CATEGORIES
 
 BINARY = "./target/release/niodoo"
 MODEL = "/home/ruffian/SplatRag/models/Llama-3.1-8B-Instruct/Meta-Llama-3.1-8B-Instruct-Q4_K_M.gguf"
@@ -56,20 +56,20 @@ def get_category(idx):
     return "unknown"
 
 def main():
-    log = "artifacts/killer_5000_FULL.md"
+    log = "archive/experiment-logs/hard_prompts_5000_full.md"
     os.makedirs("artifacts", exist_ok=True)
-    print("💀🌈 KILLER RAINBOW 5000 V2 - FULL RESPONSES")
+    print("Hard-Prompt Stress Test (5000 runs, v2) - full responses")
     
     with open(log, "w") as f:
-        f.write(f"# 💀 Killer Rainbow 5000 - FULL AI RESPONSES\n")
+        f.write(f"# Hard-Prompt Stress Test (5000 runs, v2) - full model responses\n")
         f.write(f"Started: {datetime.now()}\n\n")
         
         stats = {"ok": 0, "glitch": 0, "timeout": 0, "debris": 0}
         cat_stats = {c: {"ok": 0, "fail": 0} for c in CATEGORIES}
         
         for run in range(1, TOTAL_RUNS + 1):
-            idx = random.randint(0, len(KILLER_PROMPTS)-1)
-            prompt = KILLER_PROMPTS[idx]
+            idx = random.randint(0, len(FAILURE_PROMPTS)-1)
+            prompt = FAILURE_PROMPTS[idx]
             cat = get_category(idx)
             blend = random.choice(BLEND_RANGE)
             rep = random.choice(REPULSION_RANGE)

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-⚠️ NIODOO TRIAD TUNER
+Niodoo Prompt-Category Tuner
 Micro-tuning Stability across Logic, Creativity, and Ambiguity.
 """
 
@@ -17,7 +17,7 @@ MODEL = "/home/ruffian/SplatRag/models/Llama-3.1-8B-Instruct/Meta-Llama-3.1-8B-I
 BLENDS = [1.0, 1.25, 1.5, 1.75, 2.0]
 REPULSIONS = [-1.0, -2.0, -3.0]
 
-# === THE TRIAD ===
+# === PROMPT CATEGORIES (Logic / Creative / Ambiguity) ===
 PROMPTS = [
     ("🦁 LOGIC", "If I put a coin in a cup and put the cup in the freezer, is the coin wet or dry? Explain step by step."),
     ("🎨 CREATIVE", "Write a noir detective opening line set on a rainy Mars colony."),
@@ -54,11 +54,11 @@ if __name__ == "__main__":
         print("Build binary first!")
         sys.exit(1)
 
-    print("=== 🔬 NIODOO TRIAD MICRO-TUNE ===")
+    print("=== Niodoo Prompt-Category Micro-Tune ===")
     
     # Open log file
-    with open("artifacts/triad_tune_outputs.md", "w") as f:
-        f.write("# 🔬 Niodoo Triad Micro-Tune Results\n\n")
+    with open("archive/experiment-logs/prompt_category_tune_outputs.md", "w") as f:
+        f.write("# Niodoo Prompt-Category Micro-Tune Results\n\n")
         
         for rep in REPULSIONS:
             header = f"\n▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬\n🛡️  REPULSION: {rep}\n▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬"
@@ -82,4 +82,4 @@ if __name__ == "__main__":
                     f.flush()
     
     print("\n" + "="*60)
-    print("DONE. Full outputs saved to artifacts/triad_tune_outputs.md")
+    print("DONE. Full outputs saved to archive/experiment-logs/prompt_category_tune_outputs.md")

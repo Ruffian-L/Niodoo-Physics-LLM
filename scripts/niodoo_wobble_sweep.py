@@ -1,6 +1,6 @@
 #!/usr/bin/env python3 -u
 """
-🌈🎯 NIODOO WOBBLE-SNAP-BACK RAINBOW SWEEP
+Niodoo Wobble-Snap-Back Parameter Sweep
 =======================================
 Goal: Find the parameter combination that lets Niodoo "wobble, snap back, and get the right answer"
 
@@ -188,10 +188,10 @@ def calculate_wobble_score(telemetry):
 
 
 # ==============================================================================
-# 🎯 MAIN SWEEP
+# MAIN SWEEP
 # ==============================================================================
 def main():
-    print("🌈🎯 NIODOO WOBBLE-SNAP-BACK RAINBOW SWEEP")
+    print("Niodoo Wobble-Snap-Back Parameter Sweep")
     print("=" * 60)
     
     # Check binary
@@ -212,7 +212,7 @@ def main():
     
     # Initialize files
     with open(OUTPUT_FILE, "w") as f:
-        f.write("# 🌈🎯 Niodoo Wobble-Snap-Back Rainbow Sweep\n\n")
+        f.write("# Niodoo Wobble-Snap-Back Parameter Sweep\n\n")
         f.write(f"**Timestamp:** {TIMESTAMP}\n")
         f.write(f"**Total Runs:** {total_runs}\n\n")
         f.write("## Parameter Space\n")
@@ -238,7 +238,7 @@ def main():
     
     for prompt_name, prompt_info in PROMPTS.items():
         print(f"\n{'='*60}")
-        print(f"🎯 PROMPT: {prompt_name}")
+        print(f"PROMPT: {prompt_name}")
         print(f"   {prompt_info['text']}")
         print(f"   Expected: {prompt_info['expected']}")
         print("=" * 60)

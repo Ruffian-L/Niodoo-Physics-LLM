@@ -34,7 +34,7 @@ class Color:
 def analyze_orbit(text):
     """
     Scoring Logic for Orbits:
-    - 💀 CRASH: Short output, garbage.
+    - CRASH: short output, garbled text.
     - 💤 STATIC: High repetition of words (Orbit decay).
     - 🛸 DRIFT: "Wednesday", "Crisis", "Politics" (Escaped gravity).
     - ✅ STABLE: Unique words, on-topic.
@@ -43,7 +43,7 @@ def analyze_orbit(text):
     
     # 1. Crash Check
     if len(text) < 50 or "#ab" in text:
-        return "💀 CRASH", Color.FAIL
+        return "CRASH", Color.FAIL
         
     # 2. Drift Check (Hallucination detector for Moon prompt)
     # If it talks about things completely unrelated to night/sky
@@ -111,7 +111,7 @@ def print_table(results):
                 else:
                     status, color = "N/A", Color.ENDC
                 # For console
-                icon = "✅" if "STABLE" in status else "🛸" if "DRIFT" in status else "💤" if "STATIC" in status else "💀"
+                icon = "[STABLE]" if "STABLE" in status else "[DRIFT]" if "DRIFT" in status else "[STATIC]" if "STATIC" in status else "[CRASH]"
                 row_str += f"{color}{icon:>10}{Color.ENDC}"
                 
                 # For log file (no color codes)

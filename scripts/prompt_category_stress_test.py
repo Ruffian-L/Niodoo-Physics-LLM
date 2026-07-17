@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-🌈🔥 TRIAD DOUBLE RAINBOW STRESS TEST V2
+Prompt-Category Stress Test (v2)
 Testing all three cognitive stressors with telemetry output.
 """
 
@@ -16,7 +16,7 @@ MODEL = "/home/ruffian/SplatRag/models/Llama-3.1-8B-Instruct/Meta-Llama-3.1-8B-I
 # High-energy blend range - finer granularity
 BLENDS = [1.0, 1.5, 2.0, 2.5, 3.0, 4.0, 5.0]
 
-# THE TRIAD
+# PROMPT CATEGORIES (Logic / Creative / Ambiguity)
 PROMPTS = [
     ("🦁 LOGIC", "If I put a coin in a cup and put the cup in the freezer, is the coin wet or dry? Explain step by step."),
     ("🎨 CREATIVE", "Write a noir detective opening line set on a rainy Mars colony."),
@@ -66,17 +66,17 @@ if __name__ == "__main__":
         sys.exit(1)
 
     print("=" * 80)
-    print("🌈🔥 TRIAD DOUBLE RAINBOW V2 (DEBRIS FILTER + TELEMETRY)")
+    print("Prompt-Category Stress Test v2 (debris filter + telemetry)")
     print("=" * 80)
     
-    with open("artifacts/triad_double_rainbow_v2.md", "w") as f:
-        f.write("# 🌈🔥 Triad Double Rainbow Stress Test V2\n\n")
+    with open("archive/experiment-logs/prompt_category_stress_test_v2.md", "w") as f:
+        f.write("# Prompt-Category Stress Test (v2)\n\n")
         f.write("**Debris Filter: ACTIVE (with Angeles/assistant blocked)**\n\n")
         f.write("Testing Logic/Creative/Ambiguity across Blend 1.0-5.0\n\n")
         
         for blend in BLENDS:
             print(f"\n{'='*80}")
-            print(f"🔥 BLEND: {blend}")
+            print(f"BLEND: {blend}")
             print(f"{'='*80}")
             
             f.write(f"\n## Blend {blend}\n")
@@ -113,4 +113,4 @@ if __name__ == "__main__":
                 f.flush()
     
     print("\n" + "=" * 80)
-    print("DONE. Results saved to artifacts/triad_double_rainbow_v2.md")
+    print("DONE. Results saved to archive/experiment-logs/prompt_category_stress_test_v2.md")

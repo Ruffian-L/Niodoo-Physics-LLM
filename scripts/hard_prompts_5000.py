@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
-💀🌈 KILLER RAINBOW 5000 - EXTREME STRESS TEST
-5000 runs of killer prompts across all parameter combinations.
+Hard-Prompt Stress Test (5000 runs)
+5000 runs of hard prompts across all parameter combinations.
 """
 
 import subprocess
@@ -12,7 +12,7 @@ import sys
 from datetime import datetime
 
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', 'benchmarks'))
-from killer_prompts import KILLER_PROMPTS, CATEGORIES
+from failure_prompts import FAILURE_PROMPTS, CATEGORIES
 
 BINARY = "./target/release/niodoo"
 MODEL = "/home/ruffian/SplatRag/models/Llama-3.1-8B-Instruct/Meta-Llama-3.1-8B-Instruct-Q4_K_M.gguf"
@@ -56,12 +56,12 @@ def get_category(idx):
     return "unknown"
 
 def main():
-    log = "artifacts/killer_5000_log.md"
+    log = "archive/experiment-logs/hard_prompts_5000_log.md"
     os.makedirs("artifacts", exist_ok=True)
-    print("💀🌈 KILLER RAINBOW 5000 STARTING")
+    print("Hard-Prompt Stress Test (5000 runs) starting")
     
     with open(log, "w") as f:
-        f.write(f"# 💀 Killer Rainbow 5000\nStarted: {datetime.now()}\n\n")
+        f.write(f"# Hard-Prompt Stress Test (5000 runs)\nStarted: {datetime.now()}\n\n")
         f.write("| # | Cat | Blend | Rep | Layers | Status | Debris | Words | Time |\n")
         f.write("|---|-----|-------|-----|--------|--------|--------|-------|------|\n")
         
@@ -69,8 +69,8 @@ def main():
         cat_stats = {c: {"ok": 0, "fail": 0} for c in CATEGORIES}
         
         for run in range(1, TOTAL_RUNS + 1):
-            idx = random.randint(0, len(KILLER_PROMPTS)-1)
-            prompt = KILLER_PROMPTS[idx]
+            idx = random.randint(0, len(FAILURE_PROMPTS)-1)
+            prompt = FAILURE_PROMPTS[idx]
             cat = get_category(idx)
             blend = random.choice(BLEND_RANGE)
             rep = random.choice(REPULSION_RANGE)

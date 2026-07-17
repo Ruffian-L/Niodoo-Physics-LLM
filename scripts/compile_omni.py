@@ -38,7 +38,7 @@ def main():
     log_files.sort()
     
     with open(OUT_FILE, "w") as f_out:
-        f_out.write("# 🌈 Omni-Tuner Results: Full Text Responses\n\n")
+        f_out.write("# Omni-Tuner Results: Full Text Responses\n\n")
         f_out.write(f"**Total Runs:** {len(log_files)}\n\n")
         
         for log_file in log_files:

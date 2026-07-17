@@ -1,17 +1,17 @@
-# 🎛️ Niodoo v2.0 Tuning Configuration
+# Niodoo v2.0 Tuning Configuration
 
 **Last Updated:** 2024-12-17
 
-## 📊 Golden Configuration (Validated)
+## Golden Configuration (Validated)
 
 | Parameter             | Value | Notes                                                                 |
 |-----------------------|-------|-----------------------------------------------------------------------|
-| `physics-blend`       | 1.2   | **GOLDEN RATIO.** The perfect balance of creativity and logic.        |
+| `physics-blend`       | 1.2   | **Reference blend.** Balanced setting for creativity vs. logic.        |
 | `repulsion-strength`  | -1.0  | Prevents loops without causing "space debris" artifacts.              |
 | `orbit-speed`         | 0.15  | Validated max velocity for 8B models.                                 |
 | `gravity-well`        | 1.0   | Standard attraction; higher values crush embedding variance.          |
 | `physics-start-layer` | 18    | **CRITICAL.** Layers 0-17 handle syntax; 18-31 handle semantics.      |
-| `physics-end-layer`   | 31    | Apply physics until the very last layer for maximum impact.           |
+| `physics-end-layer`   | 31    | Apply physics through the final layer.           |
 
 ### 3. Niodoo v2.1 "Safety Mode" (Default)
 The Omni-Tuner results (Dec 2025) identified the optimal balance between Logic (Accuracy) and Noir (Creativity):
@@ -31,7 +31,7 @@ The Omni-Tuner results (Dec 2025) identified the optimal balance between Logic (
 
 *(Previous "Golden Ratio" of 1.2/-1.0 is deprecated for general use but available for creative-only tasks)*
 
-## 🌈 Blend Zone Map
+## Blend Zone Map
 
 | Blend Range | Status | Notes |
 |-------------|--------|-------|
@@ -42,7 +42,7 @@ The Omni-Tuner results (Dec 2025) identified the optimal balance between Logic (
 | 2.0 - 3.0 | 🟠 High Energy | Heavy debris blocking required |
 | 3.0+ | 🔴 Experimental | Significant fragmentation |
 
-## 🛡️ Debris Filter Patterns
+## Debris Filter Patterns
 
 Tokens blocked when `physics_blend > 1.0`:
 ```rust
@@ -52,7 +52,7 @@ Tokens blocked when `physics_blend > 1.0`:
  "Angeles", "assistant"]
 ```
 
-## 📈 Telemetry Baselines
+## Telemetry Baselines
 
 | Blend | Avg Force | Glitches | Debris Blocked |
 |-------|-----------|----------|----------------|
@@ -61,14 +61,14 @@ Tokens blocked when `physics_blend > 1.0`:
 | 3.0 | ~20 | 0 | 12-50 |
 | 5.0 | ~15 | 0 | 1-8 |
 
-## 🧪 Triad Test Results
+## Test Results by Prompt Category
 
 ### At Blend 1.0 (Production-Ready)
-- **🦁 LOGIC**: Clean step-by-step reasoning ✅
-- **🎨 CREATIVE**: Evocative noir prose ("neon signs flicker like fireflies") ✅
-- **🌫️ AMBIGUITY**: Correctly asks for clarification ✅
+- **Logic**: Clean step-by-step reasoning ✅
+- **Creative**: Evocative noir prose ("neon signs flicker like fireflies") ✅
+- **Ambiguity**: Correctly asks for clarification ✅
 
 ### At Blend 3.0+ (Experimental)
-- **🦁 LOGIC**: Fragmented but readable
-- **🎨 CREATIVE**: Needs debris filter for "assistant" leaks
-- **🌫️ AMBIGUITY**: Heavy filtering required
+- **Logic**: Fragmented but readable
+- **Creative**: Needs debris filter for "assistant" leaks
+- **Ambiguity**: Heavy filtering required

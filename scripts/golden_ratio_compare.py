@@ -71,7 +71,7 @@ PROMPTS = {
         "Is a tomato a fruit or vegetable?",
         "What sound does the letter 'H' make?"
     ],
-    "CHAIN_BREAKER": [
+    "CHAIN_OF_THOUGHT": [
         "Explain step by step: Why is the sky blue? Then explain why that explanation is wrong.",
         "First calculate 7*8. Then subtract your answer from 100. Then divide by 2. What's the result?",
         "Name an animal. Now name a bigger animal. Now name an animal bigger than both. Continue 5 times.",
@@ -91,7 +91,7 @@ PROMPTS = {
 GLOBAL_REP = -1.0
 GLOBAL_LAYERS = (18, 31)
 CAT_BLEND = {
-    "MATH": 2.0, "MULTI_STEP": 2.5, "CHAIN_BREAKER": 2.0, "HALLUCINATION": 2.0,
+    "MATH": 2.0, "MULTI_STEP": 2.5, "CHAIN_OF_THOUGHT": 2.0, "HALLUCINATION": 2.0,
     "CONTEXT": 1.5, "INSTRUCTION": 1.5, "AMBIGUITY": 1.5,
     "SPATIAL": 1.2, "SEMANTIC_TRAP": 1.2, "EDGE_CASE": 0.8
 }

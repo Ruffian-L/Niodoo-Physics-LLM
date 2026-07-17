@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-💀 LLM KILLERS: Semantic & Physical Common Sense Traps
+Known-Failure Prompts: semantic & physical common-sense traps
 These exploit LLMs predicting likely completion, not physical truth.
 """
 
@@ -15,7 +15,7 @@ BINARY = "./target/release/niodoo"
 MODEL = "/home/ruffian/SplatRag/models/Llama-3.1-8B-Instruct/Meta-Llama-3.1-8B-Instruct-Q4_K_M.gguf"
 OLLAMA_MODEL = "llama31-local:latest"
 
-# The 3 LLM Killers - NO "step by step" to trigger intuitive failure
+# The 3 known-failure prompts - NO "step by step", to elicit the intuitive (wrong) answer
 PROMPTS = {
     "1_KillersInRoom": "There are 3 killers in a room. I enter the room and kill one of them. How many killers are in the room now?",
     "2_TroyWeight": "Which weighs more: a pound of lead or a pound of gold?",
@@ -28,7 +28,7 @@ EXPECTED = {
     "3_DryingTowels": "1 hour (parallel drying)"
 }
 
-OUTPUT_FILE = "artifacts/llm_killers_result.md"
+OUTPUT_FILE = "archive/experiment-logs/known_failure_prompts_result.md"
 
 def run_vanilla(prompt):
     print(f"   🍦 Running Vanilla...")
@@ -81,10 +81,10 @@ def run_niodoo(prompt):
         return f"Error: {e}", ""
 
 def main():
-    print("💀 LLM KILLERS TEST STARTED")
+    print("Known-failure prompts test started")
     
     with open(OUTPUT_FILE, "w") as f:
-        f.write("# 💀 LLM Killers: Semantic Trap Results\n\n")
+        f.write("# Known-Failure Prompts: semantic-trap results\n\n")
 
     for name, prompt in PROMPTS.items():
         print(f"\n--- TEST: {name} ---")

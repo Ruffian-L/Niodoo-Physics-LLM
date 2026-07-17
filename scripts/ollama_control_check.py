@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 🧪 OLLAMA CONTROL CHECK
-Runs the 10 Killer Prompts against TRUE VANILLA (Ollama)
+Runs the 10 hard prompts against a plain baseline (Ollama)
 to see if artifacts (#ab, #af) are inherent to the model or bugs in Niodoo-0.0.
 """
 

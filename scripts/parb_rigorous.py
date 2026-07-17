@@ -298,7 +298,7 @@ def main():
             
             # Print actual output
             print(f"\n    📝 Answer: {result['output'][:300]}...")
-            print(f"    🎯 Verdict: {judgment['verdict']} | Reason: {judgment['reasoning'][:100]}")
+            print(f"    Verdict: {judgment['verdict']} | Reason: {judgment['reasoning'][:100]}")
         
         # Run Niodoo 5 times
         print("\n⚛️ NIODOO (5 seeds):")
@@ -327,7 +327,7 @@ def main():
             
             # Print actual output (decoded tokens)
             print(f"\n    📝 Answer: {result['output'][:400]}...")
-            print(f"    🎯 Verdict: {judgment['verdict']} | Reason: {judgment['reasoning'][:100]}")
+            print(f"    Verdict: {judgment['verdict']} | Reason: {judgment['reasoning'][:100]}")
             print(f"    ⚛️ Physics: Gov={result['metrics']['governor']}, Visc={result['metrics']['viscosity']}, Soul={result['metrics']['soul']}")
         
         # Calculate stats

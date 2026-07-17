@@ -15,7 +15,7 @@ CONFIGS = [
     # 2. THE GOLD (Should be the target)
     {"name": "TARGET (Mid Speed, Mid Grav)",  "speed": 0.15, "grav": 1.0},
     
-    # 3. THE COMET (Should be insane/hallucinating)
+    # 3. THE COMET (high-energy; expected to destabilize / hallucinate)
     {"name": "CHAOS (High Speed, Low Grav)",  "speed": 0.50, "grav": 0.1},
 ]
 

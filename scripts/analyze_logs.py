@@ -1,7 +1,7 @@
 import re
 from collections import defaultdict
 
-log_path = 'artifacts/killer_5000_FULL.md'
+log_path = 'archive/experiment-logs/hard_prompts_5000_full.md'
 try:
     with open(log_path, 'r') as f:
         content = f.read()

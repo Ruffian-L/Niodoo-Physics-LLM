@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-🔬 TRUE BASELINE vs GOLDEN COMPARISON
+Plain baseline vs Golden (reference config) comparison
 Compares Ollama (vanilla Llama) against Niodoo Physics.
 """
 
@@ -12,7 +12,7 @@ import os
 NIODOO_BINARY = "./target/release/niodoo"
 MODEL_PATH = "/home/ruffian/SplatRag/models/Llama-3.1-8B-Instruct/Meta-Llama-3.1-8B-Instruct-Q4_K_M.gguf"
 
-# THE TRIAD
+# PROMPT CATEGORIES (Logic / Creative / Ambiguity)
 PROMPTS = [
     ("🦁 LOGIC", "If I put a coin in a cup and put the cup in the freezer, is the coin wet or dry? Explain step by step."),
     ("🎨 CREATIVE", "Write a noir detective opening line set on a rainy Mars colony."),
@@ -56,7 +56,7 @@ def run_niodoo(prompt):
 
 if __name__ == "__main__":
     print("=" * 70)
-    print("🔬 OLLAMA (Vanilla Llama-3.1) vs NIODOO (Golden Physics)")
+    print("Ollama (plain Llama-3.1) vs Niodoo (Golden physics)")
     print("=" * 70)
     
     with open("artifacts/ollama_vs_golden.md", "w") as f:

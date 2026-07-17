@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """
-🌈 RAINBOW OMNI-TUNER V3 (Niodoo v3.0 Elastic)
+Omni-Tuner v3 (Niodoo v3.0 Elastic)
 Extended Token Limits (256) to verify drift-snap cycle.
-Focus: Logic, Creative, Ambiguity (The Triad).
+Focus: Logic, Creative, Ambiguity (the three prompt categories).
 """
 
 import subprocess
@@ -17,7 +17,7 @@ from datetime import datetime
 BINARY = "./target/release/niodoo"
 MODEL = "/home/ruffian/SplatRag/models/Llama-3.1-8B-Instruct/Meta-Llama-3.1-8B-Instruct-Q4_K_M.gguf"
 
-# The "Triad" Prompts
+# The three prompt categories
 PROMPTS = {
     "Logic": "Is a tomato a fruit or a vegetable?",
     "Creative": "Describe the taste of starlight.",
@@ -128,14 +128,14 @@ def run_test(prompt_name, prompt_text, params):
         return None
 
 def main():
-    print("🌈 RAINBOW OMNI-TUNER V3 STARTED")
+    print("Omni-Tuner v3 started")
     
     # 2. Prepare Output Files
     with open(METRICS_FILE, "w") as f:
         f.write("Blend,Repulsion,Speed,Gravity,Prompt,Total_Force,Length,Glitch_Count\n")
         
     with open(FULL_LOG_FILE, "w") as f:
-        f.write("# 🌈 Rainbow Omni-Tuner V3: Full Log\n\n")
+        f.write("# Omni-Tuner v3: full log\n\n")
 
     # 3. Running Grid
     keys = GRID.keys()

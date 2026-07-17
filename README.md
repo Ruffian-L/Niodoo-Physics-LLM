@@ -10,13 +10,23 @@ change reasoning trajectories in a small local model.
 This repository is best read as an experiment log plus runnable prototype, not as
 a production inference library.
 
+> **Active development** has moved to
+> [niodoo-hidden-state-steering](https://github.com/Ruffian-L/niodoo-hidden-state-steering),
+> a smaller, reproducible runtime that steers a frozen LLM through its hidden state
+> to correct last-step errors. This repository remains the fullest write-up of the
+> physics-steering experiments and their benchmark results, and is kept as a record.
+
 > Updated 07/06/2026: added attributions and thank yous.
+> Updated 07/16/2026: revised internal naming and wording for clarity and a neutral,
+> professional tone. The methodology, parameters, and benchmark results are unchanged;
+> only labels and prose were edited. Raw experiment logs were moved to
+> [`archive/experiment-logs/`](archive/experiment-logs/).
 
 **Built with Llama** by Meta AI.
 
 ## Summary
 
-- Model target used in the main experiments: Llama 3.1 8B Instruct Q4_K_M.
+- Model target used in the main experiments: bartowski's GGUF quantization (Q4_K_M) of Meta Llama 3.1 8B Instruct.
 - Mechanism: activation-space steering before sampling, with forces applied to a
   selected layer band.
 - Primary benchmark artifact: PARB-200 multi-seed run with blind judging.
@@ -183,7 +193,8 @@ Common fields:
 src/main.rs                  CLI entry point and generation loop
 src/physics/                 Activation steering and physics modules
 scripts/parb_rigorous.py     Historical multi-seed benchmark runner
-artifacts/                   Benchmark outputs and run logs
+artifacts/                   Primary benchmark outputs (PARB runs, telemetry, blind-test key)
+archive/experiment-logs/     Raw historical tuning/stress-test logs, kept for transparency
 server/niodoo_server.py      Experimental FastAPI wrapper
 docs/TUNING.md               Historical tuning notes
 ```
@@ -203,15 +214,21 @@ activation steering can change reasoning trajectories without weight updates.
 
 This project builds directly on work by many others.
 
-- **Llama**: Built with Llama 3.1 by Meta AI. The main experiments and model target use Llama 3.1 8B Instruct (Q4_K_M GGUF). This work touches and steers activations from Llama-family models.
-- Prior original work that led to this project also involved Qwen models from Alibaba Cloud.
+- **Llama**: Built with Llama 3.1 by Meta AI. The main experiments and model target use bartowski's GGUF quantization (Q4_K_M) of Meta Llama 3.1 8B Instruct. This work touches and steers activations from Llama-family models.
+- **bartowski**: High-quality GGUF quantizations (including the Q4_K_M files used throughout all benchmarks and experiments) hosted at https://huggingface.co/bartowski.
+- **Unsloth**: Fast and memory-efficient fine-tuning/optimization library used in the original work and tuning pipelines that led to this physics steering research (and prior Qwen experiments).
+- **Qwen** (Alibaba): Prior original work that led to this project involved Qwen models.
 - Hugging Face Candle (candle-core, candle-nn, candle-transformers) for GGUF model loading and CUDA inference of Llama (and related) architectures.
 - GGUF format and quantized model support from the llama.cpp project and community.
 - clap for the command-line interface.
 - axum + tokio + futures for the experimental server and async runtime.
 - Other crates: safetensors, half, friedrich (see [Cargo.toml](Cargo.toml) for full list).
 
-Thank you to the maintainers of these projects.
+### AI Collaborators
+
+Thank you to my AI collaborators who helped me on this project: Google Gemini, Anthropic Claude, Grok (xAI), OpenAI ChatGPT, and Alibaba Qwen.
+
+And thank you to the companies: Google, Anthropic, xAI, OpenAI, and Alibaba.
 
 ## License
 
@@ -223,6 +240,6 @@ Llama 3.1 models (used when you provide weights such as Meta-Llama-3.1-8B-Instru
 
 This project prominently displays "Built with Llama".
 
-Prior related work by the author also involved Qwen models from Alibaba Cloud (subject to their own licenses).
+Prior related work also involved Qwen models from Alibaba Cloud (subject to their own licenses).
 
 See [NOTICE](NOTICE) for full attribution details.

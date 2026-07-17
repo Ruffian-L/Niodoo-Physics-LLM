@@ -15,7 +15,7 @@ print = functools.partial(print, flush=True)
 BINARY = "./target/release/niodoo"
 MODEL = "/home/ruffian/SplatRag/models/Llama-3.1-8B-Instruct/Meta-Llama-3.1-8B-Instruct-Q4_K_M.gguf"
 
-# 🎯 THE KILLER PROMPTS
+# The hard prompts
 PROMPTS = [
     # 1. Physical Parallelism (Target: 1 hour)
     "It takes 1 hour to dry one towel on a sunny clothesline. How long does it take to dry 50 towels?",
@@ -37,7 +37,7 @@ param_grid = {
 keys = list(param_grid.keys())
 combinations = list(itertools.product(*param_grid.values()))
 
-print(f"🔥 STARTING DEEP TUNE: {len(combinations)} Configurations x {len(PROMPTS)} Prompts")
+print(f"Starting deep tune: {len(combinations)} Configurations x {len(PROMPTS)} Prompts")
 print(f"🛑 MAX TOKENS: 512 (Allowing full thought process)")
 
 with open("artifacts/deep_tune_log.md", "w") as f:
