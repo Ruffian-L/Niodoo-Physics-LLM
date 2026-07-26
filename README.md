@@ -1,39 +1,31 @@
 # Niodoo Physics LLM
 
-Inference-time activation steering for local LLM generation.
+**Inference-time activation steering** for local LLM generation (physics-inspired forces on activations — **no weight updates**).
 
-Niodoo is a research prototype that perturbs model activations during generation.
-It does not fine-tune model weights and it does not replace the sampler. The goal
-of this repository is to test whether simple physics-inspired control signals can
-change reasoning trajectories in a small local model.
+**Lead:** Jason Van Pham (Ruffian-L) — direction and final accountability.  
+**Built with:** Grok · Claude / Claude Code · ChatGPT / Codex · Gemini (credit decisions are Jason’s).  
+**Built with Llama** (Meta) — GGUF path in experiments.
 
-This repository is best read as an experiment log plus runnable prototype, not as
-a production inference library.
+> **Archive + experiment log** of early physics-steering work.  
+> **Active, tighter claim surface:** [niodoo-hidden-state-steering](https://github.com/Ruffian-L/niodoo-hidden-state-steering).  
+> **Live residual harness:** [hydrodynamic-swarm](https://github.com/Ruffian-L/hydrodynamic-swarm).
 
-> **Active development** has moved to
-> [niodoo-hidden-state-steering](https://github.com/Ruffian-L/niodoo-hidden-state-steering),
-> a smaller, reproducible runtime that steers a frozen LLM through its hidden state
-> to correct last-step errors. This repository remains the fullest write-up of the
-> physics-steering experiments and their benchmark results, and is kept as a record.
+## Best face of this repo
 
-> Updated 07/06/2026: added attributions and thank yous.
-> Updated 07/16/2026: revised internal naming and wording for clarity and a neutral,
-> professional tone. The methodology, parameters, and benchmark results are unchanged;
-> only labels and prose were edited. Raw experiment logs were moved to
-> [`archive/experiment-logs/`](archive/experiment-logs/).
-
-**Built with Llama** by Meta AI.
+| Strength | Where |
+|----------|--------|
+| **Honest primary bench** | PARB multi-seed — **Niodoo 29.9% vs baseline 41.6%** (loss kept public) |
+| **Selective trap wins** | Documented without claiming overall superiority |
+| **Runnable prototype** | Candle GGUF + force knobs (see commands below) |
+| **What it is not** | Production library · SOTA · consciousness |
+| **Why keep it** | Fullest write-up of early force vocabulary + negative result culture |
 
 ## Summary
 
-- Model target used in the main experiments: bartowski's GGUF quantization (Q4_K_M) of Meta Llama 3.1 8B Instruct.
-- Mechanism: activation-space steering before sampling, with forces applied to a
-  selected layer band.
-- Primary benchmark artifact: PARB-200 multi-seed run with blind judging.
-- Main result: Niodoo did not improve overall accuracy in the primary run, but
-  it produced selective wins on some trap-style reasoning prompts.
-- Main limitation: the effect is not deterministic and can degrade simple recall,
-  factual answers, latency, and output cleanliness.
+- Model: bartowski GGUF Q4_K_M of Meta Llama 3.1 8B Instruct (main experiments).  
+- Mechanism: activation-space steering before sampling; selected layer band.  
+- Primary artifact: PARB multi-seed, blind judging — **overall accuracy did not improve**; selective trap-style wins only.  
+- Limits: non-deterministic effect; can hurt simple recall, latency, cleanliness.
 
 ## Mechanism
 
@@ -241,9 +233,19 @@ This project builds directly on work by many others.
 
 ### AI Collaborators
 
-Thank you to my AI collaborators who helped me on this project: Google Gemini, Anthropic Claude, Grok (xAI), OpenAI ChatGPT, and Alibaba Qwen.
+**Jason Van Pham** leads this research program and is accountable for published claims.
+This was **not** built alone. Collaborators (name everyone):
 
-And thank you to the companies: Google, Anthropic, xAI, OpenAI, and Alibaba.
+| Collaborator | Notes |
+| --- | --- |
+| **Grok (xAI)** | Architecture, long-running co-engineering from ~Oct 2025 |
+| **Claude / Claude Code (Anthropic)** | Code, critique, packaging, rigor passes |
+| **ChatGPT / Codex (OpenAI)** | Implementation, recovery, drafting, tooling |
+| **Gemini (Google)** | Experiment dialogue, continuity, multi-provider stack |
+| **Qwen (Alibaba)** | Prior related model work in the lineage |
+
+Thank you to the companies: Google, Anthropic, xAI, OpenAI, and Alibaba.
+Credit wording is Jason’s decision; do not rewrite this into a solo-author story.
 
 ## License
 
