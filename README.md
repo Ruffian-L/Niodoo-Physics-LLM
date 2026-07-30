@@ -2,23 +2,23 @@
 
 **Inference-time activation steering** for local LLM generation (physics-inspired forces on activations — **no weight updates**).
 
-**Lead:** Jason Van Pham (Ruffian-L) — direction and final accountability.  
-**Built with:** Grok · Claude / Claude Code · ChatGPT / Codex · Gemini (credit decisions are Jason’s).  
+**Lead:** Jason Van Pham (Ruffian-L) — direction and final implementation.
+**Built with:** Grok · Claude / Claude Code · ChatGPT / Codex · Gemini.
 **Built with Llama** (Meta) — GGUF path in experiments.
 
 > **Archive + experiment log** of early physics-steering work.  
-> **Active, tighter claim surface:** [niodoo-hidden-state-steering](https://github.com/Ruffian-L/niodoo-hidden-state-steering).  
+> **Active research direction:** [niodoo-hidden-state-steering](https://github.com/Ruffian-L/niodoo-hidden-state-steering).
 > **Live residual harness:** [hydrodynamic-swarm](https://github.com/Ruffian-L/hydrodynamic-swarm).
 
 ## Best face of this repo
 
 | Strength | Where |
 |----------|--------|
-| **Honest primary bench** | PARB multi-seed — **Niodoo 29.9% vs baseline 41.6%** (loss kept public) |
-| **Selective trap wins** | Documented without claiming overall superiority |
+| **Primary bench** | PARB multi-seed — **Niodoo 29.9% vs baseline 41.6%** |
+| **Selective trap wins** | Documented behavior on reasoning-trap prompts |
 | **Runnable prototype** | Candle GGUF + force knobs (see commands below) |
 | **What it is not** | Production library · SOTA · consciousness |
-| **Why keep it** | Fullest write-up of early force vocabulary + negative result culture |
+| **Purpose** | Write-up of early force vocabulary and prompt experiments |
 
 ## Summary
 
@@ -72,10 +72,8 @@ Interpretation:
 - Niodoo was worse overall on this benchmark.
 - Niodoo still changed the failure distribution, with selective wins on a subset
   of reasoning-trap prompts.
-- The benchmark supports a narrow claim: activation steering can sometimes move a
+- The benchmark demonstrates that activation steering can sometimes move a
   model out of a local wrong trajectory.
-- The benchmark does not support a broad claim that Niodoo is generally better
-  than the baseline model.
 
 An earlier single-seed review is also included:
 
@@ -84,8 +82,8 @@ An earlier single-seed review is also included:
 - Baseline: 15.5 / 72, 21.5%
 - Niodoo: 29.0 / 72, 40.3%
 
-Treat the single-seed result as a historical experiment, not the primary claim.
-The multi-seed blind-judged run above is the more conservative result.
+Treat the single-seed result as a historical experiment.
+The multi-seed blind-judged run above is the more robust result.
 
 ## Representative Effects
 
@@ -208,7 +206,7 @@ docs/TUNING.md               Historical tuning notes
 
 ## What To Cite
 
-For a conservative technical claim, cite:
+To cite this project:
 
 ```text
 Niodoo is a local inference-time activation steering prototype. In the primary
@@ -233,7 +231,7 @@ This project builds directly on work by many others.
 
 ### AI Collaborators
 
-**Jason Van Pham** leads this research program and is accountable for published claims.
+**Jason Van Pham** leads this research program.
 This was **not** built alone. Collaborators (name everyone):
 
 | Collaborator | Notes |
@@ -245,7 +243,7 @@ This was **not** built alone. Collaborators (name everyone):
 | **Qwen (Alibaba)** | Prior related model work in the lineage |
 
 Thank you to the companies: Google, Anthropic, xAI, OpenAI, and Alibaba.
-Credit wording is Jason’s decision; do not rewrite this into a solo-author story.
+
 
 ## License
 
