@@ -17,7 +17,7 @@
 | **Primary bench** | PARB multi-seed — **Niodoo 29.9% vs baseline 41.6%** |
 | **Selective trap wins** | Documented behavior on reasoning-trap prompts |
 | **Runnable prototype** | Candle GGUF + force knobs (see commands below) |
-| **What it is not** | Production library · SOTA · consciousness |
+| **What it is not** | Production library · SOTA |
 | **Purpose** | Write-up of early force vocabulary and prompt experiments |
 
 ## Summary
